@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add -A)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nAdd slide navigation system with ZStack rendering\n\n- Create OnboardingSlideType enum for different slide types\n- Implement AnyOnboardingSlideView as slide type switcher\n- Add RegularSlideView with title, subtitle, image, and Continue button\n- Update ViewModel with slides array and nextSlide() navigation\n- Implement ZStack rendering for previous, current, and next slides\n- Connect button actions to advance through slides\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

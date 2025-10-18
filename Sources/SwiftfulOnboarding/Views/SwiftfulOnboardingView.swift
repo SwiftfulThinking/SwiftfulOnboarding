@@ -24,9 +24,25 @@ struct SwiftfulOnboardingView: View {
                     showBackButton: true
                 )
 
-                // Content area placeholder
-                Text("SwiftfulOnboardingView")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                // Content area - ZStack with previous, current, and next slides
+                ZStack {
+                    ForEach(Array(viewModel.slides.enumerated()), id: \.offset) { index, slide in
+                        // Only render previous, current, and next slides
+                        if abs(index - viewModel.currentIndex) <= 1 {
+                            AnyOnboardingSlideView(
+                                slideType: .regular(
+                                    title: slide,
+                                    subtitle: "Page \(index + 1) of \(viewModel.slides.count)",
+                                    image: "sparkles"
+                                ),
+                                onButtonClick: {
+                                    viewModel.nextSlide()
+                                }
+                            )
+                            .opacity(index == viewModel.currentIndex ? 1 : 0)
+                        }
+                    }
+                }
             }
         }
     }
