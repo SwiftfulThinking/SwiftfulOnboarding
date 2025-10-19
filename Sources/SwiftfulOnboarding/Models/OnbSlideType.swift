@@ -15,7 +15,10 @@ enum OnbSlideType: OnbSlideProtocol {
     case regular(
         id: String,
         title: String? = nil,
+        titleFont: Font = .largeTitle,
         subtitle: String? = nil,
+        subtitleFont: Font = .body,
+        titleSubtitleSpacing: CGFloat = 12,
         media: OnbMediaType? = nil,
         mediaSize: OnbMediaSize = .large,
         mediaPosition: OnbMediaPosition = .top,
@@ -25,7 +28,7 @@ enum OnbSlideType: OnbSlideProtocol {
 
     var id: String {
         switch self {
-        case .regular(let id, _, _, _, _, _, _, _):
+        case .regular(let id, _, _, _, _, _, _, _, _, _, _):
             return id
         }
     }

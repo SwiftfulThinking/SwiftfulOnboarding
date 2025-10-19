@@ -47,7 +47,10 @@ enum OnbMediaPosition {
 struct RegularSlideView: View {
 
     var title: String? = nil
+    var titleFont: Font = .largeTitle
     var subtitle: String? = nil
+    var subtitleFont: Font = .body
+    var titleSubtitleSpacing: CGFloat = 12
     var media: OnbMediaType? = nil
     var mediaSize: OnbMediaSize = .large
     var mediaPosition: OnbMediaPosition = .top
@@ -68,22 +71,13 @@ struct RegularSlideView: View {
                 }
 
                 // Text content
-                VStack(spacing: 12) {
-                    if let title = title {
-                        Text(title)
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
-                            .multilineTextAlignment(.center)
-                    }
-
-                    if let subtitle = subtitle {
-                        Text(subtitle)
-                            .font(.body)
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 24)
-                    }
-                }
+                OnbTitleContent(
+                    title: title,
+                    titleFont: titleFont,
+                    subtitle: subtitle,
+                    subtitleFont: subtitleFont,
+                    spacing: titleSubtitleSpacing
+                )
 
                 // Media at bottom
                 if let media = media, mediaPosition == .bottom {
