@@ -32,6 +32,7 @@ struct TextInputSlideView: View {
     var textFieldCornerRadius: CGFloat = 8
     var textFieldFont: Font = .body
     var textFieldPlaceholder: String = "Enter text"
+    var textFieldKeyboardType: UIKeyboardType = .default
     var textFieldHorizontalPadding: CGFloat = 24
     var isValidText: ((String) -> Bool)? = nil
     var onTextChanged: ((String) -> Void)? = nil
@@ -72,6 +73,7 @@ struct TextInputSlideView: View {
                     cornerRadius: textFieldCornerRadius,
                     font: textFieldFont,
                     placeholder: textFieldPlaceholder,
+                    keyboardType: textFieldKeyboardType,
                     onTextChanged: { text in
                         currentText = text
                         onTextChanged?(text)
@@ -112,17 +114,20 @@ struct TextInputSlideView: View {
                 .textInput(
                     id: "slide1",
                     title: "What's your name?",
-                    subtitle: "We'd love to get to know you"
+                    subtitle: "Default keyboard",
+                    textFieldKeyboardType: .default
                 ),
                 .textInput(
                     id: "slide2",
                     title: "Your Email",
-                    subtitle: "Stay in touch with us"
+                    subtitle: "Email keyboard",
+                    textFieldKeyboardType: .emailAddress
                 ),
                 .textInput(
                     id: "slide3",
-                    title: "Tell us about yourself",
-                    subtitle: "Optional - share anything you'd like"
+                    title: "Your Phone Number",
+                    subtitle: "Number pad keyboard",
+                    textFieldKeyboardType: .numberPad
                 )
             ]
         )

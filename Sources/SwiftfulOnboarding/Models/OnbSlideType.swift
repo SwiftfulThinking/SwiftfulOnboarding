@@ -125,6 +125,7 @@ enum OnbSlideType: OnbSlideProtocol {
         paddingBottom: CGFloat = 0,
         horizontalPaddingTitle: CGFloat = 40,
         contentSpacing: CGFloat = 24,
+        textFieldKeyboardType: UIKeyboardType = .default,
         footerData: OnbFooterData = .default,
         ctaText: String = "Continue",
         ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white),
@@ -150,6 +151,28 @@ enum OnbSlideType: OnbSlideProtocol {
         datePickerMinimumDate: Date? = nil,
         datePickerMaximumDate: Date? = nil,
         datePickerHorizontalPadding: CGFloat = 24,
+        footerData: OnbFooterData = .default,
+        ctaText: String = "Continue",
+        ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white),
+        ctaButtonFormatData: OnbButtonFormatData = .default
+    )
+    case picker(
+        id: String,
+        title: String? = nil,
+        titleFont: Font = .largeTitle,
+        subtitle: String? = nil,
+        subtitleFont: Font = .body,
+        titleSubtitleSpacing: CGFloat = 8,
+        titleAlignment: OnbTextAlignment = .center,
+        contentAlignment: OnbContentAlignment = .center,
+        paddingTop: CGFloat = 40,
+        paddingBottom: CGFloat = 0,
+        horizontalPaddingTitle: CGFloat = 40,
+        contentSpacing: CGFloat = 24,
+        pickerPosition: OnbPickerPosition = .auto,
+        pickerStyle: OnbPickerStyle = .wheel,
+        pickerOptions: [String] = [],
+        pickerHorizontalPadding: CGFloat = 24,
         footerData: OnbFooterData = .default,
         ctaText: String = "Continue",
         ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white),
@@ -192,9 +215,11 @@ enum OnbSlideType: OnbSlideProtocol {
             return id
         case .rating(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
-        case .textInput(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+        case .textInput(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
         case .datePicker(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+            return id
+        case .picker(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
         case .primaryAction(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id

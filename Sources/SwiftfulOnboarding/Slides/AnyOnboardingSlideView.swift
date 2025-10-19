@@ -118,7 +118,7 @@ struct AnyOnboardingSlideView: View {
                 ctaButtonFormatData: ctaButtonFormatData,
                 onButtonClick: onButtonClick
             )
-        case .textInput(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingTitle, let contentSpacing, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData):
+        case .textInput(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingTitle, let contentSpacing, let textFieldKeyboardType, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData):
             TextInputSlideView(
                 title: title,
                 titleFont: titleFont,
@@ -131,6 +131,7 @@ struct AnyOnboardingSlideView: View {
                 paddingBottom: paddingBottom,
                 horizontalPaddingTitle: horizontalPaddingTitle,
                 contentSpacing: contentSpacing,
+                textFieldKeyboardType: textFieldKeyboardType,
                 footerData: footerData,
                 ctaText: ctaText,
                 ctaButtonStyle: ctaButtonStyle,
@@ -157,6 +158,29 @@ struct AnyOnboardingSlideView: View {
                 datePickerMinimumDate: datePickerMinimumDate,
                 datePickerMaximumDate: datePickerMaximumDate,
                 datePickerHorizontalPadding: datePickerHorizontalPadding,
+                footerData: footerData,
+                ctaText: ctaText,
+                ctaButtonStyle: ctaButtonStyle,
+                ctaButtonFormatData: ctaButtonFormatData,
+                onButtonClick: onButtonClick
+            )
+        case .picker(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingTitle, let contentSpacing, let pickerPosition, let pickerStyle, let pickerOptions, let pickerHorizontalPadding, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData):
+            AnyPickerSlideView(
+                title: title,
+                titleFont: titleFont,
+                subtitle: subtitle,
+                subtitleFont: subtitleFont,
+                titleSubtitleSpacing: titleSubtitleSpacing,
+                titleAlignment: titleAlignment,
+                contentAlignment: contentAlignment,
+                paddingTop: paddingTop,
+                paddingBottom: paddingBottom,
+                horizontalPaddingTitle: horizontalPaddingTitle,
+                contentSpacing: contentSpacing,
+                pickerPosition: pickerPosition,
+                pickerStyle: pickerStyle,
+                pickerOptions: pickerOptions,
+                pickerHorizontalPadding: pickerHorizontalPadding,
                 footerData: footerData,
                 ctaText: ctaText,
                 ctaButtonStyle: ctaButtonStyle,
