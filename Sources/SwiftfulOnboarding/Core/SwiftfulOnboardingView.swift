@@ -56,6 +56,57 @@ struct SwiftfulOnboardingView: View {
         return viewModel.configuration.backButtonColor
     }
 
+    private var screenWidth: CGFloat {
+        #if os(iOS)
+        return UIScreen.main.bounds.width
+        #else
+        return NSScreen.main?.frame.width ?? 800
+        #endif
+    }
+
+    private func slideOpacity(for index: Int) -> Double {
+        switch viewModel.configuration.transitionStyle {
+        case .none:
+            return index == viewModel.currentIndex ? 1 : 0
+        case .slide:
+            return 1
+        case .opacity, .fade:
+            return index == viewModel.currentIndex ? 1 : 0
+        }
+    }
+
+    private func slideOffset(for index: Int) -> CGFloat {
+        switch viewModel.configuration.transitionStyle {
+        case .none, .opacity:
+            return 0
+        case .slide:
+            if index == viewModel.currentIndex {
+                return 0
+            } else if index < viewModel.currentIndex {
+                return -screenWidth
+            } else {
+                return screenWidth
+            }
+        case .fade:
+            if index == viewModel.currentIndex {
+                return 0
+            } else if index < viewModel.currentIndex {
+                return -24
+            } else {
+                return 24
+            }
+        }
+    }
+
+    private var shouldAnimateTransition: Bool {
+        switch viewModel.configuration.transitionStyle {
+        case .none:
+            return false
+        case .opacity, .slide, .fade:
+            return true
+        }
+    }
+
     var body: some View {
         ZStack {
             // Background color
@@ -79,15 +130,20 @@ struct SwiftfulOnboardingView: View {
                 // Content area - ZStack with previous, current, and next slides
                 ZStack {
                     ForEach(Array(viewModel.slides.enumerated()), id: \.element.id) { index, slide in
-                        // Only render previous, current, and next slides
-                        if abs(index - viewModel.currentIndex) <= 1 {
+                        let isPreviousSlide = index == viewModel.currentIndex - 1
+                        let isCurrentSlide = index == viewModel.currentIndex
+                        let isNextSlide = index == viewModel.currentIndex + 1
+
+                        if isPreviousSlide || isCurrentSlide || isNextSlide {
                             AnyOnboardingSlideView(
                                 slideType: slide,
                                 onButtonClick: {
                                     viewModel.nextSlide()
                                 }
                             )
-                            .opacity(index == viewModel.currentIndex ? 1 : 0)
+                            .offset(x: slideOffset(for: index))
+                            .opacity(slideOpacity(for: index))
+                            .animation(shouldAnimateTransition ? .easeInOut(duration: 0.2) : nil, value: viewModel.currentIndex)
                         }
                     }
                 }

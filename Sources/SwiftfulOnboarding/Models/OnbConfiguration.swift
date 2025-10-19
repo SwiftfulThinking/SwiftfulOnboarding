@@ -13,6 +13,13 @@ enum OnbBackButtonBehavior {
     case never
 }
 
+enum OnbTransitionStyle {
+    case none
+    case opacity
+    case slide
+    case fade
+}
+
 struct OnbConfiguration {
 
     // Header configuration
@@ -26,5 +33,8 @@ struct OnbConfiguration {
 
     // Background color
     var backgroundColor: Color = .clear
+
+    // Transition style
+    var transitionStyle: OnbTransitionStyle = .slide
 
 }
