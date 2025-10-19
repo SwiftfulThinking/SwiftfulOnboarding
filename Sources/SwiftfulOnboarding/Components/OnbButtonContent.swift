@@ -474,8 +474,29 @@ struct OnbButtonContent: View {
         .onbButtonStyle(
             style: .outline(textColor: .blue, borderColor: .blue)
         ) {
-                        print("Menu item tapped")
-                    }
+            print("Menu item tapped")
+        }
+
+        // Large height with large secondary content
+        Divider()
+
+        Text("Large Button with Large Media")
+            .font(.headline)
+
+        OnbButtonContent(
+            data: OnbButtonContentData(
+                text: "Large Button",
+                textPlacement: .leading,
+                secondaryContent: .media(media: .image(urlString: "https://picsum.photos/600/600"), size: .large),
+                secondaryContentPlacement: .leading
+            )
+        )
+        .onbButtonStyle(
+            style: .solid(backgroundColor: .purple, textColor: .white),
+            height: 150
+        ) {
+            print("Large button with large media tapped")
+        }
                 }
                 .padding()
             }

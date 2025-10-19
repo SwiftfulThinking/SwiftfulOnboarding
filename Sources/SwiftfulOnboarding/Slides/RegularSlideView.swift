@@ -53,11 +53,11 @@ enum OnbMediaSize {
         case .auto:
             return (nil, nil)
         case .small:
-            return isIPad ? (32, 32) : (24, 24)
+            return isIPad ? (48, 48) : (24, 24)
         case .medium:
-            return isIPad ? (48, 48) : (32, 32)
+            return isIPad ? (96, 96) : (48, 48)
         case .large:
-            return isIPad ? (64, 64) : (48, 48)
+            return isIPad ? (180, 180) : (96, 96)
         }
     }
 }
