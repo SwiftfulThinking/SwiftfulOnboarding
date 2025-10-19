@@ -27,12 +27,23 @@ struct SwiftfulOnboardingView: View {
 
     private var shouldShowBackButton: Bool {
         guard viewModel.currentIndex >= 0 && viewModel.currentIndex < viewModel.slides.count else {
-            return viewModel.configuration.showBackButton && viewModel.currentIndex > 0
+            return false
         }
+
+        // Check for slide-specific override first
         if let override = viewModel.slides[viewModel.currentIndex].showBackButtonOverride {
             return override
         }
-        return viewModel.configuration.showBackButton && viewModel.currentIndex > 0
+
+        // Use configuration behavior
+        switch viewModel.configuration.showBackButton {
+        case .always:
+            return true
+        case .afterFirstSlide:
+            return viewModel.currentIndex > 0
+        case .never:
+            return false
+        }
     }
 
     private var currentBackButtonColor: Color {
@@ -61,6 +72,7 @@ struct SwiftfulOnboardingView: View {
                     currentPage: viewModel.currentIndex + 1,
                     totalPages: viewModel.slides.count,
                     showBackButton: shouldShowBackButton,
+                    isFirstSlide: viewModel.currentIndex == 0,
                     backButtonColor: currentBackButtonColor
                 )
 

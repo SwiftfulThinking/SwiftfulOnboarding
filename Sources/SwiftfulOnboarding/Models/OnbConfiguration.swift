@@ -7,12 +7,18 @@
 
 import SwiftUI
 
+enum OnbBackButtonBehavior {
+    case always
+    case afterFirstSlide
+    case never
+}
+
 struct OnbConfiguration {
 
     // Header configuration
     var headerStyle: HeaderStyle = .progressBar
     var headerAlignment: HeaderAlignment = .center
-    var showBackButton: Bool = true
+    var showBackButton: OnbBackButtonBehavior = .afterFirstSlide
     var backButtonColor: Color = .primary
 
     // Slides data

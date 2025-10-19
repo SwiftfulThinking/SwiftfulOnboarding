@@ -26,7 +26,12 @@ struct OnboardingHeaderView: View {
     var currentPage: Int = 1
     var totalPages: Int = 10
     var showBackButton: Bool = true
+    var isFirstSlide: Bool = false
     var backButtonColor: Color = .primary
+
+    private var backButtonIcon: String {
+        isFirstSlide ? "xmark" : "chevron.left"
+    }
 
     var body: some View {
         ZStack {
@@ -34,7 +39,7 @@ struct OnboardingHeaderView: View {
             Button(action: {
                 // Back action
             }) {
-                Image(systemName: "chevron.left")
+                Image(systemName: backButtonIcon)
                     .font(.system(size: 24, weight: .medium))
                     .foregroundColor(backButtonColor)
                     .frame(width: 40, height: 40)
