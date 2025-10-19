@@ -23,17 +23,18 @@ struct AnyMediaView: View {
         case .image(let urlString):
             ImageLoaderView(urlString: urlString)
 
-        case .video(let urlString):
+        case .video(let urlString, let loop):
             VideoLoaderView(
                 urlString: urlString,
                 useSwiftUIVideoPlayer: false,
+                loop: loop,
                 cornerRadius: cornerRadius
             )
 
-        case .lottie(let urlString):
+        case .lottie(let urlString, let loopMode):
             LottieLoaderView(
                 urlString: urlString,
-                loopMode: .loop,
+                loopMode: loopMode,
                 cornerRadius: cornerRadius
             )
         }

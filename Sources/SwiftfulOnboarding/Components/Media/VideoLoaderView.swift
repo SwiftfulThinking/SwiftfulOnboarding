@@ -12,6 +12,7 @@ struct VideoLoaderView: View {
 
     let urlString: String
     var useSwiftUIVideoPlayer: Bool = true
+    var loop: Bool = true
     var cornerRadius: CGFloat = 0
     @State private var player: AVPlayer?
 
@@ -22,7 +23,7 @@ struct VideoLoaderView: View {
                     VideoPlayer(player: player)
                         .cornerRadius(cornerRadius)
                 } else {
-                    SimpleVideoPlayerView(player: player)
+                    SimpleVideoPlayerView(player: player, loop: loop)
                         .cornerRadius(cornerRadius)
                 }
             } else if URL(string: urlString) != nil {
@@ -51,21 +52,24 @@ struct VideoLoaderView: View {
 // Custom video player without controls
 struct SimpleVideoPlayerView: UIViewRepresentable {
     let player: AVPlayer
+    let loop: Bool
 
     func makeUIView(context: Context) -> UIView {
         let view = PlayerView()
         view.playerLayer.player = player
         view.playerLayer.videoGravity = .resizeAspectFill
 
-        // Loop the video
-        NotificationCenter.default.addObserver(
-            forName: .AVPlayerItemDidPlayToEndTime,
-            object: player.currentItem,
-            queue: .main
-        ) { _ in
-            Task { @MainActor in
-                player.seek(to: CMTime.zero)
-                player.play()
+        // Loop the video if enabled
+        if loop {
+            NotificationCenter.default.addObserver(
+                forName: .AVPlayerItemDidPlayToEndTime,
+                object: player.currentItem,
+                queue: .main
+            ) { _ in
+                Task { @MainActor in
+                    player.seek(to: CMTime.zero)
+                    player.play()
+                }
             }
         }
 

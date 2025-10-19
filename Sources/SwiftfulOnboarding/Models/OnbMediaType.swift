@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import Lottie
 
 enum OnbMediaType {
     case image(urlString: String)
     case systemIcon(named: String)
-    case video(urlString: String)
-    case lottie(urlString: String)
+    case video(urlString: String, loop: Bool = true)
+    case lottie(urlString: String, loopMode: LottieLoopMode = .loop)
 }
