@@ -12,6 +12,7 @@ struct VideoLoaderView: View {
 
     let urlString: String
     var useSwiftUIVideoPlayer: Bool = true
+    var cornerRadius: CGFloat = 0
     @State private var player: AVPlayer?
 
     var body: some View {
@@ -19,23 +20,23 @@ struct VideoLoaderView: View {
             if let player = player {
                 if useSwiftUIVideoPlayer {
                     VideoPlayer(player: player)
-                        .cornerRadius(12)
+                        .cornerRadius(cornerRadius)
                 } else {
                     SimpleVideoPlayerView(player: player)
-                        .cornerRadius(12)
+                        .cornerRadius(cornerRadius)
                 }
             } else if URL(string: urlString) != nil {
                 ProgressView("Loading video...")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color.gray.opacity(0.1))
-                    .cornerRadius(12)
+                    .cornerRadius(cornerRadius)
             } else {
                 Text("Invalid video URL")
                     .font(.caption)
                     .foregroundColor(.gray)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color.gray.opacity(0.1))
-                    .cornerRadius(12)
+                    .cornerRadius(cornerRadius)
             }
         }
         .onAppear {

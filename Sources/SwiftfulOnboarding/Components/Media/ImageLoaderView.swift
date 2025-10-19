@@ -8,14 +8,15 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct ImageLoaderView: View {
-    
+
     var urlString: String = "https://picsum.photos/600/600"
     var resizingMode: ContentMode = .fill
     var forceTransitionAnimation: Bool = false
-    
+    var placeholderOpacity: Double = 0.5
+
     var body: some View {
         Rectangle()
-            .opacity(0.5)
+            .opacity(placeholderOpacity)
             .overlay(
                 WebImage(url: URL(string: urlString))
                     .resizable()
