@@ -20,12 +20,9 @@ struct TextInputSlideView: View {
     var subtitleFont: Font = .body
     var titleSubtitleSpacing: CGFloat = 8
     var titleAlignment: OnbTextAlignment = .center
-    var media: OnbMediaType? = nil
-    var mediaPosition: OnbMediaPosition = .top
     var contentAlignment: OnbContentAlignment = .center
     var paddingTop: CGFloat = 40
     var paddingBottom: CGFloat = 0
-    var horizontalPaddingContent: CGFloat = 0
     var horizontalPaddingTitle: CGFloat = 40
     var contentSpacing: CGFloat = 24
     var textFieldPosition: OnbTextFieldPosition = .auto
@@ -55,24 +52,17 @@ struct TextInputSlideView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            VStack(spacing: 24) {
-                // Content
-                AnyRegularContentView(
+            VStack(spacing: contentSpacing) {
+                // Title and subtitle
+                OnbTitleContent(
                     title: title,
                     titleFont: titleFont,
                     subtitle: subtitle,
                     subtitleFont: subtitleFont,
-                    titleSubtitleSpacing: titleSubtitleSpacing,
-                    titleAlignment: titleAlignment,
-                    media: media,
-                    mediaPosition: mediaPosition,
-                    contentAlignment: contentAlignment,
-                    paddingTop: paddingTop,
-                    paddingBottom: paddingBottom,
-                    horizontalPaddingContent: horizontalPaddingContent,
-                    horizontalPaddingTitle: horizontalPaddingTitle,
-                    contentSpacing: contentSpacing
+                    spacing: titleSubtitleSpacing,
+                    alignment: titleAlignment
                 )
+                .padding(.horizontal, horizontalPaddingTitle)
 
                 // Text field
                 AnyTextInputField(
@@ -88,8 +78,11 @@ struct TextInputSlideView: View {
                     }
                 )
                 .padding(.horizontal, textFieldHorizontalPadding)
+                .frame(maxWidth: .infinity, maxHeight: textFieldPosition == .bottom ? .infinity : nil, alignment: textFieldPosition == .bottom ? .bottom : .center)
             }
-            .frame(maxWidth: .infinity, maxHeight: textFieldPosition == .bottom ? .infinity : nil, alignment: textFieldPosition == .bottom ? .bottom : .center)
+            .padding(.top, paddingTop)
+            .padding(.bottom, paddingBottom)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: contentAlignment.alignment)
 
             // Continue button at bottom
             Text(ctaText)
@@ -119,23 +112,17 @@ struct TextInputSlideView: View {
                 .textInput(
                     id: "slide1",
                     title: "What's your name?",
-                    subtitle: "We'd love to get to know you",
-                    media: .systemIcon(named: "person.fill", size: .large),
-                    mediaPosition: .top
+                    subtitle: "We'd love to get to know you"
                 ),
                 .textInput(
                     id: "slide2",
                     title: "Your Email",
-                    subtitle: "Stay in touch with us",
-                    media: .systemIcon(named: "envelope.fill", size: .large),
-                    mediaPosition: .top
+                    subtitle: "Stay in touch with us"
                 ),
                 .textInput(
                     id: "slide3",
                     title: "Tell us about yourself",
-                    subtitle: "Optional - share anything you'd like",
-                    media: .systemIcon(named: "text.bubble.fill", size: .large),
-                    mediaPosition: .top
+                    subtitle: "Optional - share anything you'd like"
                 )
             ]
         )

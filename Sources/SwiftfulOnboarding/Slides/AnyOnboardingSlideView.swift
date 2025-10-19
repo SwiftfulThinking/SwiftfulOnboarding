@@ -118,7 +118,7 @@ struct AnyOnboardingSlideView: View {
                 ctaButtonFormatData: ctaButtonFormatData,
                 onButtonClick: onButtonClick
             )
-        case .textInput(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData):
+        case .textInput(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingTitle, let contentSpacing, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData):
             TextInputSlideView(
                 title: title,
                 titleFont: titleFont,
@@ -126,14 +126,37 @@ struct AnyOnboardingSlideView: View {
                 subtitleFont: subtitleFont,
                 titleSubtitleSpacing: titleSubtitleSpacing,
                 titleAlignment: titleAlignment,
-                media: media,
-                mediaPosition: mediaPosition,
                 contentAlignment: contentAlignment,
                 paddingTop: paddingTop,
                 paddingBottom: paddingBottom,
-                horizontalPaddingContent: horizontalPaddingContent,
                 horizontalPaddingTitle: horizontalPaddingTitle,
                 contentSpacing: contentSpacing,
+                footerData: footerData,
+                ctaText: ctaText,
+                ctaButtonStyle: ctaButtonStyle,
+                ctaButtonFormatData: ctaButtonFormatData,
+                onButtonClick: onButtonClick
+            )
+        case .datePicker(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingTitle, let contentSpacing, let datePickerPosition, let datePickerStyle, let datePickerComponents, let datePickerStartDate, let datePickerMinimumDate, let datePickerMaximumDate, let datePickerHorizontalPadding, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData):
+            DatePickerSlideView(
+                title: title,
+                titleFont: titleFont,
+                subtitle: subtitle,
+                subtitleFont: subtitleFont,
+                titleSubtitleSpacing: titleSubtitleSpacing,
+                titleAlignment: titleAlignment,
+                contentAlignment: contentAlignment,
+                paddingTop: paddingTop,
+                paddingBottom: paddingBottom,
+                horizontalPaddingTitle: horizontalPaddingTitle,
+                contentSpacing: contentSpacing,
+                datePickerPosition: datePickerPosition,
+                datePickerStyle: datePickerStyle,
+                datePickerComponents: datePickerComponents,
+                datePickerStartDate: datePickerStartDate,
+                datePickerMinimumDate: datePickerMinimumDate,
+                datePickerMaximumDate: datePickerMaximumDate,
+                datePickerHorizontalPadding: datePickerHorizontalPadding,
                 footerData: footerData,
                 ctaText: ctaText,
                 ctaButtonStyle: ctaButtonStyle,
