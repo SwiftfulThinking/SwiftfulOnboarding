@@ -16,6 +16,7 @@ struct AnyTextInputField: View {
     var font: Font = .body
     var placeholder: String = "Enter text"
     var keyboardType: UIKeyboardType = .default
+    var startingText: String? = nil
     var onTextChanged: ((String) -> Void)? = nil
 
     @State private var text: String = ""
@@ -31,6 +32,11 @@ struct AnyTextInputField: View {
                     .stroke(borderColor, lineWidth: borderWidth)
             )
             .cornerRadius(cornerRadius)
+            .onAppear {
+                if let startingText = startingText {
+                    text = startingText
+                }
+            }
             .onChange(of: text) { newValue in
                 onTextChanged?(newValue)
             }

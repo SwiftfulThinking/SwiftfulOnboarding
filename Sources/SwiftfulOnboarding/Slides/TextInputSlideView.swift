@@ -34,6 +34,7 @@ struct TextInputSlideView: View {
     var textFieldPlaceholder: String = "Enter text"
     var textFieldKeyboardType: UIKeyboardType = .default
     var textFieldHorizontalPadding: CGFloat = 24
+    var textFieldStartingText: String? = nil
     var isValidText: ((String) -> Bool)? = nil
     var onTextChanged: ((String) -> Void)? = nil
     var footerData: OnbFooterData = .default
@@ -43,6 +44,12 @@ struct TextInputSlideView: View {
     var onButtonClick: (() -> Void)? = nil
 
     @State private var currentText: String = ""
+
+    private func initializeText() {
+        if let startingText = textFieldStartingText, currentText.isEmpty {
+            currentText = startingText
+        }
+    }
 
     private var isTextValid: Bool {
         if let isValidText = isValidText {
@@ -74,6 +81,7 @@ struct TextInputSlideView: View {
                     font: textFieldFont,
                     placeholder: textFieldPlaceholder,
                     keyboardType: textFieldKeyboardType,
+                    startingText: textFieldStartingText,
                     onTextChanged: { text in
                         currentText = text
                         onTextChanged?(text)
@@ -100,6 +108,9 @@ struct TextInputSlideView: View {
                 .padding(.leading, footerData.leading)
                 .padding(.trailing, footerData.trailing)
                 .padding(.bottom, footerData.bottom)
+        }
+        .onAppear {
+            initializeText()
         }
     }
 }
