@@ -139,37 +139,22 @@ struct RegularSlideView: View {
     var body: some View {
         VStack(spacing: 0) {
             // Content
-            VStack(spacing: contentSpacing) {
-                // Media at top
-                if let media = media, mediaPosition == .top {
-                    let frameSize = media.size.frame
-                    AnyMediaView(media: media)
-                        .frame(width: frameSize.width, height: frameSize.height)
-                }
-
-                // Text content
-                OnbTitleContent(
-                    title: title,
-                    titleFont: titleFont,
-                    subtitle: subtitle,
-                    subtitleFont: subtitleFont,
-                    spacing: titleSubtitleSpacing,
-                    alignment: titleAlignment
-                )
-                .padding(.horizontal, horizontalPaddingTitle)
-
-                // Media at bottom
-                if let media = media, mediaPosition == .bottom {
-                    let frameSize = media.size.frame
-                    AnyMediaView(media: media)
-                        .frame(width: frameSize.width, height: frameSize.height)
-                        .padding(.horizontal, horizontalPaddingContent)
-                }
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: contentAlignment.alignment)
-            .padding(.top, paddingTop)
-            .padding(.bottom, paddingBottom)
-
+            AnyRegularContentView(
+                title: title,
+                titleFont: titleFont,
+                subtitle: subtitle,
+                subtitleFont: subtitleFont,
+                titleSubtitleSpacing: titleSubtitleSpacing,
+                titleAlignment: titleAlignment,
+                media: media,
+                mediaPosition: mediaPosition,
+                contentAlignment: contentAlignment,
+                paddingTop: paddingTop,
+                paddingBottom: paddingBottom,
+                horizontalPaddingContent: horizontalPaddingContent,
+                horizontalPaddingTitle: horizontalPaddingTitle,
+                contentSpacing: contentSpacing
+            )
 
             // Continue button at bottom
             Text(ctaText)

@@ -62,6 +62,34 @@ struct AnyOnboardingSlideView: View {
                 ctaButtonFormatData: ctaButtonFormatData,
                 onButtonClick: onButtonClick
             )
+        case .yesNo(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let yesNoSpacing, let yesText, let noText, let yesNoButtonStyle, let yesNoButtonFormatData, let selectionBehavior, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData):
+            YesNoSlideView(
+                title: title,
+                titleFont: titleFont,
+                subtitle: subtitle,
+                subtitleFont: subtitleFont,
+                titleSubtitleSpacing: titleSubtitleSpacing,
+                titleAlignment: titleAlignment,
+                media: media,
+                mediaPosition: mediaPosition,
+                contentAlignment: contentAlignment,
+                paddingTop: paddingTop,
+                paddingBottom: paddingBottom,
+                horizontalPaddingContent: horizontalPaddingContent,
+                horizontalPaddingTitle: horizontalPaddingTitle,
+                contentSpacing: contentSpacing,
+                yesNoSpacing: yesNoSpacing,
+                yesText: yesText,
+                noText: noText,
+                yesNoButtonStyle: yesNoButtonStyle,
+                yesNoButtonFormatData: yesNoButtonFormatData,
+                selectionBehavior: selectionBehavior,
+                footerData: footerData,
+                ctaText: ctaText,
+                ctaButtonStyle: ctaButtonStyle,
+                ctaButtonFormatData: ctaButtonFormatData,
+                onButtonClick: onButtonClick
+            )
         }
     }
 }

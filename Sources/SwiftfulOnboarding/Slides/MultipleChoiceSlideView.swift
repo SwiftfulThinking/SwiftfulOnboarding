@@ -211,21 +211,22 @@ struct MultipleChoiceSlideView: View {
                 .padding(.bottom, paddingBottom)
 
                 // Continue button at bottom
-                Text(ctaText)
-                    .onbButtonStyle(
-                        style: ctaButtonStyle,
-                        isSelected: !selectedOptions.isEmpty,
-                        format: ctaButtonFormatData
-                    ) {
-                        onButtonClick?()
-                    }
-                    .disabled(selectedOptions.isEmpty)
-                    .opacity(selectedOptions.isEmpty ? 0.5 : 1.0)
-                    .padding(.top, footerData.top)
-                    .padding(.leading, footerData.leading)
-                    .padding(.trailing, footerData.trailing)
-                    .padding(.bottom, footerData.bottom)
-                    .opacity(shouldShowContinueButton ? 1 : 0)
+                if shouldShowContinueButton {
+                    Text(ctaText)
+                        .onbButtonStyle(
+                            style: ctaButtonStyle,
+                            isSelected: !selectedOptions.isEmpty,
+                            format: ctaButtonFormatData
+                        ) {
+                            onButtonClick?()
+                        }
+                        .disabled(selectedOptions.isEmpty)
+                        .opacity(selectedOptions.isEmpty ? 0.5 : 1.0)
+                        .padding(.top, footerData.top)
+                        .padding(.leading, footerData.leading)
+                        .padding(.trailing, footerData.trailing)
+                        .padding(.bottom, footerData.bottom)
+                }
             }
         }
     }
