@@ -60,7 +60,6 @@ struct OnbTitleContent: View {
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(alignment.textAlignment)
                     .frame(maxWidth: .infinity, alignment: alignment.frameAlignment)
-                    .padding(.horizontal, 24)
             }
         }
     }

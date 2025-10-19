@@ -61,18 +61,38 @@ enum OnbContentAlignment {
     }
 }
 
+struct OnbFooterPadding {
+    var leading: CGFloat
+    var trailing: CGFloat
+    var bottom: CGFloat
+    var top: CGFloat
+
+    static let `default` = OnbFooterPadding(
+        leading: 24,
+        trailing: 24,
+        bottom: 24,
+        top: 24
+    )
+}
+
 struct RegularSlideView: View {
 
     var title: String? = nil
     var titleFont: Font = .largeTitle
     var subtitle: String? = nil
     var subtitleFont: Font = .body
-    var titleSubtitleSpacing: CGFloat = 12
+    var titleSubtitleSpacing: CGFloat = 8
     var titleAlignment: OnbTextAlignment = .center
     var media: OnbMediaType? = nil
     var mediaSize: OnbMediaSize = .large
     var mediaPosition: OnbMediaPosition = .top
     var contentAlignment: OnbContentAlignment = .center
+    var paddingTop: CGFloat = 40
+    var paddingBottom: CGFloat = 0
+    var horizontalPaddingContent: CGFloat = 0
+    var horizontalPaddingTitle: CGFloat = 40
+    var contentSpacing: CGFloat = 24
+    var footerPadding: OnbFooterPadding = .default
     var ctaText: String = "Continue"
     var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
     var onButtonClick: (() -> Void)? = nil
@@ -80,7 +100,7 @@ struct RegularSlideView: View {
     var body: some View {
         VStack(spacing: 0) {
             // Content
-            VStack(spacing: 24) {
+            VStack(spacing: contentSpacing) {
                 // Media at top
                 if let media = media, mediaPosition == .top {
                     let frameSize = mediaSize.frame
@@ -97,15 +117,20 @@ struct RegularSlideView: View {
                     spacing: titleSubtitleSpacing,
                     alignment: titleAlignment
                 )
+                .padding(.horizontal, horizontalPaddingTitle)
 
                 // Media at bottom
                 if let media = media, mediaPosition == .bottom {
                     let frameSize = mediaSize.frame
                     AnyMediaView(media: media)
                         .frame(width: frameSize.width, height: frameSize.height)
+                        .padding(.horizontal, horizontalPaddingContent)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: contentAlignment.alignment)
+            .padding(.top, paddingTop)
+            .padding(.bottom, paddingBottom)
+
 
             // Continue button at bottom
             Text(ctaText)
@@ -114,6 +139,10 @@ struct RegularSlideView: View {
                 ) {
                     onButtonClick?()
                 }
+                .padding(.top, footerPadding.top)
+                .padding(.leading, footerPadding.leading)
+                .padding(.trailing, footerPadding.trailing)
+                .padding(.bottom, footerPadding.bottom)
         }
     }
 }
@@ -125,6 +154,14 @@ struct RegularSlideView: View {
             headerAlignment: .center,
             showBackButton: true,
             slides: [
+                .regular(
+                    id: "slide8",
+                    title: "All Done!",
+                    subtitle: "You're ready to go",
+                    media: .image(urlString: "https://picsum.photos/600/600"),
+                    mediaSize: .max,
+                    mediaPosition: .top
+                ),
                 .regular(
                     id: "slide1",
                     title: "Content Aligned Top",
@@ -184,14 +221,6 @@ struct RegularSlideView: View {
                     media: .systemIcon(named: "lock.fill"),
                     mediaSize: .fixed(width: 150, height: 150),
                     mediaPosition: .bottom
-                ),
-                .regular(
-                    id: "slide8",
-                    title: "All Done!",
-                    subtitle: "You're ready to go",
-                    media: .image(urlString: "https://picsum.photos/600/600"),
-                    mediaSize: .max,
-                    mediaPosition: .top
                 )
             ]
         )

@@ -18,19 +18,25 @@ enum OnbSlideType: OnbSlideProtocol {
         titleFont: Font = .largeTitle,
         subtitle: String? = nil,
         subtitleFont: Font = .body,
-        titleSubtitleSpacing: CGFloat = 12,
+        titleSubtitleSpacing: CGFloat = 8,
         titleAlignment: OnbTextAlignment = .center,
         media: OnbMediaType? = nil,
-        mediaSize: OnbMediaSize = .large,
+        mediaSize: OnbMediaSize = .max,
         mediaPosition: OnbMediaPosition = .top,
         contentAlignment: OnbContentAlignment = .center,
+        paddingTop: CGFloat = 40,
+        paddingBottom: CGFloat = 0,
+        horizontalPaddingContent: CGFloat = 0,
+        horizontalPaddingTitle: CGFloat = 40,
+        contentSpacing: CGFloat = 24,
+        footerPadding: OnbFooterPadding = .default,
         ctaText: String = "Continue",
         ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
     )
 
     var id: String {
         switch self {
-        case .regular(let id, _, _, _, _, _, _, _, _, _, _, _, _):
+        case .regular(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
         }
     }
