@@ -17,6 +17,10 @@ struct SwiftfulOnboardingView: View {
 
     var body: some View {
         ZStack {
+            // Background color
+            viewModel.configuration.backgroundColor
+                .ignoresSafeArea()
+
             // Main content
             VStack(spacing: 0) {
                 // Header

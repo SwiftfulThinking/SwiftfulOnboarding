@@ -17,4 +17,7 @@ struct OnbConfiguration {
     // Slides data
     var slides: [OnbSlideType] = []
 
+    // Background color
+    var backgroundColor: Color = .clear
+
 }
