@@ -13,39 +13,36 @@ struct VideoLoaderView: View {
     let urlString: String
     var useSwiftUIVideoPlayer: Bool = true
     var loop: Bool = true
-    var cornerRadius: CGFloat = 0
+    var placeholderOpacity: Double = 0.1
     @State private var player: AVPlayer?
 
     var body: some View {
-        Group {
-            if let player = player {
-                if useSwiftUIVideoPlayer {
-                    VideoPlayer(player: player)
-                        .cornerRadius(cornerRadius)
-                } else {
-                    SimpleVideoPlayerView(player: player, loop: loop)
-                        .cornerRadius(cornerRadius)
+        Rectangle()
+            .opacity(placeholderOpacity)
+            .overlay(
+                Group {
+                    if let player = player {
+                        if useSwiftUIVideoPlayer {
+                            VideoPlayer(player: player)
+                        } else {
+                            SimpleVideoPlayerView(player: player, loop: loop)
+                        }
+                    } else if URL(string: urlString) != nil {
+                        ProgressView("Loading video...")
+                    } else {
+                        Text("Invalid video URL")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                    }
                 }
-            } else if URL(string: urlString) != nil {
-                ProgressView("Loading video...")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(cornerRadius)
-            } else {
-                Text("Invalid video URL")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(cornerRadius)
+            )
+            .clipped()
+            .onAppear {
+                if let url = URL(string: urlString) {
+                    player = AVPlayer(url: url)
+                    player?.play()
+                }
             }
-        }
-        .onAppear {
-            if let url = URL(string: urlString) {
-                player = AVPlayer(url: url)
-                player?.play()
-            }
-        }
     }
 }
 

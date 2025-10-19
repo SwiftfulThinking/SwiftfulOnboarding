@@ -522,14 +522,14 @@ struct OnbButtonContent: View {
         OnbButtonContent(
             data: OnbButtonContentData(
                 text: "Large Button",
-                textPlacement: .leading,
+                textPlacement: .center,
                 mediaContent: .image(urlString: "https://picsum.photos/600/600", size: .large),
                 mediaContentPlacement: .top
             )
         )
         .onbButtonStyle(
             style: .solid(backgroundColor: .purple, textColor: .white),
-            height: .fixed(150)
+            height: .verticalPadding(16)
         ) {
             print("Large button with large media tapped")
         }
