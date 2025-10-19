@@ -18,36 +18,63 @@ enum OnbButtonSecondaryContentPlacement {
     case trailing
 }
 
+enum OnbButtonTextPlacement {
+    case center
+    case leading
+}
+
 struct OnbButtonContent: View {
 
     let text: String
     var secondaryContent: OnbButtonSecondaryContent? = nil
     var secondaryContentPlacement: OnbButtonSecondaryContentPlacement = .trailing
+    var textPlacement: OnbButtonTextPlacement = .center
+    var horizontalPadding: CGFloat = 12
 
     var body: some View {
-        if let secondaryContent = secondaryContent {
-            switch secondaryContentPlacement {
-            case .leading:
-                leadingView(secondaryContent: secondaryContent)
-            case .centerLeading:
-                centerLeadingView(secondaryContent: secondaryContent)
-            case .centerTrailing:
-                centerTrailingView(secondaryContent: secondaryContent)
-            case .trailing:
-                trailingView(secondaryContent: secondaryContent)
+        Group {
+            if let secondaryContent = secondaryContent {
+                switch secondaryContentPlacement {
+                case .leading:
+                    leadingView(secondaryContent: secondaryContent)
+                case .centerLeading:
+                    centerLeadingView(secondaryContent: secondaryContent)
+                case .centerTrailing:
+                    centerTrailingView(secondaryContent: secondaryContent)
+                case .trailing:
+                    trailingView(secondaryContent: secondaryContent)
+                }
+            } else {
+                switch textPlacement {
+                case .center:
+                    Text(text)
+                case .leading:
+                    HStack {
+                        Text(text)
+                        Spacer()
+                    }
+                }
             }
-        } else {
-            Text(text)
         }
+        .padding(.horizontal, horizontalPadding)
     }
 
     @ViewBuilder
     private func leadingView(secondaryContent: OnbButtonSecondaryContent) -> some View {
-        ZStack {
-            Text(text)
+        switch textPlacement {
+        case .center:
+            ZStack {
+                Text(text)
 
-            secondaryContentView(secondaryContent)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                secondaryContentView(secondaryContent)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        case .leading:
+            HStack(spacing: 8) {
+                secondaryContentView(secondaryContent)
+                Text(text)
+                Spacer()
+            }
         }
     }
 
@@ -69,11 +96,20 @@ struct OnbButtonContent: View {
 
     @ViewBuilder
     private func trailingView(secondaryContent: OnbButtonSecondaryContent) -> some View {
-        ZStack {
-            Text(text)
+        switch textPlacement {
+        case .center:
+            ZStack {
+                Text(text)
 
-            secondaryContentView(secondaryContent)
-                .frame(maxWidth: .infinity, alignment: .trailing)
+                secondaryContentView(secondaryContent)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+            }
+        case .leading:
+            HStack(spacing: 8) {
+                Text(text)
+                secondaryContentView(secondaryContent)
+                Spacer()
+            }
         }
     }
 
@@ -87,7 +123,8 @@ struct OnbButtonContent: View {
 }
 
 #Preview {
-    VStack(spacing: 32) {
+    ScrollView {
+        VStack(spacing: 32) {
         // Basic text examples
         OnbButtonContent(text: "Continue")
 
@@ -156,28 +193,77 @@ struct OnbButtonContent: View {
             print("Trailing tapped")
         }
 
-        // Outline style with different placements
+        // Leading text placement examples
+        Divider()
+
+        Text("Leading Text Placement")
+            .font(.headline)
+
         OnbButtonContent(
             text: "Back",
             secondaryContent: .emoji("⬅️"),
-            secondaryContentPlacement: .leading
+            secondaryContentPlacement: .leading,
+            textPlacement: .leading
         )
         .onbButtonStyle(
             style: .outline(textColor: .blue, borderColor: .blue)
         ) {
-            print("Back tapped")
+            print("Back with leading text tapped")
         }
 
         OnbButtonContent(
-            text: "Next",
-            secondaryContent: .emoji("➡️"),
-            secondaryContentPlacement: .trailing
+            text: "Continue",
+            secondaryContent: .emoji("→"),
+            secondaryContentPlacement: .trailing,
+            textPlacement: .leading
+        )
+        .onbButtonStyle(
+            style: .solid(backgroundColor: .blue, textColor: .white)
+        ) {
+            print("Continue with leading text tapped")
+        }
+
+        OnbButtonContent(
+            text: "Settings",
+            textPlacement: .leading
+        )
+        .onbButtonStyle(
+            style: .outline(textColor: .gray, borderColor: .gray)
+        ) {
+            print("Settings tapped")
+        }
+
+        // With horizontal padding
+        Divider()
+
+        Text("With Horizontal Padding")
+            .font(.headline)
+
+        OnbButtonContent(
+            text: "Padded Button",
+            secondaryContent: .emoji("🔲"),
+            secondaryContentPlacement: .trailing,
+            horizontalPadding: 16
+        )
+        .onbButtonStyle(
+            style: .solid(backgroundColor: .purple, textColor: .white)
+        ) {
+            print("Padded button tapped")
+        }
+
+        OnbButtonContent(
+            text: "Menu Item",
+            secondaryContent: .emoji("›"),
+            secondaryContentPlacement: .trailing,
+            textPlacement: .leading,
+            horizontalPadding: 20
         )
         .onbButtonStyle(
             style: .outline(textColor: .blue, borderColor: .blue)
         ) {
-            print("Next tapped")
+            print("Menu item tapped")
         }
+        }
+        .padding()
     }
-    .padding()
 }
