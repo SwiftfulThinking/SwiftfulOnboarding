@@ -53,6 +53,7 @@ struct OnbButtonContent: View {
 
     var data: OnbButtonContentData
     var horizontalPadding: CGFloat = 12
+    var multilineTextAlignment: TextAlignment = .center
 
     var body: some View {
         Group {
@@ -71,9 +72,11 @@ struct OnbButtonContent: View {
                 switch data.textPlacement {
                 case .center:
                     Text(data.text)
+                        .multilineTextAlignment(multilineTextAlignment)
                 case .leading:
                     HStack {
                         Text(data.text)
+                            .multilineTextAlignment(multilineTextAlignment)
                         Spacer()
                     }
                 }
@@ -88,6 +91,7 @@ struct OnbButtonContent: View {
         case .center:
             ZStack {
                 Text(data.text)
+                    .multilineTextAlignment(multilineTextAlignment)
 
                 secondaryContentView(secondaryContent)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -96,6 +100,7 @@ struct OnbButtonContent: View {
             HStack(spacing: 8) {
                 secondaryContentView(secondaryContent)
                 Text(data.text)
+                    .multilineTextAlignment(multilineTextAlignment)
                 Spacer()
             }
         }
@@ -106,6 +111,7 @@ struct OnbButtonContent: View {
         HStack(spacing: 8) {
             secondaryContentView(secondaryContent)
             Text(data.text)
+                .multilineTextAlignment(multilineTextAlignment)
         }
     }
 
@@ -113,6 +119,7 @@ struct OnbButtonContent: View {
     private func centerTrailingView(secondaryContent: OnbButtonSecondaryContent) -> some View {
         HStack(spacing: 8) {
             Text(data.text)
+                .multilineTextAlignment(multilineTextAlignment)
             secondaryContentView(secondaryContent)
         }
     }
@@ -123,6 +130,7 @@ struct OnbButtonContent: View {
         case .center:
             ZStack {
                 Text(data.text)
+                    .multilineTextAlignment(multilineTextAlignment)
 
                 secondaryContentView(secondaryContent)
                     .frame(maxWidth: .infinity, alignment: .trailing)
@@ -130,6 +138,7 @@ struct OnbButtonContent: View {
         case .leading:
             HStack(spacing: 8) {
                 Text(data.text)
+                    .multilineTextAlignment(multilineTextAlignment)
                 secondaryContentView(secondaryContent)
                 Spacer()
             }

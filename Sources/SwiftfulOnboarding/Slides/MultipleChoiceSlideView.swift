@@ -29,6 +29,7 @@ struct MultipleChoiceSlideView: View {
     var optionsSpacing: CGFloat = 12
     var optionsButtonStyle: OnbButtonStyleType = .outline(textColor: .blue, borderColor: .blue)
     var selectionBehavior: OnbSelectionBehavior = .single
+    var isGrid: Bool = false
     var contentAlignment: OnbContentAlignment = .center
     var paddingTop: CGFloat = 24
     var paddingBottom: CGFloat = 0
@@ -63,18 +64,33 @@ struct MultipleChoiceSlideView: View {
                 ZStack(alignment: .bottom) {
                     // ScrollView with options
                     ScrollView {
-                        VStack(spacing: optionsSpacing) {
-                            ForEach(options, id: \.id) { option in
-                                OnbButtonContent(data: option.content)
-                                    .onbButtonStyle(
-                                        style: optionsButtonStyle,
-                                        isSelected: selectedOptions.contains(option.id)
-                                    ) {
-                                        toggleSelection(for: option.id)
-                                    }
+                        if isGrid {
+                            NonLazyVGrid(columns: 2, spacing: optionsSpacing, items: options) { option in
+                                if let option {
+                                    OnbButtonContent(data: option.content)
+                                        .onbButtonStyle(
+                                            style: optionsButtonStyle,
+                                            isSelected: selectedOptions.contains(option.id)
+                                        ) {
+                                            toggleSelection(for: option.id)
+                                        }
+                                }
                             }
+                            .padding(.horizontal, horizontalPaddingContent)
+                        } else {
+                            VStack(spacing: optionsSpacing) {
+                                ForEach(options, id: \.id) { option in
+                                    OnbButtonContent(data: option.content)
+                                        .onbButtonStyle(
+                                            style: optionsButtonStyle,
+                                            isSelected: selectedOptions.contains(option.id)
+                                        ) {
+                                            toggleSelection(for: option.id)
+                                        }
+                                }
+                            }
+                            .padding(.horizontal, horizontalPaddingContent)
                         }
-                        .padding(.horizontal, horizontalPaddingContent)
 
                         // Bottom padding to account for footer
                         Color.clear
@@ -122,18 +138,33 @@ struct MultipleChoiceSlideView: View {
                     .padding(.horizontal, horizontalPaddingTitle)
 
                     // Options
-                    VStack(spacing: optionsSpacing) {
-                        ForEach(options, id: \.id) { option in
-                            OnbButtonContent(data: option.content)
-                                .onbButtonStyle(
-                                    style: optionsButtonStyle,
-                                    isSelected: selectedOptions.contains(option.id)
-                                ) {
-                                    toggleSelection(for: option.id)
-                                }
+                    if isGrid {
+                        NonLazyVGrid(columns: 2, spacing: optionsSpacing, items: options) { option in
+                            if let option {
+                                OnbButtonContent(data: option.content)
+                                    .onbButtonStyle(
+                                        style: optionsButtonStyle,
+                                        isSelected: selectedOptions.contains(option.id)
+                                    ) {
+                                        toggleSelection(for: option.id)
+                                    }
+                            }
                         }
+                        .padding(.horizontal, horizontalPaddingContent)
+                    } else {
+                        VStack(spacing: optionsSpacing) {
+                            ForEach(options, id: \.id) { option in
+                                OnbButtonContent(data: option.content)
+                                    .onbButtonStyle(
+                                        style: optionsButtonStyle,
+                                        isSelected: selectedOptions.contains(option.id)
+                                    ) {
+                                        toggleSelection(for: option.id)
+                                    }
+                            }
+                        }
+                        .padding(.horizontal, horizontalPaddingContent)
                     }
-                    .padding(.horizontal, horizontalPaddingContent)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: contentAlignment.alignment)
                 .padding(.top, paddingTop)
@@ -200,7 +231,8 @@ struct MultipleChoiceSlideView: View {
                         selectedBackgroundColor: .blue,
                         selectedTextColor: .white
                     ),
-                    selectionBehavior: .multi
+                    selectionBehavior: .multi,
+                    isGrid: true
                 ),
                 .multipleChoice(
                     id: "plan",
@@ -245,7 +277,8 @@ struct MultipleChoiceSlideView: View {
                         selectedBackgroundColor: .purple,
                         selectedTextColor: .white,
                         selectedBorderColor: .purple
-                    )
+                    ),
+                    isGrid: true
                 )
             ]
         )
