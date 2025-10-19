@@ -44,6 +44,7 @@ enum OnbSlideType: OnbSlideProtocol {
         options: [OnbChoiceOption] = [],
         optionsSpacing: CGFloat = 12,
         optionsButtonStyle: OnbButtonStyleType = .outline(textColor: .blue, borderColor: .blue),
+        selectionBehavior: OnbSelectionBehavior = .single,
         paddingTop: CGFloat = 40,
         paddingBottom: CGFloat = 0,
         horizontalPaddingContent: CGFloat = 24,
@@ -58,7 +59,7 @@ enum OnbSlideType: OnbSlideProtocol {
         switch self {
         case .regular(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
-        case .multipleChoice(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+        case .multipleChoice(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
         }
     }

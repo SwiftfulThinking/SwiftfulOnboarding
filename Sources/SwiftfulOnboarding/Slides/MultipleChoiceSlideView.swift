@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+enum OnbSelectionBehavior {
+    case single
+    case multi
+}
+
 struct OnbChoiceOption {
     var id: String
     var content: OnbButtonContentData
@@ -23,6 +28,7 @@ struct MultipleChoiceSlideView: View {
     var options: [OnbChoiceOption] = []
     var optionsSpacing: CGFloat = 12
     var optionsButtonStyle: OnbButtonStyleType = .outline(textColor: .blue, borderColor: .blue)
+    var selectionBehavior: OnbSelectionBehavior = .single
     var paddingTop: CGFloat = 40
     var paddingBottom: CGFloat = 0
     var horizontalPaddingContent: CGFloat = 24
@@ -33,6 +39,8 @@ struct MultipleChoiceSlideView: View {
     var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
     var onOptionClick: ((String) -> Void)? = nil
     var onButtonClick: (() -> Void)? = nil
+
+    @State private var selectedOptions: Set<String> = []
 
     var body: some View {
         VStack(spacing: 0) {
@@ -55,8 +63,11 @@ struct MultipleChoiceSlideView: View {
                         VStack(spacing: optionsSpacing) {
                             ForEach(options, id: \.id) { option in
                                 OnbButtonContent(data: option.content)
-                                    .onbButtonStyle(style: optionsButtonStyle) {
-                                        onOptionClick?(option.id)
+                                    .onbButtonStyle(
+                                        style: optionsButtonStyle,
+                                        isSelected: selectedOptions.contains(option.id)
+                                    ) {
+                                        toggleSelection(for: option.id)
                                     }
                             }
                         }
@@ -66,8 +77,11 @@ struct MultipleChoiceSlideView: View {
                     VStack(spacing: optionsSpacing) {
                         ForEach(options, id: \.id) { option in
                             OnbButtonContent(data: option.content)
-                                .onbButtonStyle(style: optionsButtonStyle) {
-                                    onOptionClick?(option.id)
+                                .onbButtonStyle(
+                                    style: optionsButtonStyle,
+                                    isSelected: selectedOptions.contains(option.id)
+                                ) {
+                                    toggleSelection(for: option.id)
                                 }
                         }
                     }
@@ -85,11 +99,31 @@ struct MultipleChoiceSlideView: View {
                 ) {
                     onButtonClick?()
                 }
+                .disabled(selectedOptions.isEmpty)
+                .opacity(selectedOptions.isEmpty ? 0.5 : 1.0)
                 .padding(.top, footerPadding.top)
                 .padding(.leading, footerPadding.leading)
                 .padding(.trailing, footerPadding.trailing)
                 .padding(.bottom, footerPadding.bottom)
         }
+    }
+
+    private func toggleSelection(for optionId: String) {
+        switch selectionBehavior {
+        case .single:
+            if selectedOptions.contains(optionId) {
+                selectedOptions.remove(optionId)
+            } else {
+                selectedOptions = [optionId]
+            }
+        case .multi:
+            if selectedOptions.contains(optionId) {
+                selectedOptions.remove(optionId)
+            } else {
+                selectedOptions.insert(optionId)
+            }
+        }
+        onOptionClick?(optionId)
     }
 }
 
@@ -103,7 +137,7 @@ struct MultipleChoiceSlideView: View {
                 .multipleChoice(
                     id: "plan",
                     title: "Choose Your Plan",
-                    subtitle: "Select the best option for you",
+                    subtitle: "Select one option",
                     options: [
                         OnbChoiceOption(
                             id: "basic",
@@ -118,7 +152,13 @@ struct MultipleChoiceSlideView: View {
                             content: OnbButtonContentData(text: "Premium - $19.99/mo")
                         )
                     ],
-                    optionsButtonStyle: .outline(textColor: .blue, borderColor: .blue)
+                    optionsButtonStyle: .outline(
+                        textColor: .blue,
+                        borderColor: .blue,
+                        selectedTextColor: .green,
+                        selectedBorderColor: .green
+                    ),
+                    selectionBehavior: .single
                 ),
                 .multipleChoice(
                     id: "interests",
@@ -132,7 +172,13 @@ struct MultipleChoiceSlideView: View {
                         OnbChoiceOption(id: "food", content: OnbButtonContentData(text: "Food & Cooking")),
                         OnbChoiceOption(id: "travel", content: OnbButtonContentData(text: "Travel"))
                     ],
-                    optionsButtonStyle: .outline(textColor: .blue, borderColor: .blue)
+                    optionsButtonStyle: .solid(
+                        backgroundColor: .white,
+                        textColor: .blue,
+                        selectedBackgroundColor: .blue,
+                        selectedTextColor: .white
+                    ),
+                    selectionBehavior: .multi
                 ),
                 .multipleChoice(
                     id: "experience",
@@ -144,7 +190,14 @@ struct MultipleChoiceSlideView: View {
                         OnbChoiceOption(id: "advanced", content: OnbButtonContentData(text: "Advanced")),
                         OnbChoiceOption(id: "expert", content: OnbButtonContentData(text: "Expert"))
                     ],
-                    optionsButtonStyle: .solid(backgroundColor: .blue, textColor: .white)
+                    optionsButtonStyle: .solidOutline(
+                        backgroundColor: .white,
+                        textColor: .purple,
+                        borderColor: .purple,
+                        selectedBackgroundColor: .purple,
+                        selectedTextColor: .white,
+                        selectedBorderColor: .purple
+                    )
                 )
             ]
         )
