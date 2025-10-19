@@ -15,7 +15,7 @@ enum OnbCheckboxStyle {
 enum OnbButtonSecondaryContent {
     case emoji(String)
     case checkbox(style: OnbCheckboxStyle, isChecked: Bool = false, borderColor: Color = .gray, fillColor: Color = .blue)
-    case media(media: OnbMediaType)
+    case media(media: OnbMediaType, size: OnbMediaSize = .small)
 }
 
 enum OnbButtonSecondaryContentPlacement {
@@ -155,9 +155,10 @@ struct OnbButtonContent: View {
             Text(emoji)
         case .checkbox(let style, let isChecked, let borderColor, let fillColor):
             checkboxView(style: style, isChecked: isChecked, borderColor: borderColor, fillColor: fillColor)
-        case .media(let media):
+        case .media(let media, let size):
+            let frameSize = size.frameSecondary
             AnyMediaView(media: media)
-                .frame(width: 40, height: 40)
+                .frame(width: frameSize.width, height: frameSize.height)
         }
     }
 

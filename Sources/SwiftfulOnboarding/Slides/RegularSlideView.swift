@@ -10,7 +10,7 @@ import SwiftUI
 @MainActor
 enum OnbMediaSize {
     case fixed(width: CGFloat, height: CGFloat)
-    case max
+    case auto
     case small
     case medium
     case large
@@ -27,7 +27,7 @@ enum OnbMediaSize {
         switch self {
         case .fixed(let width, let height):
             return (width, height)
-        case .max:
+        case .auto:
             return (nil, nil)
         case .small:
             return isIPad ? (120, 120) : (64, 64)
@@ -35,6 +35,29 @@ enum OnbMediaSize {
             return isIPad ? (300, 300) : (180, 180)
         case .large:
             return isIPad ? (450, 450) : (300, 300)
+        }
+    }
+
+    var frameSecondary: (width: CGFloat?, height: CGFloat?) {
+        let isIPad: Bool = {
+            #if os(iOS)
+            return UIDevice.current.userInterfaceIdiom == .pad
+            #else
+            return false
+            #endif
+        }()
+
+        switch self {
+        case .fixed(let width, let height):
+            return (width, height)
+        case .auto:
+            return (nil, nil)
+        case .small:
+            return isIPad ? (32, 32) : (24, 24)
+        case .medium:
+            return isIPad ? (48, 48) : (32, 32)
+        case .large:
+            return isIPad ? (64, 64) : (48, 48)
         }
     }
 }
@@ -177,7 +200,7 @@ struct RegularSlideView: View {
                     title: "All Done!",
                     subtitle: "You're ready to go",
                     media: .image(urlString: "https://picsum.photos/600/600"),
-                    mediaSize: .max,
+                    mediaSize: .auto,
                     mediaPosition: .top
                 ),
                 .regular(

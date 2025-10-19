@@ -21,7 +21,7 @@ enum OnbSlideType: OnbSlideProtocol {
         titleSubtitleSpacing: CGFloat = 8,
         titleAlignment: OnbTextAlignment = .center,
         media: OnbMediaType? = nil,
-        mediaSize: OnbMediaSize = .max,
+        mediaSize: OnbMediaSize = .auto,
         mediaPosition: OnbMediaPosition = .top,
         contentAlignment: OnbContentAlignment = .center,
         paddingTop: CGFloat = 40,
