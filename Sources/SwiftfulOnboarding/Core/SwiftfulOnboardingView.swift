@@ -15,11 +15,22 @@ struct SwiftfulOnboardingView: View {
         _viewModel = StateObject(wrappedValue: SwiftfulOnboardingViewModel(configuration: configuration))
     }
 
+    private var currentBackgroundColor: Color {
+        guard viewModel.currentIndex >= 0 && viewModel.currentIndex < viewModel.slides.count else {
+            return viewModel.configuration.backgroundColor
+        }
+        if let override = viewModel.slides[viewModel.currentIndex].backgroundColorOverride {
+            return override
+        }
+        return viewModel.configuration.backgroundColor
+    }
+
     var body: some View {
         ZStack {
             // Background color
-            viewModel.configuration.backgroundColor
+            currentBackgroundColor
                 .ignoresSafeArea()
+                .animation(.easeInOut, value: viewModel.currentIndex)
 
             // Main content
             VStack(spacing: 0) {
