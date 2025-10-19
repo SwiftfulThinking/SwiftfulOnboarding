@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum OnbSelectionBehavior {
-    case single
+    case single(autoAdvance: Bool = false)
     case multi
 }
 
@@ -28,7 +28,7 @@ struct MultipleChoiceSlideView: View {
     var options: [OnbChoiceOption] = []
     var optionsSpacing: CGFloat = 12
     var optionsButtonStyle: OnbButtonStyleType = .outline(textColor: .blue, borderColor: .blue)
-    var selectionBehavior: OnbSelectionBehavior = .single
+    var selectionBehavior: OnbSelectionBehavior = .single()
     var isGrid: Bool = false
     var contentAlignment: OnbContentAlignment = .center
     var paddingTop: CGFloat = 24
@@ -43,6 +43,15 @@ struct MultipleChoiceSlideView: View {
     var onButtonClick: (() -> Void)? = nil
 
     @State private var selectedOptions: Set<String> = []
+
+    private var shouldShowContinueButton: Bool {
+        switch selectionBehavior {
+        case .single(let autoAdvance):
+            return !autoAdvance
+        case .multi:
+            return true
+        }
+    }
 
     var body: some View {
         if options.count > 4 {
@@ -99,26 +108,29 @@ struct MultipleChoiceSlideView: View {
                     .ignoresSafeArea(edges: .bottom)
 
                     // Continue button overlaying at bottom
-                    VStack(spacing: 0) {
-                        Text(ctaText)
-                            .onbButtonStyle(
-                                style: ctaButtonStyle
-                            ) {
-                                onButtonClick?()
-                            }
-                            .disabled(selectedOptions.isEmpty)
-                            .padding(.top, footerPadding.top)
-                            .padding(.leading, footerPadding.leading)
-                            .padding(.trailing, footerPadding.trailing)
-                            .padding(.bottom, footerPadding.bottom)
+                    if shouldShowContinueButton {
+                        VStack(spacing: 0) {
+                            Text(ctaText)
+                                .onbButtonStyle(
+                                    style: ctaButtonStyle,
+                                    isSelected: !selectedOptions.isEmpty
+                                ) {
+                                    onButtonClick?()
+                                }
+                                .disabled(selectedOptions.isEmpty)
+                                .padding(.top, footerPadding.top)
+                                .padding(.leading, footerPadding.leading)
+                                .padding(.trailing, footerPadding.trailing)
+                                .padding(.bottom, footerPadding.bottom)
+                        }
+                        .background(
+                            LinearGradient(colors: [
+                                Color(uiColor: .systemBackground).opacity(0.0),
+                                Color(uiColor: .systemBackground).opacity(0.4),
+                                Color(uiColor: .systemBackground).opacity(0.8)
+                            ], startPoint: .top, endPoint: .bottom)
+                        )
                     }
-                    .background(
-                        LinearGradient(colors: [
-                            Color(uiColor: .systemBackground).opacity(0.0),
-                            Color(uiColor: .systemBackground).opacity(0.4),
-                            Color(uiColor: .systemBackground).opacity(0.8)
-                        ], startPoint: .top, endPoint: .bottom)
-                    )
                 }
             }
         } else {
@@ -173,7 +185,8 @@ struct MultipleChoiceSlideView: View {
                 // Continue button at bottom
                 Text(ctaText)
                     .onbButtonStyle(
-                        style: ctaButtonStyle
+                        style: ctaButtonStyle,
+                        isSelected: !selectedOptions.isEmpty
                     ) {
                         onButtonClick?()
                     }
@@ -183,17 +196,24 @@ struct MultipleChoiceSlideView: View {
                     .padding(.leading, footerPadding.leading)
                     .padding(.trailing, footerPadding.trailing)
                     .padding(.bottom, footerPadding.bottom)
+                    .opacity(shouldShowContinueButton ? 1 : 0)
             }
         }
     }
 
     private func toggleSelection(for optionId: String) {
         switch selectionBehavior {
-        case .single:
+        case .single(let autoAdvance):
             if selectedOptions.contains(optionId) {
                 selectedOptions.remove(optionId)
             } else {
                 selectedOptions = [optionId]
+
+                if autoAdvance {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        onButtonClick?()
+                    }
+                }
             }
         case .multi:
             if selectedOptions.contains(optionId) {
@@ -232,7 +252,7 @@ struct MultipleChoiceSlideView: View {
                         selectedTextColor: .white
                     ),
                     selectionBehavior: .multi,
-                    isGrid: true
+                    isGrid: false
                 ),
                 .multipleChoice(
                     id: "plan",
@@ -258,7 +278,7 @@ struct MultipleChoiceSlideView: View {
                         selectedTextColor: .green,
                         selectedBorderColor: .green
                     ),
-                    selectionBehavior: .single
+                    selectionBehavior: .single(autoAdvance: true)
                 ),
                 .multipleChoice(
                     id: "experience",
