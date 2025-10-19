@@ -112,6 +112,27 @@ enum OnbSlideType: OnbSlideProtocol {
         ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white),
         ctaButtonFormatData: OnbButtonFormatData = .default
     )
+    case textInput(
+        id: String,
+        title: String? = nil,
+        titleFont: Font = .largeTitle,
+        subtitle: String? = nil,
+        subtitleFont: Font = .body,
+        titleSubtitleSpacing: CGFloat = 8,
+        titleAlignment: OnbTextAlignment = .center,
+        media: OnbMediaType? = nil,
+        mediaPosition: OnbMediaPosition = .top,
+        contentAlignment: OnbContentAlignment = .center,
+        paddingTop: CGFloat = 40,
+        paddingBottom: CGFloat = 0,
+        horizontalPaddingContent: CGFloat = 0,
+        horizontalPaddingTitle: CGFloat = 40,
+        contentSpacing: CGFloat = 24,
+        footerData: OnbFooterData = .default,
+        ctaText: String = "Continue",
+        ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white),
+        ctaButtonFormatData: OnbButtonFormatData = .default
+    )
 
     var id: String {
         switch self {
@@ -122,6 +143,8 @@ enum OnbSlideType: OnbSlideProtocol {
         case .yesNo(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
         case .rating(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+            return id
+        case .textInput(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
         }
     }
