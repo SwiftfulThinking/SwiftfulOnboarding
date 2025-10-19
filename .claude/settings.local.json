@@ -1,8 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git add -A)",
-      "Bash(git commit -m \"$(cat <<''EOF''\nAdd slide navigation system with ZStack rendering\n\n- Create OnboardingSlideType enum for different slide types\n- Implement AnyOnboardingSlideView as slide type switcher\n- Add RegularSlideView with title, subtitle, image, and Continue button\n- Update ViewModel with slides array and nextSlide() navigation\n- Implement ZStack rendering for previous, current, and next slides\n- Connect button actions to advance through slides\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
+      "Bash(git commit -m \"$(cat <<''EOF''\nAdd OnbButtonStyle with ButtonStyle protocol and press animations\n\n- Create OnbButtonStyleType enum with solid, outline, solidOutline, and duolingo styles\n- Each style has associated values for only the colors it needs\n- Implement OnbButtonPressStyle enum with press, opacity, and tap animations\n- Create OnbButtonStyle conforming to ButtonStyle protocol\n- Add invisible background to outline style for full tappability\n- Implement special duolingo animation with shadow offset on press\n- Add onbButtonStyle extension for clean API with trailing closure syntax\n- Include comprehensive previews demonstrating all styles and animations\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
     ],
     "deny": [],
     "ask": []

@@ -100,41 +100,46 @@ struct OnbButtonStyle: ButtonStyle {
                 .opacity(opacityAmount)
 
         case .duolingo(let backgroundColor, let textColor, let shadowColor):
-            configuration.label
-                .font(font.weight(.bold))
-                .foregroundColor(textColor)
-                .frame(maxWidth: .infinity)
-                .frame(height: height)
-                .background(
-                    ZStack {
-                        // Shadow layer
-                        RoundedRectangle(cornerRadius: cornerRadius)
-                            .fill(shadowColor.opacity(0.4))
-                            .offset(y: configuration.isPressed ? 2 : 4)
+            ZStack {
+                // Shadow layer (stays in place)
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .fill(shadowColor.opacity(0.4))
+                    .frame(maxWidth: .infinity)
+                    .frame(height: height)
+                    .offset(y: 4)
 
-                        // Main button
-                        RoundedRectangle(cornerRadius: cornerRadius)
-                            .fill(backgroundColor)
-                            .offset(y: configuration.isPressed ? 2 : 0)
+                // Main button (moves down when pressed)
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .fill(backgroundColor)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: height)
+                    .offset(y: configuration.isPressed ? 3 : 0)
 
-                        // Top highlight
-                        RoundedRectangle(cornerRadius: cornerRadius)
-                            .fill(
-                                LinearGradient(
-                                    gradient: Gradient(colors: [
-                                        Color.white.opacity(0.25),
-                                        Color.white.opacity(0)
-                                    ]),
-                                    startPoint: .top,
-                                    endPoint: .center
-                                )
-                            )
-                            .offset(y: configuration.isPressed ? 2 : 0)
-                    }
-                )
-                .padding(.horizontal, horizontalPadding)
-                .scaleEffect(scaleAmount)
-                .opacity(opacityAmount)
+                // Top highlight (moves with main button)
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .fill(
+                        LinearGradient(
+                            gradient: Gradient(colors: [
+                                Color.white.opacity(0.25),
+                                Color.white.opacity(0)
+                            ]),
+                            startPoint: .top,
+                            endPoint: .center
+                        )
+                    )
+                    .frame(maxWidth: .infinity)
+                    .frame(height: height)
+                    .offset(y: configuration.isPressed ? 3 : 0)
+
+                // Label (moves with main button)
+                configuration.label
+                    .font(font.weight(.bold))
+                    .foregroundColor(textColor)
+                    .offset(y: configuration.isPressed ? 3 : 0)
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: height)
+            .padding(.horizontal, horizontalPadding)
         }
     }
 }
@@ -174,14 +179,16 @@ extension View {
             // Solid style
             Text("Solid Blue")
                 .onbButtonStyle(
-                    style: .solid(backgroundColor: .blue, textColor: .white)
+                    style: .solid(backgroundColor: .blue, textColor: .white),
+                    pressStyle: .opacity
                 ) {
                     print("Solid Blue tapped")
                 }
 
             Text("Solid Green")
                 .onbButtonStyle(
-                    style: .solid(backgroundColor: .green, textColor: .black)
+                    style: .solid(backgroundColor: .green, textColor: .black),
+                    pressStyle: .tap
                 ) {
                     print("Solid Green tapped")
                 }
