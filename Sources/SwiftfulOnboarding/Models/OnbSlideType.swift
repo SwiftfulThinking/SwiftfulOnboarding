@@ -46,7 +46,7 @@ enum OnbSlideType: OnbSlideProtocol {
         optionsButtonStyle: OnbButtonStyleType = .outline(textColor: .blue, borderColor: .blue),
         selectionBehavior: OnbSelectionBehavior = .single(),
         isGrid: Bool = false,
-        contentAlignment: OnbContentAlignment = .center,
+        contentAlignment: OnbContentAlignment = .top,
         paddingTop: CGFloat = 24,
         paddingBottom: CGFloat = 0,
         horizontalPaddingContent: CGFloat = 24,

@@ -30,12 +30,13 @@ struct MultipleChoiceSlideView: View {
     var optionsButtonStyle: OnbButtonStyleType = .outline(textColor: .blue, borderColor: .blue)
     var selectionBehavior: OnbSelectionBehavior = .single()
     var isGrid: Bool = false
-    var contentAlignment: OnbContentAlignment = .center
+    var contentAlignment: OnbContentAlignment = .top
     var paddingTop: CGFloat = 24
     var paddingBottom: CGFloat = 0
     var horizontalPaddingContent: CGFloat = 24
     var horizontalPaddingTitle: CGFloat = 40
     var contentSpacing: CGFloat = 24
+   
     var footerPadding: OnbFooterPadding = .default
     var ctaText: String = "Continue"
     var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
@@ -51,6 +52,10 @@ struct MultipleChoiceSlideView: View {
         case .multi:
             return true
         }
+    }
+    
+    private var horizontalButtonPadding: CGFloat {
+        isGrid ? 4 : 12
     }
 
     var body: some View {
@@ -76,26 +81,32 @@ struct MultipleChoiceSlideView: View {
                         if isGrid {
                             NonLazyVGrid(columns: 2, spacing: optionsSpacing, items: options) { option in
                                 if let option {
-                                    OnbButtonContent(data: option.content)
-                                        .onbButtonStyle(
-                                            style: optionsButtonStyle,
-                                            isSelected: selectedOptions.contains(option.id)
-                                        ) {
-                                            toggleSelection(for: option.id)
-                                        }
+                                    OnbButtonContent(
+                                        data: option.content,
+                                        horizontalPadding: horizontalButtonPadding
+                                    )
+                                    .onbButtonStyle(
+                                        style: optionsButtonStyle,
+                                        isSelected: selectedOptions.contains(option.id)
+                                    ) {
+                                        toggleSelection(for: option.id)
+                                    }
                                 }
                             }
                             .padding(.horizontal, horizontalPaddingContent)
                         } else {
                             VStack(spacing: optionsSpacing) {
                                 ForEach(options, id: \.id) { option in
-                                    OnbButtonContent(data: option.content)
-                                        .onbButtonStyle(
-                                            style: optionsButtonStyle,
-                                            isSelected: selectedOptions.contains(option.id)
-                                        ) {
-                                            toggleSelection(for: option.id)
-                                        }
+                                    OnbButtonContent(
+                                        data: option.content,
+                                        horizontalPadding: horizontalButtonPadding
+                                    )
+                                    .onbButtonStyle(
+                                        style: optionsButtonStyle,
+                                        isSelected: selectedOptions.contains(option.id)
+                                    ) {
+                                        toggleSelection(for: option.id)
+                                    }
                                 }
                             }
                             .padding(.horizontal, horizontalPaddingContent)
@@ -153,26 +164,32 @@ struct MultipleChoiceSlideView: View {
                     if isGrid {
                         NonLazyVGrid(columns: 2, spacing: optionsSpacing, items: options) { option in
                             if let option {
-                                OnbButtonContent(data: option.content)
-                                    .onbButtonStyle(
-                                        style: optionsButtonStyle,
-                                        isSelected: selectedOptions.contains(option.id)
-                                    ) {
-                                        toggleSelection(for: option.id)
-                                    }
+                                OnbButtonContent(
+                                    data: option.content,
+                                    horizontalPadding: horizontalButtonPadding
+                                )
+                                .onbButtonStyle(
+                                    style: optionsButtonStyle,
+                                    isSelected: selectedOptions.contains(option.id)
+                                ) {
+                                    toggleSelection(for: option.id)
+                                }
                             }
                         }
                         .padding(.horizontal, horizontalPaddingContent)
                     } else {
                         VStack(spacing: optionsSpacing) {
                             ForEach(options, id: \.id) { option in
-                                OnbButtonContent(data: option.content)
-                                    .onbButtonStyle(
-                                        style: optionsButtonStyle,
-                                        isSelected: selectedOptions.contains(option.id)
-                                    ) {
-                                        toggleSelection(for: option.id)
-                                    }
+                                OnbButtonContent(
+                                    data: option.content,
+                                    horizontalPadding: horizontalButtonPadding
+                                )
+                                .onbButtonStyle(
+                                    style: optionsButtonStyle,
+                                    isSelected: selectedOptions.contains(option.id)
+                                ) {
+                                    toggleSelection(for: option.id)
+                                }
                             }
                         }
                         .padding(.horizontal, horizontalPaddingContent)
@@ -233,6 +250,63 @@ struct MultipleChoiceSlideView: View {
             headerAlignment: .center,
             showBackButton: true,
             slides: [
+                .multipleChoice(
+                    id: "themes",
+                    title: "Choose Your Theme",
+                    subtitle: "Pick your favorite visual style",
+                    options: [
+                        OnbChoiceOption(
+                            id: "nature",
+                            content: OnbButtonContentData(
+                                text: "Nature",
+                                textPlacement: .leading,
+                                secondaryContent: .media(media: .image(urlString: "https://picsum.photos/600/600")),
+                                secondaryContentPlacement: .leading
+                            )
+                        ),
+                        OnbChoiceOption(
+                            id: "urban",
+                            content: OnbButtonContentData(
+                                text: "Urban",
+                                textPlacement: .leading,
+                                secondaryContent: .media(media: .image(urlString: "https://picsum.photos/600/600")),
+                                secondaryContentPlacement: .leading
+                            )
+                        ),
+                        OnbChoiceOption(
+                            id: "minimal",
+                            content: OnbButtonContentData(
+                                text: "Minimal",
+                                textPlacement: .leading,
+                                secondaryContent: .media(media: .image(urlString: "https://picsum.photos/600/600")),
+                                secondaryContentPlacement: .leading
+                            )
+                        ),
+                        OnbChoiceOption(
+                            id: "colorful",
+                            content: OnbButtonContentData(
+                                text: "Colorful",
+                                textPlacement: .leading,
+                                secondaryContent: .media(media: .image(urlString: "https://picsum.photos/600/600")),
+                                secondaryContentPlacement: .leading
+                            )
+                        )
+                    ],
+                    optionsButtonStyle: .solid(
+                        backgroundColor: .clear,
+                        textColor: .black,
+                        selectedBackgroundColor: .clear,
+                        selectedTextColor: .blue
+                    ),
+                    selectionBehavior: .multi,
+                    isGrid: true,
+                    ctaButtonStyle: .solid(
+                        backgroundColor: .gray,
+                        textColor: .black,
+                        selectedBackgroundColor: .blue,
+                        selectedTextColor: .white
+                    )
+                ),
                 .multipleChoice(
                     id: "interests",
                     title: "Select Your Interests",

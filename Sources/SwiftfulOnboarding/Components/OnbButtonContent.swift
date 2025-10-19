@@ -53,7 +53,10 @@ struct OnbButtonContent: View {
 
     var data: OnbButtonContentData
     var horizontalPadding: CGFloat = 12
-    var multilineTextAlignment: TextAlignment = .center
+    
+    var multilineTextAlignment: TextAlignment {
+        data.textPlacement == .center ? .center : .leading
+    }
 
     var body: some View {
         Group {
