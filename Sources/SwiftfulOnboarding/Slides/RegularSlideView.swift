@@ -51,6 +51,7 @@ struct RegularSlideView: View {
     var subtitle: String? = nil
     var subtitleFont: Font = .body
     var titleSubtitleSpacing: CGFloat = 12
+    var titleAlignment: OnbTextAlignment = .center
     var media: OnbMediaType? = nil
     var mediaSize: OnbMediaSize = .large
     var mediaPosition: OnbMediaPosition = .top
@@ -76,7 +77,8 @@ struct RegularSlideView: View {
                     titleFont: titleFont,
                     subtitle: subtitle,
                     subtitleFont: subtitleFont,
-                    spacing: titleSubtitleSpacing
+                    spacing: titleSubtitleSpacing,
+                    alignment: titleAlignment
                 )
 
                 // Media at bottom

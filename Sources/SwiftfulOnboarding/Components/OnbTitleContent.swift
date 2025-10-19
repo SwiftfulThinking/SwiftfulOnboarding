@@ -7,6 +7,34 @@
 
 import SwiftUI
 
+enum OnbTextAlignment {
+    case leading
+    case center
+    case trailing
+
+    var textAlignment: TextAlignment {
+        switch self {
+        case .leading:
+            return .leading
+        case .center:
+            return .center
+        case .trailing:
+            return .trailing
+        }
+    }
+
+    var frameAlignment: Alignment {
+        switch self {
+        case .leading:
+            return .leading
+        case .center:
+            return .center
+        case .trailing:
+            return .trailing
+        }
+    }
+}
+
 struct OnbTitleContent: View {
 
     var title: String? = nil
@@ -14,6 +42,7 @@ struct OnbTitleContent: View {
     var subtitle: String? = nil
     var subtitleFont: Font = .body
     var spacing: CGFloat = 12
+    var alignment: OnbTextAlignment = .center
 
     var body: some View {
         VStack(spacing: spacing) {
@@ -21,14 +50,16 @@ struct OnbTitleContent: View {
                 Text(title)
                     .font(titleFont)
                     .fontWeight(.bold)
-                    .multilineTextAlignment(.center)
+                    .multilineTextAlignment(alignment.textAlignment)
+                    .frame(maxWidth: .infinity, alignment: alignment.frameAlignment)
             }
 
             if let subtitle = subtitle {
                 Text(subtitle)
                     .font(subtitleFont)
                     .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
+                    .multilineTextAlignment(alignment.textAlignment)
+                    .frame(maxWidth: .infinity, alignment: alignment.frameAlignment)
                     .padding(.horizontal, 24)
             }
         }
@@ -36,54 +67,66 @@ struct OnbTitleContent: View {
 }
 
 #Preview {
-    VStack(spacing: 40) {
-        // Both title and subtitle
-        OnbTitleContent(
-            title: "Welcome to Our App",
-            subtitle: "Experience something amazing"
-        )
+    ScrollView {
+        VStack(spacing: 40) {
+            // Both title and subtitle - center aligned
+            OnbTitleContent(
+                title: "Welcome to Our App",
+                subtitle: "Experience something amazing"
+            )
 
-        // Title only
-        OnbTitleContent(
-            title: "Get Started"
-        )
+            // Leading aligned
+            OnbTitleContent(
+                title: "Leading Alignment",
+                subtitle: "This text is aligned to the left",
+                alignment: .leading
+            )
 
-        // Subtitle only
-        OnbTitleContent(
-            subtitle: "It's quick and easy"
-        )
+            // Trailing aligned
+            OnbTitleContent(
+                title: "Trailing Alignment",
+                subtitle: "This text is aligned to the right",
+                alignment: .trailing
+            )
 
-        // Custom fonts
-        OnbTitleContent(
-            title: "Custom Fonts",
-            titleFont: .title,
-            subtitle: "With different styling",
-            subtitleFont: .callout
-        )
+            // Custom fonts with leading alignment
+            OnbTitleContent(
+                title: "Custom Fonts Leading",
+                titleFont: .title,
+                subtitle: "With different styling aligned left",
+                subtitleFont: .callout,
+                alignment: .leading
+            )
 
-        // Custom spacing
-        OnbTitleContent(
-            title: "Custom Spacing",
-            subtitle: "More space between title and subtitle",
-            spacing: 24
-        )
+            // Custom spacing with trailing alignment
+            OnbTitleContent(
+                title: "Custom Spacing Trailing",
+                subtitle: "More space between title and subtitle",
+                spacing: 24,
+                alignment: .trailing
+            )
 
-        // Small fonts
-        OnbTitleContent(
-            title: "Small Title",
-            titleFont: .title2,
-            subtitle: "Small subtitle text",
-            subtitleFont: .caption
-        )
+            // Small fonts center aligned
+            OnbTitleContent(
+                title: "Small Title Centered",
+                titleFont: .title2,
+                subtitle: "Small subtitle text in the center",
+                subtitleFont: .caption,
+                alignment: .center
+            )
 
-        // No spacing
-        OnbTitleContent(
-            title: "No Spacing",
-            titleFont: .headline,
-            subtitle: "Tight layout",
-            subtitleFont: .subheadline,
-            spacing: 4
-        )
+            // Title only - leading
+            OnbTitleContent(
+                title: "Get Started",
+                alignment: .leading
+            )
+
+            // Subtitle only - trailing
+            OnbTitleContent(
+                subtitle: "It's quick and easy",
+                alignment: .trailing
+            )
+        }
+        .padding()
     }
-    .padding()
 }
