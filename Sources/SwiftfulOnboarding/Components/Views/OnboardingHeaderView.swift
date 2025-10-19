@@ -26,6 +26,7 @@ struct OnboardingHeaderView: View {
     var currentPage: Int = 1
     var totalPages: Int = 10
     var showBackButton: Bool = true
+    var backButtonColor: Color = .primary
 
     var body: some View {
         ZStack {
@@ -35,7 +36,7 @@ struct OnboardingHeaderView: View {
             }) {
                 Image(systemName: "chevron.left")
                     .font(.system(size: 24, weight: .medium))
-                    .foregroundColor(.primary)
+                    .foregroundColor(backButtonColor)
                     .frame(width: 40, height: 40)
             }
             .opacity(showBackButton ? 1 : 0)
