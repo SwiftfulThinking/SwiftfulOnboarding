@@ -177,7 +177,7 @@ struct OnboardingHeaderView: View {
             alignment: .center,
             currentPage: 4,
             totalPages: 6,
-            showBackButton: false
+            showBackButton: .never
         )
         .background(Color.gray.opacity(0.1))
     }

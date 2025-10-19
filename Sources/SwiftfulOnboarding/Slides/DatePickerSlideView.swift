@@ -186,7 +186,7 @@ struct DatePickerSlideView: View {
         configuration: OnbConfiguration(
             headerStyle: .progressBar,
             headerAlignment: .center,
-            showBackButton: true,
+            showBackButton: .afterFirstSlide,
             slides: [
                 .datePicker(
                     id: "slide1",

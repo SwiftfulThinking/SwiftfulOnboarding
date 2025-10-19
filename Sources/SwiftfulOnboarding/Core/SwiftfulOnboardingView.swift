@@ -101,7 +101,7 @@ struct SwiftfulOnboardingView: View {
         configuration: OnbConfiguration(
             headerStyle: .progressBar,
             headerAlignment: .center,
-            showBackButton: true,
+            showBackButton: .afterFirstSlide,
             slides: [
                 .regular(
                     id: "welcome",

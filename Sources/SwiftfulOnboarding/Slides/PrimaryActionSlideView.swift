@@ -94,7 +94,7 @@ struct PrimaryActionSlideView: View {
         configuration: OnbConfiguration(
             headerStyle: .progressBar,
             headerAlignment: .center,
-            showBackButton: true,
+            showBackButton: .afterFirstSlide,
             slides: [
                 .primaryAction(
                     id: "slide1",

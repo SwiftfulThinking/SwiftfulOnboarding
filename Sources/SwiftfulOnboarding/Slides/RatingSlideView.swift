@@ -119,7 +119,7 @@ struct RatingSlideView: View {
         configuration: OnbConfiguration(
             headerStyle: .progressBar,
             headerAlignment: .center,
-            showBackButton: true,
+            showBackButton: .afterFirstSlide,
             slides: [
                 .rating(
                     id: "slide1",

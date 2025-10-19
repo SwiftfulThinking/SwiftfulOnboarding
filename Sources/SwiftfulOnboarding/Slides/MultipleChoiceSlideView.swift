@@ -261,7 +261,7 @@ struct MultipleChoiceSlideView: View {
         configuration: OnbConfiguration(
             headerStyle: .progressBar,
             headerAlignment: .center,
-            showBackButton: true,
+            showBackButton: .afterFirstSlide,
             slides: [
                 .multipleChoice(
                     id: "themes",

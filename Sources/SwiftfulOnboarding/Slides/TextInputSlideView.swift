@@ -109,7 +109,7 @@ struct TextInputSlideView: View {
         configuration: OnbConfiguration(
             headerStyle: .progressBar,
             headerAlignment: .center,
-            showBackButton: true,
+            showBackButton: .afterFirstSlide,
             slides: [
                 .textInput(
                     id: "slide1",

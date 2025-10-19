@@ -123,7 +123,7 @@ struct AnyPickerSlideView: View {
         configuration: OnbConfiguration(
             headerStyle: .progressBar,
             headerAlignment: .center,
-            showBackButton: true,
+            showBackButton: .afterFirstSlide,
             slides: [
                 .picker(
                     id: "slide1",
