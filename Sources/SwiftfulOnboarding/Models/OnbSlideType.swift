@@ -245,7 +245,7 @@ enum OnbSlideType: OnbSlideProtocol {
             return id
         case .picker(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
-        case .primaryAction(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+        case .primaryAction(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
         }
     }
@@ -266,7 +266,7 @@ enum OnbSlideType: OnbSlideProtocol {
             return backgroundColorOverride
         case .picker(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColorOverride, _, _):
             return backgroundColorOverride
-        case .primaryAction(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColorOverride, _, _):
+        case .primaryAction(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColorOverride, _, _):
             return backgroundColorOverride
         }
     }
@@ -287,7 +287,7 @@ enum OnbSlideType: OnbSlideProtocol {
             return showBackButtonOverride
         case .picker(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let showBackButtonOverride, _):
             return showBackButtonOverride
-        case .primaryAction(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let showBackButtonOverride, _):
+        case .primaryAction(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let showBackButtonOverride, _):
             return showBackButtonOverride
         }
     }
@@ -308,7 +308,7 @@ enum OnbSlideType: OnbSlideProtocol {
             return backButtonColorOverride
         case .picker(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backButtonColorOverride):
             return backButtonColorOverride
-        case .primaryAction(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backButtonColorOverride):
+        case .primaryAction(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backButtonColorOverride):
             return backButtonColorOverride
         }
     }
