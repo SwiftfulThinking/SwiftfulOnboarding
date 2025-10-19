@@ -169,27 +169,27 @@ struct OnbButtonContent: View {
             case .circle:
                 Circle()
                     .stroke(borderColor, lineWidth: 2)
-                    .frame(width: 20, height: 20)
+                    .frame(width: 24, height: 24)
 
                 if isChecked {
                     Circle()
                         .fill(fillColor)
-                        .frame(width: 14, height: 14)
+                        .frame(width: 18, height: 18)
                 }
 
             case .square:
                 RoundedRectangle(cornerRadius: 4)
                     .stroke(borderColor, lineWidth: 2)
-                    .frame(width: 20, height: 20)
+                    .frame(width: 24, height: 24)
 
                 if isChecked {
                     Image(systemName: "checkmark")
-                        .font(.system(size: 12, weight: .bold))
+                        .font(.system(size: 16, weight: .bold))
                         .foregroundColor(fillColor)
                 }
             }
         }
-        .frame(width: 20, height: 20)
+        .frame(width: 24, height: 24)
     }
 }
 
