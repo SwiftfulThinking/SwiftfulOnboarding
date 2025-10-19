@@ -33,9 +33,9 @@ enum OnbButtonTextPlacement {
 struct OnbButtonContent: View {
 
     let text: String
+    var textPlacement: OnbButtonTextPlacement = .center
     var secondaryContent: OnbButtonSecondaryContent? = nil
     var secondaryContentPlacement: OnbButtonSecondaryContentPlacement = .trailing
-    var textPlacement: OnbButtonTextPlacement = .center
     var horizontalPadding: CGFloat = 12
 
     var body: some View {
@@ -129,6 +129,7 @@ struct OnbButtonContent: View {
             checkboxView(style: style, isChecked: isChecked, borderColor: borderColor, fillColor: fillColor)
         case .media(let media):
             AnyMediaView(media: media)
+                .frame(width: 40, height: 40)
         }
     }
 
@@ -247,9 +248,9 @@ struct OnbButtonContent: View {
 
         OnbButtonContent(
             text: "Back",
+            textPlacement: .leading,
             secondaryContent: .emoji("⬅️"),
-            secondaryContentPlacement: .leading,
-            textPlacement: .leading
+            secondaryContentPlacement: .leading
         )
         .onbButtonStyle(
             style: .outline(textColor: .blue, borderColor: .blue)
@@ -259,9 +260,9 @@ struct OnbButtonContent: View {
 
         OnbButtonContent(
             text: "Continue",
+            textPlacement: .leading,
             secondaryContent: .emoji("→"),
-            secondaryContentPlacement: .trailing,
-            textPlacement: .leading
+            secondaryContentPlacement: .trailing
         )
         .onbButtonStyle(
             style: .solid(backgroundColor: .blue, textColor: .white)
@@ -319,7 +320,8 @@ struct OnbButtonContent: View {
 
                     OnbButtonContent(
                         text: "Settings",
-                        secondaryContent: .media(media: .systemIcon(named: "gear")),
+                        textPlacement: .leading,
+                        secondaryContent: .media(media: .image(urlString: "https://picsum.photos/600/600")),
                         secondaryContentPlacement: .leading
                     )
                     .onbButtonStyle(
@@ -397,9 +399,9 @@ struct OnbButtonContent: View {
 
         OnbButtonContent(
             text: "Menu Item",
+            textPlacement: .leading,
             secondaryContent: .emoji("›"),
             secondaryContentPlacement: .trailing,
-            textPlacement: .leading,
             horizontalPadding: 20
         )
         .onbButtonStyle(
