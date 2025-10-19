@@ -10,8 +10,14 @@ import SwiftUI
 @MainActor
 class SwiftfulOnboardingViewModel: ObservableObject {
 
-    @Published var slides: [String] = ["Slide 1", "Slide 2", "Slide 3", "Slide 4", "Slide 5"]
+    let configuration: OnbConfiguration
     @Published var currentIndex: Int = 0
+    @Published var slides: [OnbSlideType] = []
+
+    init(configuration: OnbConfiguration) {
+        self.configuration = configuration
+        self.slides = configuration.slides
+    }
 
     func nextSlide() {
         if currentIndex < slides.count - 1 {

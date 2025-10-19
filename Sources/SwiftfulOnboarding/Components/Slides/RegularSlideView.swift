@@ -11,18 +11,16 @@ struct RegularSlideView: View {
 
     var title: String? = nil
     var subtitle: String? = nil
-    var image: String? = nil
+    var media: OnbMediaType? = nil
     var onButtonClick: (() -> Void)? = nil
 
     var body: some View {
         VStack(spacing: 0) {
             // Content
             VStack(spacing: 24) {
-                // Image
-                if let image = image {
-                    Image(systemName: image)
-                        .font(.system(size: 64))
-                        .foregroundColor(.blue)
+                // Media
+                if let media = media {
+                    AnyMediaView(media: media)
                         .padding(.top, 40)
                 }
 
@@ -67,29 +65,43 @@ struct RegularSlideView: View {
 }
 
 #Preview {
-    VStack(spacing: 32) {
-        RegularSlideView(
-            title: "Welcome to Our App",
-            subtitle: "Discover amazing features that will help you be more productive",
-            image: "star.fill"
+    SwiftfulOnboardingView(
+        configuration: OnbConfiguration(
+            headerStyle: .progressBar,
+            headerAlignment: .center,
+            showBackButton: true,
+            slides: [
+                .regular(
+                    id: "slide1",
+                    title: "Welcome to Our App",
+                    subtitle: "Experience something amazing",
+                    media: .systemIcon(named: "hand.wave.fill")
+                ),
+                .regular(
+                    id: "slide2",
+                    title: "Get Started",
+                    subtitle: "It's quick and easy",
+                    media: .systemIcon(named: "play.circle.fill")
+                ),
+                .regular(
+                    id: "slide3",
+                    title: "Simple Setup",
+                    subtitle: "Just a few taps",
+                    media: .systemIcon(named: "gear")
+                ),
+                .regular(
+                    id: "slide4",
+                    title: "Privacy Policy",
+                    subtitle: "Your data is safe with us",
+                    media: .systemIcon(named: "lock.fill")
+                ),
+                .regular(
+                    id: "slide5",
+                    title: "All Done!",
+                    subtitle: "You're ready to go",
+                    media: .systemIcon(named: "checkmark.seal.fill")
+                )
+            ]
         )
-        .frame(height: 400)
-        .background(Color.gray.opacity(0.1))
-
-        RegularSlideView(
-            title: "Get Started",
-            subtitle: nil,
-            image: "rocket.fill"
-        )
-        .frame(height: 400)
-        .background(Color.gray.opacity(0.1))
-
-        RegularSlideView(
-            title: "Simple Setup",
-            subtitle: "Just a few steps to get you going",
-            image: nil
-        )
-        .frame(height: 400)
-        .background(Color.gray.opacity(0.1))
-    }
+    )
 }

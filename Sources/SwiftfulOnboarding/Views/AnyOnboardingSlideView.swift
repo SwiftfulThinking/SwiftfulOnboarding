@@ -9,16 +9,16 @@ import SwiftUI
 
 struct AnyOnboardingSlideView: View {
 
-    let slideType: OnboardingSlideType
+    let slideType: OnbSlideType
     var onButtonClick: (() -> Void)? = nil
 
     var body: some View {
         switch slideType {
-        case .regular(let title, let subtitle, let image):
+        case .regular(_, let title, let subtitle, let media):
             RegularSlideView(
                 title: title,
                 subtitle: subtitle,
-                image: image,
+                media: media,
                 onButtonClick: onButtonClick
             )
         }
@@ -29,17 +29,28 @@ struct AnyOnboardingSlideView: View {
     VStack(spacing: 24) {
         AnyOnboardingSlideView(
             slideType: .regular(
+                id: "welcome",
                 title: "Welcome",
                 subtitle: "Get started with our app",
-                image: "star.fill"
+                media: .systemIcon(named: "star.fill")
             )
         )
 
         AnyOnboardingSlideView(
             slideType: .regular(
+                id: "features",
                 title: "Features",
                 subtitle: nil,
-                image: nil
+                media: nil
+            )
+        )
+
+        AnyOnboardingSlideView(
+            slideType: .regular(
+                id: "video-demo",
+                title: "Video Demo",
+                subtitle: "Watch our intro",
+                media: .video(urlString: "https://example.com/intro.mp4")
             )
         )
     }
