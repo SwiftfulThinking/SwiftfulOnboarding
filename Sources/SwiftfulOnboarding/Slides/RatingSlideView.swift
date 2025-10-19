@@ -23,11 +23,29 @@ struct RatingSlideView: View {
     var horizontalPaddingContent: CGFloat = 0
     var horizontalPaddingTitle: CGFloat = 40
     var contentSpacing: CGFloat = 24
+    var ratingButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
+    var ratingCornerRadius: CGFloat = 32
+    var ratingButtonOption: OnbRatingButtonOption = .thumbs
+    var ratingFont: Font = .title.weight(.medium)
+    var ratingLabels: RatingFooterLabels? = nil
+    var selectionBehavior: OnbSelectionBehavior = .single()
     var footerData: OnbFooterData = .default
     var ctaText: String = "Continue"
     var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
     var ctaButtonFormatData: OnbButtonFormatData = .default
+    var onRatingTap: ((Int) -> Void)? = nil
     var onButtonClick: (() -> Void)? = nil
+
+    @State private var selectedRating: Int? = nil
+
+    private var shouldShowContinueButton: Bool {
+        switch selectionBehavior {
+        case .single(let autoAdvance):
+            return !autoAdvance
+        case .multi:
+            return true
+        }
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -49,18 +67,49 @@ struct RatingSlideView: View {
                 contentSpacing: contentSpacing
             )
 
-            // Continue button at bottom
-            Text(ctaText)
-                .onbButtonStyle(
-                    style: ctaButtonStyle,
-                    format: ctaButtonFormatData
-                ) {
-                    onButtonClick?()
+            // Rating buttons
+            RatingFooterButton(
+                buttonStyle: ratingButtonStyle,
+                cornerRadius: ratingCornerRadius,
+                buttonOption: ratingButtonOption,
+                font: ratingFont,
+                labels: ratingLabels,
+                selectedRating: selectedRating,
+                onTap: { rating in
+                    selectedRating = rating
+                    onRatingTap?(rating)
+
+                    switch selectionBehavior {
+                    case .single(let autoAdvance):
+                        if autoAdvance {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                onButtonClick?()
+                            }
+                        }
+                    case .multi:
+                        break
+                    }
                 }
-                .padding(.top, footerData.top)
-                .padding(.leading, footerData.leading)
-                .padding(.trailing, footerData.trailing)
-                .padding(.bottom, footerData.bottom)
+            )
+            .padding(.horizontal, 24)
+            .padding(.top, 24)
+
+            // Continue button at bottom
+            if shouldShowContinueButton {
+                Text(ctaText)
+                    .onbButtonStyle(
+                        style: ctaButtonStyle,
+                        isSelected: selectedRating != nil,
+                        format: ctaButtonFormatData
+                    ) {
+                        onButtonClick?()
+                    }
+                    .disabled(selectedRating == nil)
+                    .padding(.top, footerData.top)
+                    .padding(.leading, footerData.leading)
+                    .padding(.trailing, footerData.trailing)
+                    .padding(.bottom, footerData.bottom)
+            }
         }
     }
 }
@@ -77,14 +126,16 @@ struct RatingSlideView: View {
                     title: "Rate Your Experience",
                     subtitle: "How would you rate our app?",
                     media: .systemIcon(named: "star.fill", size: .large),
-                    mediaPosition: .top
+                    mediaPosition: .top,
+                    selectionBehavior: .single(autoAdvance: true)
                 ),
                 .rating(
                     id: "slide2",
                     title: "Food Quality",
                     subtitle: "How was the quality of your meal?",
                     media: .systemIcon(named: "fork.knife", size: .large),
-                    mediaPosition: .top
+                    mediaPosition: .top,
+                    selectionBehavior: .single(autoAdvance: true)
                 ),
                 .rating(
                     id: "slide3",

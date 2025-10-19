@@ -90,7 +90,7 @@ struct AnyOnboardingSlideView: View {
                 ctaButtonFormatData: ctaButtonFormatData,
                 onButtonClick: onButtonClick
             )
-        case .rating(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData):
+        case .rating(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let ratingButtonStyle, let ratingCornerRadius, let ratingButtonOption, let ratingFont, let ratingLabels, let selectionBehavior, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData):
             RatingSlideView(
                 title: title,
                 titleFont: titleFont,
@@ -106,6 +106,12 @@ struct AnyOnboardingSlideView: View {
                 horizontalPaddingContent: horizontalPaddingContent,
                 horizontalPaddingTitle: horizontalPaddingTitle,
                 contentSpacing: contentSpacing,
+                ratingButtonStyle: ratingButtonStyle,
+                ratingCornerRadius: ratingCornerRadius,
+                ratingButtonOption: ratingButtonOption,
+                ratingFont: ratingFont,
+                ratingLabels: ratingLabels,
+                selectionBehavior: selectionBehavior,
                 footerData: footerData,
                 ctaText: ctaText,
                 ctaButtonStyle: ctaButtonStyle,

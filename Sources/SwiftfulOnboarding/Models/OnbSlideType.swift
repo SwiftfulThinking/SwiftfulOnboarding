@@ -101,6 +101,12 @@ enum OnbSlideType: OnbSlideProtocol {
         horizontalPaddingContent: CGFloat = 0,
         horizontalPaddingTitle: CGFloat = 40,
         contentSpacing: CGFloat = 24,
+        ratingButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white),
+        ratingCornerRadius: CGFloat = 32,
+        ratingButtonOption: OnbRatingButtonOption = .thumbs,
+        ratingFont: Font = .title.weight(.medium),
+        ratingLabels: RatingFooterLabels? = nil,
+        selectionBehavior: OnbSelectionBehavior = .single(),
         footerData: OnbFooterData = .default,
         ctaText: String = "Continue",
         ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white),
@@ -115,7 +121,7 @@ enum OnbSlideType: OnbSlideProtocol {
             return id
         case .yesNo(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
-        case .rating(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+        case .rating(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
         }
     }

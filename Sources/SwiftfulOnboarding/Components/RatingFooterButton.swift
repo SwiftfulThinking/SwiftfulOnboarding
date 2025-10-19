@@ -45,7 +45,7 @@ struct RatingFooterButton: View {
 
     var buttonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
     var cornerRadius: CGFloat = 32
-    var buttonOption: OnbRatingButtonOption = .number
+    var buttonOption: OnbRatingButtonOption = .thumbs
     var font: Font = .title.weight(.medium)
     var labels: RatingFooterLabels? = nil
     var selectedRating: Int? = nil
