@@ -29,7 +29,7 @@ struct MultipleChoiceSlideView: View {
     var optionsSpacing: CGFloat = 12
     var optionsButtonStyle: OnbButtonStyleType = .outline(textColor: .blue, borderColor: .blue)
     var selectionBehavior: OnbSelectionBehavior = .single
-    var paddingTop: CGFloat = 40
+    var paddingTop: CGFloat = 24
     var paddingBottom: CGFloat = 0
     var horizontalPaddingContent: CGFloat = 24
     var horizontalPaddingTitle: CGFloat = 40
@@ -43,9 +43,9 @@ struct MultipleChoiceSlideView: View {
     @State private var selectedOptions: Set<String> = []
 
     var body: some View {
-        VStack(spacing: 0) {
-            // Content
-            VStack(spacing: contentSpacing) {
+        if options.count > 4 {
+            // UI with ScrollView
+            VStack(spacing: 0) {
                 // Title/Subtitle at top
                 OnbTitleContent(
                     title: title,
@@ -56,9 +56,11 @@ struct MultipleChoiceSlideView: View {
                     alignment: titleAlignment
                 )
                 .padding(.horizontal, horizontalPaddingTitle)
+                .padding(.top, paddingTop)
+                .padding(.bottom, contentSpacing)
 
-                // Options - in ScrollView if >4
-                if options.count > 4 {
+                ZStack(alignment: .bottom) {
+                    // ScrollView with options
                     ScrollView {
                         VStack(spacing: optionsSpacing) {
                             ForEach(options, id: \.id) { option in
@@ -72,8 +74,53 @@ struct MultipleChoiceSlideView: View {
                             }
                         }
                         .padding(.horizontal, horizontalPaddingContent)
+
+                        // Bottom padding to account for footer
+                        Color.clear
+                            .frame(height: footerPadding.top + 56 + footerPadding.bottom)
                     }
-                } else {
+                    .ignoresSafeArea(edges: .bottom)
+
+                    // Continue button overlaying at bottom
+                    VStack(spacing: 0) {
+                        Text(ctaText)
+                            .onbButtonStyle(
+                                style: ctaButtonStyle
+                            ) {
+                                onButtonClick?()
+                            }
+                            .disabled(selectedOptions.isEmpty)
+                            .padding(.top, footerPadding.top)
+                            .padding(.leading, footerPadding.leading)
+                            .padding(.trailing, footerPadding.trailing)
+                            .padding(.bottom, footerPadding.bottom)
+                    }
+                    .background(
+                        LinearGradient(colors: [
+                            Color(uiColor: .systemBackground).opacity(0.0),
+                            Color(uiColor: .systemBackground).opacity(0.4),
+                            Color(uiColor: .systemBackground).opacity(0.8)
+                        ], startPoint: .top, endPoint: .bottom)
+                    )
+                }
+            }
+        } else {
+            // UI without ScrollView
+            VStack(spacing: 0) {
+                // Content
+                VStack(spacing: contentSpacing) {
+                    // Title/Subtitle at top
+                    OnbTitleContent(
+                        title: title,
+                        titleFont: titleFont,
+                        subtitle: subtitle,
+                        subtitleFont: subtitleFont,
+                        spacing: titleSubtitleSpacing,
+                        alignment: titleAlignment
+                    )
+                    .padding(.horizontal, horizontalPaddingTitle)
+
+                    // Options
                     VStack(spacing: optionsSpacing) {
                         ForEach(options, id: \.id) { option in
                             OnbButtonContent(data: option.content)
@@ -87,24 +134,24 @@ struct MultipleChoiceSlideView: View {
                     }
                     .padding(.horizontal, horizontalPaddingContent)
                 }
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            .padding(.top, paddingTop)
-            .padding(.bottom, paddingBottom)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                .padding(.top, paddingTop)
+                .padding(.bottom, paddingBottom)
 
-            // Continue button at bottom
-            Text(ctaText)
-                .onbButtonStyle(
-                    style: ctaButtonStyle
-                ) {
-                    onButtonClick?()
-                }
-                .disabled(selectedOptions.isEmpty)
-                .opacity(selectedOptions.isEmpty ? 0.5 : 1.0)
-                .padding(.top, footerPadding.top)
-                .padding(.leading, footerPadding.leading)
-                .padding(.trailing, footerPadding.trailing)
-                .padding(.bottom, footerPadding.bottom)
+                // Continue button at bottom
+                Text(ctaText)
+                    .onbButtonStyle(
+                        style: ctaButtonStyle
+                    ) {
+                        onButtonClick?()
+                    }
+                    .disabled(selectedOptions.isEmpty)
+                    .opacity(selectedOptions.isEmpty ? 0.5 : 1.0)
+                    .padding(.top, footerPadding.top)
+                    .padding(.leading, footerPadding.leading)
+                    .padding(.trailing, footerPadding.trailing)
+                    .padding(.bottom, footerPadding.bottom)
+            }
         }
     }
 
@@ -135,6 +182,26 @@ struct MultipleChoiceSlideView: View {
             showBackButton: true,
             slides: [
                 .multipleChoice(
+                    id: "interests",
+                    title: "Select Your Interests",
+                    subtitle: "Choose all that apply",
+                    options: [
+                        OnbChoiceOption(id: "sports", content: OnbButtonContentData(text: "Sports")),
+                        OnbChoiceOption(id: "music", content: OnbButtonContentData(text: "Music")),
+                        OnbChoiceOption(id: "art", content: OnbButtonContentData(text: "Art")),
+                        OnbChoiceOption(id: "tech", content: OnbButtonContentData(text: "Technology")),
+                        OnbChoiceOption(id: "food", content: OnbButtonContentData(text: "Food & Cooking")),
+                        OnbChoiceOption(id: "travel", content: OnbButtonContentData(text: "Travel"))
+                    ],
+                    optionsButtonStyle: .solid(
+                        backgroundColor: .gray,
+                        textColor: .white,
+                        selectedBackgroundColor: .blue,
+                        selectedTextColor: .white
+                    ),
+                    selectionBehavior: .multi
+                ),
+                .multipleChoice(
                     id: "plan",
                     title: "Choose Your Plan",
                     subtitle: "Select one option",
@@ -159,26 +226,6 @@ struct MultipleChoiceSlideView: View {
                         selectedBorderColor: .green
                     ),
                     selectionBehavior: .single
-                ),
-                .multipleChoice(
-                    id: "interests",
-                    title: "Select Your Interests",
-                    subtitle: "Choose all that apply",
-                    options: [
-                        OnbChoiceOption(id: "sports", content: OnbButtonContentData(text: "Sports")),
-                        OnbChoiceOption(id: "music", content: OnbButtonContentData(text: "Music")),
-                        OnbChoiceOption(id: "art", content: OnbButtonContentData(text: "Art")),
-                        OnbChoiceOption(id: "tech", content: OnbButtonContentData(text: "Technology")),
-                        OnbChoiceOption(id: "food", content: OnbButtonContentData(text: "Food & Cooking")),
-                        OnbChoiceOption(id: "travel", content: OnbButtonContentData(text: "Travel"))
-                    ],
-                    optionsButtonStyle: .solid(
-                        backgroundColor: .white,
-                        textColor: .blue,
-                        selectedBackgroundColor: .blue,
-                        selectedTextColor: .white
-                    ),
-                    selectionBehavior: .multi
                 ),
                 .multipleChoice(
                     id: "experience",

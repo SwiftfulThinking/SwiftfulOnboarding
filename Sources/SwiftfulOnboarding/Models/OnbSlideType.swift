@@ -45,7 +45,7 @@ enum OnbSlideType: OnbSlideProtocol {
         optionsSpacing: CGFloat = 12,
         optionsButtonStyle: OnbButtonStyleType = .outline(textColor: .blue, borderColor: .blue),
         selectionBehavior: OnbSelectionBehavior = .single,
-        paddingTop: CGFloat = 40,
+        paddingTop: CGFloat = 24,
         paddingBottom: CGFloat = 0,
         horizontalPaddingContent: CGFloat = 24,
         horizontalPaddingTitle: CGFloat = 40,
