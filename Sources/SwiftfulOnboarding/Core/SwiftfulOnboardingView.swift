@@ -25,6 +25,16 @@ struct SwiftfulOnboardingView: View {
         return viewModel.configuration.backgroundColor
     }
 
+    private var shouldShowBackButton: Bool {
+        guard viewModel.currentIndex >= 0 && viewModel.currentIndex < viewModel.slides.count else {
+            return viewModel.configuration.showBackButton && viewModel.currentIndex > 0
+        }
+        if let override = viewModel.slides[viewModel.currentIndex].showBackButtonOverride {
+            return override
+        }
+        return viewModel.configuration.showBackButton && viewModel.currentIndex > 0
+    }
+
     var body: some View {
         ZStack {
             // Background color
@@ -40,7 +50,7 @@ struct SwiftfulOnboardingView: View {
                     alignment: viewModel.configuration.headerAlignment,
                     currentPage: viewModel.currentIndex + 1,
                     totalPages: viewModel.slides.count,
-                    showBackButton: viewModel.configuration.showBackButton && viewModel.currentIndex > 0
+                    showBackButton: shouldShowBackButton
                 )
 
                 // Content area - ZStack with previous, current, and next slides

@@ -32,7 +32,8 @@ enum OnbSlideType: OnbSlideProtocol {
         ctaText: String = "Continue",
         ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white),
         ctaButtonFormatData: OnbButtonFormatData = .default,
-        backgroundColorOverride: Color? = nil
+        backgroundColorOverride: Color? = nil,
+        showBackButtonOverride: Bool? = nil
     )
     case multipleChoice(
         id: String,
@@ -58,7 +59,8 @@ enum OnbSlideType: OnbSlideProtocol {
         ctaText: String = "Continue",
         ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white),
         ctaButtonFormatData: OnbButtonFormatData = .default,
-        backgroundColorOverride: Color? = nil
+        backgroundColorOverride: Color? = nil,
+        showBackButtonOverride: Bool? = nil
     )
     case yesNo(
         id: String,
@@ -86,7 +88,8 @@ enum OnbSlideType: OnbSlideProtocol {
         ctaText: String = "Continue",
         ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .gray, textColor: .white, selectedBackgroundColor: .blue, selectedTextColor: .white),
         ctaButtonFormatData: OnbButtonFormatData = .default,
-        backgroundColorOverride: Color? = nil
+        backgroundColorOverride: Color? = nil,
+        showBackButtonOverride: Bool? = nil
     )
     case rating(
         id: String,
@@ -114,7 +117,8 @@ enum OnbSlideType: OnbSlideProtocol {
         ctaText: String = "Continue",
         ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white),
         ctaButtonFormatData: OnbButtonFormatData = .default,
-        backgroundColorOverride: Color? = nil
+        backgroundColorOverride: Color? = nil,
+        showBackButtonOverride: Bool? = nil
     )
     case textInput(
         id: String,
@@ -134,7 +138,8 @@ enum OnbSlideType: OnbSlideProtocol {
         ctaText: String = "Continue",
         ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white),
         ctaButtonFormatData: OnbButtonFormatData = .default,
-        backgroundColorOverride: Color? = nil
+        backgroundColorOverride: Color? = nil,
+        showBackButtonOverride: Bool? = nil
     )
     case datePicker(
         id: String,
@@ -160,7 +165,8 @@ enum OnbSlideType: OnbSlideProtocol {
         ctaText: String = "Continue",
         ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white),
         ctaButtonFormatData: OnbButtonFormatData = .default,
-        backgroundColorOverride: Color? = nil
+        backgroundColorOverride: Color? = nil,
+        showBackButtonOverride: Bool? = nil
     )
     case picker(
         id: String,
@@ -183,7 +189,8 @@ enum OnbSlideType: OnbSlideProtocol {
         ctaText: String = "Continue",
         ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white),
         ctaButtonFormatData: OnbButtonFormatData = .default,
-        backgroundColorOverride: Color? = nil
+        backgroundColorOverride: Color? = nil,
+        showBackButtonOverride: Bool? = nil
     )
     case primaryAction(
         id: String,
@@ -210,48 +217,70 @@ enum OnbSlideType: OnbSlideProtocol {
         secondaryButtonFormatData: OnbButtonFormatData = .default,
         secondaryButtonSpacing: CGFloat = 12,
         onDidPressPrimaryButton: ((@escaping () -> Void) -> Void)? = nil,
-        backgroundColorOverride: Color? = nil
+        backgroundColorOverride: Color? = nil,
+        showBackButtonOverride: Bool? = nil
     )
 
     var id: String {
         switch self {
-        case .regular(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+        case .regular(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
-        case .multipleChoice(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+        case .multipleChoice(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
-        case .yesNo(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+        case .yesNo(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
-        case .rating(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+        case .rating(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
-        case .textInput(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+        case .textInput(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
-        case .datePicker(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+        case .datePicker(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
-        case .picker(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+        case .picker(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
-        case .primaryAction(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+        case .primaryAction(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
         }
     }
 
     var backgroundColorOverride: Color? {
         switch self {
-        case .regular(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColorOverride):
+        case .regular(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColorOverride, _):
             return backgroundColorOverride
-        case .multipleChoice(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColorOverride):
+        case .multipleChoice(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColorOverride, _):
             return backgroundColorOverride
-        case .yesNo(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColorOverride):
+        case .yesNo(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColorOverride, _):
             return backgroundColorOverride
-        case .rating(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColorOverride):
+        case .rating(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColorOverride, _):
             return backgroundColorOverride
-        case .textInput(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColorOverride):
+        case .textInput(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColorOverride, _):
             return backgroundColorOverride
-        case .datePicker(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColorOverride):
+        case .datePicker(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColorOverride, _):
             return backgroundColorOverride
-        case .picker(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColorOverride):
+        case .picker(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColorOverride, _):
             return backgroundColorOverride
-        case .primaryAction(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColorOverride):
+        case .primaryAction(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColorOverride, _):
             return backgroundColorOverride
+        }
+    }
+
+    var showBackButtonOverride: Bool? {
+        switch self {
+        case .regular(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let showBackButtonOverride):
+            return showBackButtonOverride
+        case .multipleChoice(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let showBackButtonOverride):
+            return showBackButtonOverride
+        case .yesNo(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let showBackButtonOverride):
+            return showBackButtonOverride
+        case .rating(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let showBackButtonOverride):
+            return showBackButtonOverride
+        case .textInput(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let showBackButtonOverride):
+            return showBackButtonOverride
+        case .datePicker(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let showBackButtonOverride):
+            return showBackButtonOverride
+        case .picker(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let showBackButtonOverride):
+            return showBackButtonOverride
+        case .primaryAction(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let showBackButtonOverride):
+            return showBackButtonOverride
         }
     }
 }
