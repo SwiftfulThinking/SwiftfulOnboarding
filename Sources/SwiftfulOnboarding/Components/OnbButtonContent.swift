@@ -7,8 +7,14 @@
 
 import SwiftUI
 
+enum OnbCheckboxStyle {
+    case circle
+    case square
+}
+
 enum OnbButtonSecondaryContent {
     case emoji(String)
+    case checkbox(style: OnbCheckboxStyle, isChecked: Bool = false, borderColor: Color = .gray, fillColor: Color = .blue)
 }
 
 enum OnbButtonSecondaryContentPlacement {
@@ -118,13 +124,50 @@ struct OnbButtonContent: View {
         switch content {
         case .emoji(let emoji):
             Text(emoji)
+        case .checkbox(let style, let isChecked, let borderColor, let fillColor):
+            checkboxView(style: style, isChecked: isChecked, borderColor: borderColor, fillColor: fillColor)
         }
+    }
+
+    @ViewBuilder
+    private func checkboxView(style: OnbCheckboxStyle, isChecked: Bool, borderColor: Color, fillColor: Color) -> some View {
+        ZStack {
+            switch style {
+            case .circle:
+                Circle()
+                    .stroke(borderColor, lineWidth: 2)
+                    .frame(width: 20, height: 20)
+
+                if isChecked {
+                    Circle()
+                        .fill(fillColor)
+                        .frame(width: 14, height: 14)
+                }
+
+            case .square:
+                RoundedRectangle(cornerRadius: 4)
+                    .stroke(borderColor, lineWidth: 2)
+                    .frame(width: 20, height: 20)
+
+                if isChecked {
+                    Image(systemName: "checkmark")
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundColor(fillColor)
+                }
+            }
+        }
+        .frame(width: 20, height: 20)
     }
 }
 
 #Preview {
-    ScrollView {
-        VStack(spacing: 32) {
+    struct PreviewContent: View {
+        @State private var isTermsAccepted: Bool = false
+        @State private var isOptionSelected: Bool = false
+
+        var body: some View {
+            ScrollView {
+                VStack(spacing: 32) {
         // Basic text examples
         OnbButtonContent(text: "Continue")
 
@@ -233,6 +276,65 @@ struct OnbButtonContent: View {
             print("Settings tapped")
         }
 
+                    // With checkboxes (interactive)
+                    Divider()
+
+                    Text("Interactive Checkboxes")
+                        .font(.headline)
+
+                    OnbButtonContent(
+                        text: "Accept Terms",
+                        secondaryContent: .checkbox(style: .square, isChecked: isTermsAccepted, borderColor: .gray, fillColor: .green),
+                        secondaryContentPlacement: .leading
+                    )
+                    .onbButtonStyle(
+                        style: .outline(textColor: .black, borderColor: .gray),
+                        isSelected: isTermsAccepted
+                    ) {
+                        isTermsAccepted.toggle()
+                        print("Accept Terms toggled: \(isTermsAccepted)")
+                    }
+
+                    OnbButtonContent(
+                        text: "Select Option",
+                        secondaryContent: .checkbox(style: .circle, isChecked: isOptionSelected, borderColor: .blue, fillColor: .blue),
+                        secondaryContentPlacement: .leading
+                    )
+                    .onbButtonStyle(
+                        style: .outline(textColor: .blue, borderColor: .blue, selectedTextColor: .blue, selectedBorderColor: .blue),
+                        isSelected: isOptionSelected
+                    ) {
+                        isOptionSelected.toggle()
+                        print("Select Option toggled: \(isOptionSelected)")
+                    }
+
+                    // Static examples
+                    Text("Static Examples")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+
+                    OnbButtonContent(
+                        text: "Custom Colors",
+                        secondaryContent: .checkbox(style: .square, isChecked: false, borderColor: .purple, fillColor: .purple),
+                        secondaryContentPlacement: .leading
+                    )
+                    .onbButtonStyle(
+                        style: .outline(textColor: .purple, borderColor: .purple)
+                    ) {
+                        print("Custom colors square tapped")
+                    }
+
+                    OnbButtonContent(
+                        text: "Orange Circle",
+                        secondaryContent: .checkbox(style: .circle, isChecked: true, borderColor: .orange, fillColor: .orange),
+                        secondaryContentPlacement: .leading
+                    )
+                    .onbButtonStyle(
+                        style: .solid(backgroundColor: .orange, textColor: .white)
+                    ) {
+                        print("Orange circle tapped")
+                    }
+
         // With horizontal padding
         Divider()
 
@@ -261,9 +363,13 @@ struct OnbButtonContent: View {
         .onbButtonStyle(
             style: .outline(textColor: .blue, borderColor: .blue)
         ) {
-            print("Menu item tapped")
+                        print("Menu item tapped")
+                    }
+                }
+                .padding()
+            }
         }
-        }
-        .padding()
     }
+
+    return PreviewContent()
 }
