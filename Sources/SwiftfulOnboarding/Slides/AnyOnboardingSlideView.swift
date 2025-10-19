@@ -14,11 +14,15 @@ struct AnyOnboardingSlideView: View {
 
     var body: some View {
         switch slideType {
-        case .regular(_, let title, let subtitle, let media):
+        case .regular(_, let title, let subtitle, let media, let mediaSize, let mediaPosition, let ctaText, let ctaButtonStyle):
             RegularSlideView(
                 title: title,
                 subtitle: subtitle,
                 media: media,
+                mediaSize: mediaSize,
+                mediaPosition: mediaPosition,
+                ctaText: ctaText,
+                ctaButtonStyle: ctaButtonStyle,
                 onButtonClick: onButtonClick
             )
         }

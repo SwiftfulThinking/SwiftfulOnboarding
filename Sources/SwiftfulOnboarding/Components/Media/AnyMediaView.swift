@@ -11,7 +11,6 @@ import SDWebImageSwiftUI
 struct AnyMediaView: View {
 
     let media: OnbMediaType
-    var cornerRadius: CGFloat = 0
 
     var body: some View {
         switch media {
@@ -20,10 +19,11 @@ struct AnyMediaView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
 
-        case .image(let urlString):
+        case .image(let urlString, let cornerRadius):
             ImageLoaderView(urlString: urlString)
+                .cornerRadius(cornerRadius)
 
-        case .video(let urlString, let loop):
+        case .video(let urlString, let loop, let cornerRadius):
             VideoLoaderView(
                 urlString: urlString,
                 useSwiftUIVideoPlayer: false,
@@ -31,7 +31,7 @@ struct AnyMediaView: View {
                 cornerRadius: cornerRadius
             )
 
-        case .lottie(let urlString, let loopMode):
+        case .lottie(let urlString, let loopMode, let cornerRadius):
             LottieLoaderView(
                 urlString: urlString,
                 loopMode: loopMode,
@@ -56,14 +56,14 @@ struct AnyMediaView: View {
         AnyMediaView(media: .systemIcon(named: "person.circle.fill"))
             .frame(width: 64, height: 64)
 
-        // Large size
-        AnyMediaView(media: .image(urlString: "https://picsum.photos/600/600"))
+        // Large size with corner radius
+        AnyMediaView(media: .image(urlString: "https://picsum.photos/600/600", cornerRadius: 12))
             .frame(width: 120, height: 120)
 
-        AnyMediaView(media: .video(urlString: "https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8"))
+        AnyMediaView(media: .video(urlString: "https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8", cornerRadius: 16))
             .frame(width: 200, height: 120)
 
-        AnyMediaView(media: .lottie(urlString: "https://lottie.host/94e07a1d-7159-4ed1-b7ba-6e0dc5f96ab2/xHR9ygBKCu.json"))
+        AnyMediaView(media: .lottie(urlString: "https://lottie.host/94e07a1d-7159-4ed1-b7ba-6e0dc5f96ab2/xHR9ygBKCu.json", cornerRadius: 8))
             .frame(width: 120, height: 120)
     }
     .padding()
