@@ -20,6 +20,11 @@ enum OnbButtonPressStyle {
     case tap
 }
 
+enum OnbButtonHeight {
+    case fixed(CGFloat)
+    case verticalPadding(CGFloat)
+}
+
 struct OnbButtonStyle: ButtonStyle {
 
     var style: OnbButtonStyleType
@@ -28,9 +33,23 @@ struct OnbButtonStyle: ButtonStyle {
 
     // Typography and sizing
     var font: Font = .headline
-    var height: CGFloat = 56
+    var height: OnbButtonHeight = .verticalPadding(12)
     var cornerRadius: CGFloat = 12
     var horizontalPadding: CGFloat = 16
+
+    private var fixedHeight: CGFloat? {
+        switch height {
+        case .fixed(let value): return value
+        case .verticalPadding: return nil
+        }
+    }
+
+    private var verticalPadding: CGFloat? {
+        switch height {
+        case .fixed: return nil
+        case .verticalPadding(let padding): return padding
+        }
+    }
 
     func makeBody(configuration: Configuration) -> some View {
         let scaleAmount: CGFloat = {
@@ -64,7 +83,8 @@ struct OnbButtonStyle: ButtonStyle {
                 .font(font)
                 .foregroundColor(currentTextColor)
                 .frame(maxWidth: .infinity)
-                .frame(height: height)
+                .padding(.vertical, verticalPadding)
+                .frame(height: fixedHeight)
                 .padding(.horizontal, horizontalPadding)
                 .background(currentBackgroundColor)
                 .cornerRadius(cornerRadius)
@@ -80,7 +100,8 @@ struct OnbButtonStyle: ButtonStyle {
                 .font(font)
                 .foregroundColor(currentTextColor)
                 .frame(maxWidth: .infinity)
-                .frame(height: height)
+                .padding(.vertical, verticalPadding)
+                .frame(height: fixedHeight)
                 .background(Color.black.opacity(0.001))
                 .padding(.horizontal, horizontalPadding)
                 .overlay(
@@ -100,7 +121,8 @@ struct OnbButtonStyle: ButtonStyle {
                 .font(font)
                 .foregroundColor(currentTextColor)
                 .frame(maxWidth: .infinity)
-                .frame(height: height)
+                .padding(.vertical, verticalPadding)
+                .frame(height: fixedHeight)
                 .padding(.horizontal, horizontalPadding)
                 .background(currentBackgroundColor)
                 .overlay(
@@ -122,14 +144,12 @@ struct OnbButtonStyle: ButtonStyle {
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .fill(currentShadowColor.opacity(0.4))
                     .frame(maxWidth: .infinity)
-                    .frame(height: height)
                     .offset(y: 4)
 
                 // Main button (moves down when pressed)
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .fill(currentBackgroundColor)
                     .frame(maxWidth: .infinity)
-                    .frame(height: height)
                     .offset(y: configuration.isPressed ? 3 : 0)
 
                 // Top highlight (moves with main button)
@@ -145,7 +165,6 @@ struct OnbButtonStyle: ButtonStyle {
                         )
                     )
                     .frame(maxWidth: .infinity)
-                    .frame(height: height)
                     .offset(y: configuration.isPressed ? 3 : 0)
 
                 // Label (moves with main button)
@@ -153,10 +172,11 @@ struct OnbButtonStyle: ButtonStyle {
                     .font(font.weight(.bold))
                     .foregroundColor(currentTextColor)
                     .padding(.horizontal, horizontalPadding)
+                    .padding(.vertical, verticalPadding)
+                    .frame(height: fixedHeight)
                     .offset(y: configuration.isPressed ? 3 : 0)
             }
             .frame(maxWidth: .infinity)
-            .frame(height: height)
             .animation(.easeInOut(duration: 0.2), value: isSelected)
         }
     }
@@ -169,7 +189,7 @@ extension View {
         isSelected: Bool = false,
         pressStyle: OnbButtonPressStyle = .press,
         font: Font = .headline,
-        height: CGFloat = 56,
+        height: OnbButtonHeight = .verticalPadding(12),
         cornerRadius: CGFloat = 12,
         horizontalPadding: CGFloat = 16,
         action: @escaping () -> Void
@@ -313,7 +333,7 @@ extension View {
                             style: .outline(textColor: .pink, borderColor: .pink, selectedTextColor: .red, selectedBorderColor: .red),
                             isSelected: isSelected,
                             font: .subheadline,
-                            height: 40,
+                            height: .fixed(40),
                             cornerRadius: 8
                         ) {
                             isSelected.toggle()
@@ -324,7 +344,7 @@ extension View {
                         .onbButtonStyle(
                             style: .duolingo(backgroundColor: .purple, textColor: .white, shadowColor: .purple, selectedBackgroundColor: .indigo, selectedTextColor: .white, selectedShadowColor: .indigo),
                             isSelected: isSelected,
-                            height: 72,
+                            height: .fixed(72),
                             cornerRadius: 100
                         ) {
                             isSelected.toggle()

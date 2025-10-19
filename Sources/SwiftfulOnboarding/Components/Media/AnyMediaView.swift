@@ -14,16 +14,16 @@ struct AnyMediaView: View {
 
     var body: some View {
         switch media {
-        case .systemIcon(let named):
+        case .systemIcon(let named, _):
             Image(systemName: named)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
 
-        case .image(let urlString, let cornerRadius):
+        case .image(let urlString, _, let cornerRadius):
             ImageLoaderView(urlString: urlString)
                 .cornerRadius(cornerRadius)
 
-        case .video(let urlString, let loop, let cornerRadius):
+        case .video(let urlString, _, let loop, let cornerRadius):
             VideoLoaderView(
                 urlString: urlString,
                 useSwiftUIVideoPlayer: false,
@@ -31,7 +31,7 @@ struct AnyMediaView: View {
                 cornerRadius: cornerRadius
             )
 
-        case .lottie(let urlString, let loopMode, let cornerRadius):
+        case .lottie(let urlString, _, let loopMode, let cornerRadius):
             LottieLoaderView(
                 urlString: urlString,
                 loopMode: loopMode,

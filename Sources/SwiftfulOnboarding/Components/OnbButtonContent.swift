@@ -30,22 +30,33 @@ enum OnbButtonTextPlacement {
     case leading
 }
 
+enum OnbMediaContentPlacement {
+    case top
+    case bottom
+}
+
 struct OnbButtonContentData {
     var text: String
     var textPlacement: OnbButtonTextPlacement
     var secondaryContent: OnbButtonSecondaryContent?
     var secondaryContentPlacement: OnbButtonSecondaryContentPlacement
+    var mediaContent: OnbMediaType?
+    var mediaContentPlacement: OnbMediaContentPlacement
 
     init(
         text: String,
         textPlacement: OnbButtonTextPlacement = .center,
         secondaryContent: OnbButtonSecondaryContent? = nil,
-        secondaryContentPlacement: OnbButtonSecondaryContentPlacement = .trailing
+        secondaryContentPlacement: OnbButtonSecondaryContentPlacement = .trailing,
+        mediaContent: OnbMediaType? = nil,
+        mediaContentPlacement: OnbMediaContentPlacement = .top
     ) {
         self.text = text
         self.textPlacement = textPlacement
         self.secondaryContent = secondaryContent
         self.secondaryContentPlacement = secondaryContentPlacement
+        self.mediaContent = mediaContent
+        self.mediaContentPlacement = mediaContentPlacement
     }
 }
 
@@ -59,33 +70,58 @@ struct OnbButtonContent: View {
     }
 
     var body: some View {
-        Group {
-            if let secondaryContent = data.secondaryContent {
-                switch data.secondaryContentPlacement {
-                case .leading:
-                    leadingView(secondaryContent: secondaryContent)
-                case .centerLeading:
-                    centerLeadingView(secondaryContent: secondaryContent)
-                case .centerTrailing:
-                    centerTrailingView(secondaryContent: secondaryContent)
-                case .trailing:
-                    trailingView(secondaryContent: secondaryContent)
+        if let mediaContent = data.mediaContent {
+            VStack(spacing: 8) {
+                if data.mediaContentPlacement == .top {
+                    mediaContentView(mediaContent)
                 }
-            } else {
-                switch data.textPlacement {
-                case .center:
+
+                mainContent
+
+                if data.mediaContentPlacement == .bottom {
+                    mediaContentView(mediaContent)
+                }
+            }
+            .padding(.horizontal, horizontalPadding)
+        } else {
+            mainContent
+                .padding(.horizontal, horizontalPadding)
+        }
+    }
+
+    @ViewBuilder
+    private var mainContent: some View {
+        if let secondaryContent = data.secondaryContent {
+            switch data.secondaryContentPlacement {
+            case .leading:
+                leadingView(secondaryContent: secondaryContent)
+            case .centerLeading:
+                centerLeadingView(secondaryContent: secondaryContent)
+            case .centerTrailing:
+                centerTrailingView(secondaryContent: secondaryContent)
+            case .trailing:
+                trailingView(secondaryContent: secondaryContent)
+            }
+        } else {
+            switch data.textPlacement {
+            case .center:
+                Text(data.text)
+                    .multilineTextAlignment(multilineTextAlignment)
+            case .leading:
+                HStack {
                     Text(data.text)
                         .multilineTextAlignment(multilineTextAlignment)
-                case .leading:
-                    HStack {
-                        Text(data.text)
-                            .multilineTextAlignment(multilineTextAlignment)
-                        Spacer()
-                    }
+                    Spacer()
                 }
             }
         }
-        .padding(.horizontal, horizontalPadding)
+    }
+
+    @ViewBuilder
+    private func mediaContentView(_ media: OnbMediaType) -> some View {
+        let frameSize = media.size.frame
+        AnyMediaView(media: media)
+            .frame(width: frameSize.width, height: frameSize.height)
     }
 
     @ViewBuilder
@@ -375,8 +411,8 @@ struct OnbButtonContent: View {
                         data: OnbButtonContentData(
                             text: "Settings",
                             textPlacement: .leading,
-                            secondaryContent: .media(media: .image(urlString: "https://picsum.photos/600/600")),
-                            secondaryContentPlacement: .leading
+                            mediaContent: .image(urlString: "https://picsum.photos/600/600"),
+                            mediaContentPlacement: .top
                         )
                     )
                     .onbButtonStyle(
@@ -388,8 +424,8 @@ struct OnbButtonContent: View {
                     OnbButtonContent(
                         data: OnbButtonContentData(
                             text: "Profile",
-                            secondaryContent: .media(media: .systemIcon(named: "person.circle.fill")),
-                            secondaryContentPlacement: .leading
+                            mediaContent: .systemIcon(named: "person.circle.fill"),
+                            mediaContentPlacement: .top
                         )
                     )
                     .onbButtonStyle(
@@ -401,8 +437,8 @@ struct OnbButtonContent: View {
                     OnbButtonContent(
                         data: OnbButtonContentData(
                             text: "Share",
-                            secondaryContent: .media(media: .systemIcon(named: "square.and.arrow.up")),
-                            secondaryContentPlacement: .trailing
+                            mediaContent: .systemIcon(named: "square.and.arrow.up"),
+                            mediaContentPlacement: .bottom
                         )
                     )
                     .onbButtonStyle(
@@ -487,13 +523,13 @@ struct OnbButtonContent: View {
             data: OnbButtonContentData(
                 text: "Large Button",
                 textPlacement: .leading,
-                secondaryContent: .media(media: .image(urlString: "https://picsum.photos/600/600", size: .large)),
-                secondaryContentPlacement: .leading
+                mediaContent: .image(urlString: "https://picsum.photos/600/600", size: .large),
+                mediaContentPlacement: .top
             )
         )
         .onbButtonStyle(
             style: .solid(backgroundColor: .purple, textColor: .white),
-            height: 150
+            height: .fixed(150)
         ) {
             print("Large button with large media tapped")
         }

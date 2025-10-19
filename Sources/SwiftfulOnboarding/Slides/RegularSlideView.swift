@@ -103,13 +103,13 @@ struct OnbFooterData {
 struct OnbButtonFormatData {
     var pressStyle: OnbButtonPressStyle
     var font: Font
-    var height: CGFloat
+    var height: OnbButtonHeight
     var cornerRadius: CGFloat
 
     static let `default` = OnbButtonFormatData(
         pressStyle: .press,
         font: .headline,
-        height: 56,
+        height: .verticalPadding(12),
         cornerRadius: 12
     )
 }

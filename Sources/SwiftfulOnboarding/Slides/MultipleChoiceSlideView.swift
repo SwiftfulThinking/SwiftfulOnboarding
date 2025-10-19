@@ -272,8 +272,8 @@ struct MultipleChoiceSlideView: View {
                             content: OnbButtonContentData(
                                 text: "Nature",
                                 textPlacement: .leading,
-                                secondaryContent: .media(media: .image(urlString: "https://picsum.photos/600/600")),
-                                secondaryContentPlacement: .leading
+                                mediaContent: .image(urlString: "https://picsum.photos/600/600"),
+                                mediaContentPlacement: .top
                             )
                         ),
                         OnbChoiceOption(
@@ -281,8 +281,8 @@ struct MultipleChoiceSlideView: View {
                             content: OnbButtonContentData(
                                 text: "Urban",
                                 textPlacement: .leading,
-                                secondaryContent: .media(media: .image(urlString: "https://picsum.photos/600/600")),
-                                secondaryContentPlacement: .leading
+                                mediaContent: .image(urlString: "https://picsum.photos/600/600"),
+                                mediaContentPlacement: .top
                             )
                         ),
                         OnbChoiceOption(
@@ -290,8 +290,8 @@ struct MultipleChoiceSlideView: View {
                             content: OnbButtonContentData(
                                 text: "Minimal",
                                 textPlacement: .leading,
-                                secondaryContent: .media(media: .image(urlString: "https://picsum.photos/600/600")),
-                                secondaryContentPlacement: .leading
+                                mediaContent: .image(urlString: "https://picsum.photos/600/600"),
+                                mediaContentPlacement: .top
                             )
                         ),
                         OnbChoiceOption(
@@ -299,8 +299,8 @@ struct MultipleChoiceSlideView: View {
                             content: OnbButtonContentData(
                                 text: "Colorful",
                                 textPlacement: .leading,
-                                secondaryContent: .media(media: .image(urlString: "https://picsum.photos/600/600")),
-                                secondaryContentPlacement: .leading
+                                mediaContent: .image(urlString: "https://picsum.photos/600/600"),
+                                mediaContentPlacement: .top
                             )
                         )
                     ],
