@@ -30,18 +30,34 @@ enum OnbButtonTextPlacement {
     case leading
 }
 
+struct OnbButtonContentData {
+    var text: String
+    var textPlacement: OnbButtonTextPlacement
+    var secondaryContent: OnbButtonSecondaryContent?
+    var secondaryContentPlacement: OnbButtonSecondaryContentPlacement
+
+    init(
+        text: String,
+        textPlacement: OnbButtonTextPlacement = .center,
+        secondaryContent: OnbButtonSecondaryContent? = nil,
+        secondaryContentPlacement: OnbButtonSecondaryContentPlacement = .trailing
+    ) {
+        self.text = text
+        self.textPlacement = textPlacement
+        self.secondaryContent = secondaryContent
+        self.secondaryContentPlacement = secondaryContentPlacement
+    }
+}
+
 struct OnbButtonContent: View {
 
-    let text: String
-    var textPlacement: OnbButtonTextPlacement = .center
-    var secondaryContent: OnbButtonSecondaryContent? = nil
-    var secondaryContentPlacement: OnbButtonSecondaryContentPlacement = .trailing
+    var data: OnbButtonContentData
     var horizontalPadding: CGFloat = 12
 
     var body: some View {
         Group {
-            if let secondaryContent = secondaryContent {
-                switch secondaryContentPlacement {
+            if let secondaryContent = data.secondaryContent {
+                switch data.secondaryContentPlacement {
                 case .leading:
                     leadingView(secondaryContent: secondaryContent)
                 case .centerLeading:
@@ -52,12 +68,12 @@ struct OnbButtonContent: View {
                     trailingView(secondaryContent: secondaryContent)
                 }
             } else {
-                switch textPlacement {
+                switch data.textPlacement {
                 case .center:
-                    Text(text)
+                    Text(data.text)
                 case .leading:
                     HStack {
-                        Text(text)
+                        Text(data.text)
                         Spacer()
                     }
                 }
@@ -68,10 +84,10 @@ struct OnbButtonContent: View {
 
     @ViewBuilder
     private func leadingView(secondaryContent: OnbButtonSecondaryContent) -> some View {
-        switch textPlacement {
+        switch data.textPlacement {
         case .center:
             ZStack {
-                Text(text)
+                Text(data.text)
 
                 secondaryContentView(secondaryContent)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -79,7 +95,7 @@ struct OnbButtonContent: View {
         case .leading:
             HStack(spacing: 8) {
                 secondaryContentView(secondaryContent)
-                Text(text)
+                Text(data.text)
                 Spacer()
             }
         }
@@ -89,31 +105,31 @@ struct OnbButtonContent: View {
     private func centerLeadingView(secondaryContent: OnbButtonSecondaryContent) -> some View {
         HStack(spacing: 8) {
             secondaryContentView(secondaryContent)
-            Text(text)
+            Text(data.text)
         }
     }
 
     @ViewBuilder
     private func centerTrailingView(secondaryContent: OnbButtonSecondaryContent) -> some View {
         HStack(spacing: 8) {
-            Text(text)
+            Text(data.text)
             secondaryContentView(secondaryContent)
         }
     }
 
     @ViewBuilder
     private func trailingView(secondaryContent: OnbButtonSecondaryContent) -> some View {
-        switch textPlacement {
+        switch data.textPlacement {
         case .center:
             ZStack {
-                Text(text)
+                Text(data.text)
 
                 secondaryContentView(secondaryContent)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
         case .leading:
             HStack(spacing: 8) {
-                Text(text)
+                Text(data.text)
                 secondaryContentView(secondaryContent)
                 Spacer()
             }
@@ -173,33 +189,41 @@ struct OnbButtonContent: View {
             ScrollView {
                 VStack(spacing: 32) {
         // Basic text examples
-        OnbButtonContent(text: "Continue")
+        OnbButtonContent(data: OnbButtonContentData(text: "Continue"))
 
-        OnbButtonContent(text: "Get Started")
+        OnbButtonContent(data: OnbButtonContentData(text: "Get Started"))
 
-        OnbButtonContent(text: "Sign Up")
+        OnbButtonContent(data: OnbButtonContentData(text: "Sign Up"))
 
         // With emoji
         OnbButtonContent(
-            text: "Continue",
-            secondaryContent: .emoji("→")
+            data: OnbButtonContentData(
+                text: "Continue",
+                secondaryContent: .emoji("→")
+            )
         )
 
         OnbButtonContent(
-            text: "Get Started",
-            secondaryContent: .emoji("🚀")
+            data: OnbButtonContentData(
+                text: "Get Started",
+                secondaryContent: .emoji("🚀")
+            )
         )
 
         OnbButtonContent(
-            text: "Sign Up",
-            secondaryContent: .emoji("✨")
+            data: OnbButtonContentData(
+                text: "Sign Up",
+                secondaryContent: .emoji("✨")
+            )
         )
 
         // Different placement options
         OnbButtonContent(
-            text: "Leading",
-            secondaryContent: .emoji("←"),
-            secondaryContentPlacement: .leading
+            data: OnbButtonContentData(
+                text: "Leading",
+                secondaryContent: .emoji("←"),
+                secondaryContentPlacement: .leading
+            )
         )
         .onbButtonStyle(
             style: .solid(backgroundColor: .blue, textColor: .white)
@@ -208,9 +232,11 @@ struct OnbButtonContent: View {
         }
 
         OnbButtonContent(
-            text: "Center Leading",
-            secondaryContent: .emoji("💫"),
-            secondaryContentPlacement: .centerLeading
+            data: OnbButtonContentData(
+                text: "Center Leading",
+                secondaryContent: .emoji("💫"),
+                secondaryContentPlacement: .centerLeading
+            )
         )
         .onbButtonStyle(
             style: .solid(backgroundColor: .purple, textColor: .white)
@@ -219,9 +245,11 @@ struct OnbButtonContent: View {
         }
 
         OnbButtonContent(
-            text: "Center Trailing",
-            secondaryContent: .emoji("✨"),
-            secondaryContentPlacement: .centerTrailing
+            data: OnbButtonContentData(
+                text: "Center Trailing",
+                secondaryContent: .emoji("✨"),
+                secondaryContentPlacement: .centerTrailing
+            )
         )
         .onbButtonStyle(
             style: .solid(backgroundColor: .orange, textColor: .white)
@@ -230,9 +258,11 @@ struct OnbButtonContent: View {
         }
 
         OnbButtonContent(
-            text: "Trailing",
-            secondaryContent: .emoji("→"),
-            secondaryContentPlacement: .trailing
+            data: OnbButtonContentData(
+                text: "Trailing",
+                secondaryContent: .emoji("→"),
+                secondaryContentPlacement: .trailing
+            )
         )
         .onbButtonStyle(
             style: .solid(backgroundColor: .green, textColor: .white)
@@ -247,10 +277,12 @@ struct OnbButtonContent: View {
             .font(.headline)
 
         OnbButtonContent(
-            text: "Back",
-            textPlacement: .leading,
-            secondaryContent: .emoji("⬅️"),
-            secondaryContentPlacement: .leading
+            data: OnbButtonContentData(
+                text: "Back",
+                textPlacement: .leading,
+                secondaryContent: .emoji("⬅️"),
+                secondaryContentPlacement: .leading
+            )
         )
         .onbButtonStyle(
             style: .outline(textColor: .blue, borderColor: .blue)
@@ -259,10 +291,12 @@ struct OnbButtonContent: View {
         }
 
         OnbButtonContent(
-            text: "Continue",
-            textPlacement: .leading,
-            secondaryContent: .emoji("→"),
-            secondaryContentPlacement: .trailing
+            data: OnbButtonContentData(
+                text: "Continue",
+                textPlacement: .leading,
+                secondaryContent: .emoji("→"),
+                secondaryContentPlacement: .trailing
+            )
         )
         .onbButtonStyle(
             style: .solid(backgroundColor: .blue, textColor: .white)
@@ -271,8 +305,10 @@ struct OnbButtonContent: View {
         }
 
         OnbButtonContent(
-            text: "Settings",
-            textPlacement: .leading
+            data: OnbButtonContentData(
+                text: "Settings",
+                textPlacement: .leading
+            )
         )
         .onbButtonStyle(
             style: .outline(textColor: .gray, borderColor: .gray)
@@ -287,9 +323,11 @@ struct OnbButtonContent: View {
                         .font(.headline)
 
                     OnbButtonContent(
-                        text: "Accept Terms",
-                        secondaryContent: .checkbox(style: .square, isChecked: isTermsAccepted, borderColor: .gray, fillColor: .green),
-                        secondaryContentPlacement: .leading
+                        data: OnbButtonContentData(
+                            text: "Accept Terms",
+                            secondaryContent: .checkbox(style: .square, isChecked: isTermsAccepted, borderColor: .gray, fillColor: .green),
+                            secondaryContentPlacement: .leading
+                        )
                     )
                     .onbButtonStyle(
                         style: .outline(textColor: .black, borderColor: .gray),
@@ -300,9 +338,11 @@ struct OnbButtonContent: View {
                     }
 
                     OnbButtonContent(
-                        text: "Select Option",
-                        secondaryContent: .checkbox(style: .circle, isChecked: isOptionSelected, borderColor: .blue, fillColor: .blue),
-                        secondaryContentPlacement: .leading
+                        data: OnbButtonContentData(
+                            text: "Select Option",
+                            secondaryContent: .checkbox(style: .circle, isChecked: isOptionSelected, borderColor: .blue, fillColor: .blue),
+                            secondaryContentPlacement: .leading
+                        )
                     )
                     .onbButtonStyle(
                         style: .outline(textColor: .blue, borderColor: .blue, selectedTextColor: .blue, selectedBorderColor: .blue),
@@ -319,10 +359,12 @@ struct OnbButtonContent: View {
                         .font(.headline)
 
                     OnbButtonContent(
-                        text: "Settings",
-                        textPlacement: .leading,
-                        secondaryContent: .media(media: .image(urlString: "https://picsum.photos/600/600")),
-                        secondaryContentPlacement: .leading
+                        data: OnbButtonContentData(
+                            text: "Settings",
+                            textPlacement: .leading,
+                            secondaryContent: .media(media: .image(urlString: "https://picsum.photos/600/600")),
+                            secondaryContentPlacement: .leading
+                        )
                     )
                     .onbButtonStyle(
                         style: .outline(textColor: .gray, borderColor: .gray)
@@ -331,9 +373,11 @@ struct OnbButtonContent: View {
                     }
 
                     OnbButtonContent(
-                        text: "Profile",
-                        secondaryContent: .media(media: .systemIcon(named: "person.circle.fill")),
-                        secondaryContentPlacement: .leading
+                        data: OnbButtonContentData(
+                            text: "Profile",
+                            secondaryContent: .media(media: .systemIcon(named: "person.circle.fill")),
+                            secondaryContentPlacement: .leading
+                        )
                     )
                     .onbButtonStyle(
                         style: .solid(backgroundColor: .blue, textColor: .white)
@@ -342,9 +386,11 @@ struct OnbButtonContent: View {
                     }
 
                     OnbButtonContent(
-                        text: "Share",
-                        secondaryContent: .media(media: .systemIcon(named: "square.and.arrow.up")),
-                        secondaryContentPlacement: .trailing
+                        data: OnbButtonContentData(
+                            text: "Share",
+                            secondaryContent: .media(media: .systemIcon(named: "square.and.arrow.up")),
+                            secondaryContentPlacement: .trailing
+                        )
                     )
                     .onbButtonStyle(
                         style: .outline(textColor: .blue, borderColor: .blue)
@@ -358,9 +404,11 @@ struct OnbButtonContent: View {
                         .foregroundColor(.gray)
 
                     OnbButtonContent(
-                        text: "Custom Colors",
-                        secondaryContent: .checkbox(style: .square, isChecked: false, borderColor: .purple, fillColor: .purple),
-                        secondaryContentPlacement: .leading
+                        data: OnbButtonContentData(
+                            text: "Custom Colors",
+                            secondaryContent: .checkbox(style: .square, isChecked: false, borderColor: .purple, fillColor: .purple),
+                            secondaryContentPlacement: .leading
+                        )
                     )
                     .onbButtonStyle(
                         style: .outline(textColor: .purple, borderColor: .purple)
@@ -369,9 +417,11 @@ struct OnbButtonContent: View {
                     }
 
                     OnbButtonContent(
-                        text: "Orange Circle",
-                        secondaryContent: .checkbox(style: .circle, isChecked: true, borderColor: .orange, fillColor: .orange),
-                        secondaryContentPlacement: .leading
+                        data: OnbButtonContentData(
+                            text: "Orange Circle",
+                            secondaryContent: .checkbox(style: .circle, isChecked: true, borderColor: .orange, fillColor: .orange),
+                            secondaryContentPlacement: .leading
+                        )
                     )
                     .onbButtonStyle(
                         style: .solid(backgroundColor: .orange, textColor: .white)
@@ -386,9 +436,11 @@ struct OnbButtonContent: View {
             .font(.headline)
 
         OnbButtonContent(
-            text: "Padded Button",
-            secondaryContent: .emoji("🔲"),
-            secondaryContentPlacement: .trailing,
+            data: OnbButtonContentData(
+                text: "Padded Button",
+                secondaryContent: .emoji("🔲"),
+                secondaryContentPlacement: .trailing
+            ),
             horizontalPadding: 16
         )
         .onbButtonStyle(
@@ -398,10 +450,12 @@ struct OnbButtonContent: View {
         }
 
         OnbButtonContent(
-            text: "Menu Item",
-            textPlacement: .leading,
-            secondaryContent: .emoji("›"),
-            secondaryContentPlacement: .trailing,
+            data: OnbButtonContentData(
+                text: "Menu Item",
+                textPlacement: .leading,
+                secondaryContent: .emoji("›"),
+                secondaryContentPlacement: .trailing
+            ),
             horizontalPadding: 20
         )
         .onbButtonStyle(

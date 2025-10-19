@@ -36,6 +36,27 @@ struct AnyOnboardingSlideView: View {
                 ctaButtonStyle: ctaButtonStyle,
                 onButtonClick: onButtonClick
             )
+        case .multipleChoice(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let options, let optionsSpacing, let optionsButtonStyle, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let footerPadding, let ctaText, let ctaButtonStyle):
+            MultipleChoiceSlideView(
+                title: title,
+                titleFont: titleFont,
+                subtitle: subtitle,
+                subtitleFont: subtitleFont,
+                titleSubtitleSpacing: titleSubtitleSpacing,
+                titleAlignment: titleAlignment,
+                options: options,
+                optionsSpacing: optionsSpacing,
+                optionsButtonStyle: optionsButtonStyle,
+                paddingTop: paddingTop,
+                paddingBottom: paddingBottom,
+                horizontalPaddingContent: horizontalPaddingContent,
+                horizontalPaddingTitle: horizontalPaddingTitle,
+                contentSpacing: contentSpacing,
+                footerPadding: footerPadding,
+                ctaText: ctaText,
+                ctaButtonStyle: ctaButtonStyle,
+                onButtonClick: onButtonClick
+            )
         }
     }
 }
