@@ -14,7 +14,7 @@ struct AnyOnboardingSlideView: View {
 
     var body: some View {
         switch slideType {
-        case .regular(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaSize, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let footerPadding, let ctaText, let ctaButtonStyle):
+        case .regular(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaSize, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData):
             RegularSlideView(
                 title: title,
                 titleFont: titleFont,
@@ -31,12 +31,13 @@ struct AnyOnboardingSlideView: View {
                 horizontalPaddingContent: horizontalPaddingContent,
                 horizontalPaddingTitle: horizontalPaddingTitle,
                 contentSpacing: contentSpacing,
-                footerPadding: footerPadding,
+                footerData: footerData,
                 ctaText: ctaText,
                 ctaButtonStyle: ctaButtonStyle,
+                ctaButtonFormatData: ctaButtonFormatData,
                 onButtonClick: onButtonClick
             )
-        case .multipleChoice(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let options, let optionsSpacing, let optionsButtonStyle, let selectionBehavior, let isGrid, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let footerPadding, let ctaText, let ctaButtonStyle):
+        case .multipleChoice(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let options, let optionsSpacing, let optionsButtonStyle, let optionsButtonFormatData, let selectionBehavior, let isGrid, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData):
             MultipleChoiceSlideView(
                 title: title,
                 titleFont: titleFont,
@@ -47,6 +48,7 @@ struct AnyOnboardingSlideView: View {
                 options: options,
                 optionsSpacing: optionsSpacing,
                 optionsButtonStyle: optionsButtonStyle,
+                optionsButtonFormatData: optionsButtonFormatData,
                 selectionBehavior: selectionBehavior,
                 isGrid: isGrid,
                 contentAlignment: contentAlignment,
@@ -55,9 +57,10 @@ struct AnyOnboardingSlideView: View {
                 horizontalPaddingContent: horizontalPaddingContent,
                 horizontalPaddingTitle: horizontalPaddingTitle,
                 contentSpacing: contentSpacing,
-                footerPadding: footerPadding,
+                footerData: footerData,
                 ctaText: ctaText,
                 ctaButtonStyle: ctaButtonStyle,
+                ctaButtonFormatData: ctaButtonFormatData,
                 onButtonClick: onButtonClick
             )
         }

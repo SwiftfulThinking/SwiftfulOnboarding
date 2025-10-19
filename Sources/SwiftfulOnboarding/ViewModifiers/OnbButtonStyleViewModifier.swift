@@ -9,8 +9,8 @@ import SwiftUI
 
 enum OnbButtonStyleType {
     case solid(backgroundColor: Color, textColor: Color, selectedBackgroundColor: Color? = nil, selectedTextColor: Color? = nil)
-    case outline(textColor: Color, borderColor: Color, selectedTextColor: Color? = nil, selectedBorderColor: Color? = nil)
-    case solidOutline(backgroundColor: Color, textColor: Color, borderColor: Color, selectedBackgroundColor: Color? = nil, selectedTextColor: Color? = nil, selectedBorderColor: Color? = nil)
+    case outline(textColor: Color, borderColor: Color, borderWidth: CGFloat = 2, selectedTextColor: Color? = nil, selectedBorderColor: Color? = nil)
+    case solidOutline(backgroundColor: Color, textColor: Color, borderColor: Color, borderWidth: CGFloat = 2, selectedBackgroundColor: Color? = nil, selectedTextColor: Color? = nil, selectedBorderColor: Color? = nil)
     case duolingo(backgroundColor: Color, textColor: Color, shadowColor: Color, selectedBackgroundColor: Color? = nil, selectedTextColor: Color? = nil, selectedShadowColor: Color? = nil)
 }
 
@@ -31,7 +31,6 @@ struct OnbButtonStyle: ButtonStyle {
     var height: CGFloat = 56
     var cornerRadius: CGFloat = 12
     var horizontalPadding: CGFloat = 16
-    var borderWidth: CGFloat = 2
 
     func makeBody(configuration: Configuration) -> some View {
         let scaleAmount: CGFloat = {
@@ -73,7 +72,7 @@ struct OnbButtonStyle: ButtonStyle {
                 .opacity(opacityAmount)
                 .animation(.easeInOut(duration: 0.2), value: isSelected)
 
-        case .outline(let textColor, let borderColor, let selectedTextColor, let selectedBorderColor):
+        case .outline(let textColor, let borderColor, let borderWidth, let selectedTextColor, let selectedBorderColor):
             let currentTextColor = isSelected ? (selectedTextColor ?? textColor) : textColor
             let currentBorderColor = isSelected ? (selectedBorderColor ?? borderColor) : borderColor
 
@@ -92,7 +91,7 @@ struct OnbButtonStyle: ButtonStyle {
                 .opacity(opacityAmount)
                 .animation(.easeInOut(duration: 0.2), value: isSelected)
 
-        case .solidOutline(let backgroundColor, let textColor, let borderColor, let selectedBackgroundColor, let selectedTextColor, let selectedBorderColor):
+        case .solidOutline(let backgroundColor, let textColor, let borderColor, let borderWidth, let selectedBackgroundColor, let selectedTextColor, let selectedBorderColor):
             let currentBackgroundColor = isSelected ? (selectedBackgroundColor ?? backgroundColor.opacity(0.7)) : backgroundColor
             let currentTextColor = isSelected ? (selectedTextColor ?? textColor) : textColor
             let currentBorderColor = isSelected ? (selectedBorderColor ?? borderColor) : borderColor
@@ -173,7 +172,6 @@ extension View {
         height: CGFloat = 56,
         cornerRadius: CGFloat = 12,
         horizontalPadding: CGFloat = 16,
-        borderWidth: CGFloat = 2,
         action: @escaping () -> Void
     ) -> some View {
         Button(action: action) {
@@ -187,8 +185,30 @@ extension View {
                 font: font,
                 height: height,
                 cornerRadius: cornerRadius,
-                horizontalPadding: horizontalPadding,
-                borderWidth: borderWidth
+                horizontalPadding: horizontalPadding
+            )
+        )
+    }
+
+    func onbButtonStyle(
+        style: OnbButtonStyleType,
+        isSelected: Bool = false,
+        format: OnbButtonFormatData,
+        horizontalPadding: CGFloat = 16,
+        action: @escaping () -> Void
+    ) -> some View {
+        Button(action: action) {
+            self
+        }
+        .buttonStyle(
+            OnbButtonStyle(
+                style: style,
+                pressStyle: format.pressStyle,
+                isSelected: isSelected,
+                font: format.font,
+                height: format.height,
+                cornerRadius: format.cornerRadius,
+                horizontalPadding: horizontalPadding
             )
         )
     }
@@ -253,9 +273,8 @@ extension View {
 
                     Text("Solid Outline Custom")
                         .onbButtonStyle(
-                            style: .solidOutline(backgroundColor: .indigo, textColor: .white, borderColor: .yellow, selectedBackgroundColor: .yellow, selectedTextColor: .black, selectedBorderColor: .indigo),
-                            isSelected: isSelected,
-                            borderWidth: 3
+                            style: .solidOutline(backgroundColor: .indigo, textColor: .white, borderColor: .yellow, borderWidth: 3, selectedBackgroundColor: .yellow, selectedTextColor: .black, selectedBorderColor: .indigo),
+                            isSelected: isSelected
                         ) {
                             isSelected.toggle()
                             print("Solid Outline Custom tapped")

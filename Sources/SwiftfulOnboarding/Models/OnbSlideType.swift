@@ -29,9 +29,10 @@ enum OnbSlideType: OnbSlideProtocol {
         horizontalPaddingContent: CGFloat = 0,
         horizontalPaddingTitle: CGFloat = 40,
         contentSpacing: CGFloat = 24,
-        footerPadding: OnbFooterPadding = .default,
+        footerData: OnbFooterData = .default,
         ctaText: String = "Continue",
-        ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
+        ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white),
+        ctaButtonFormatData: OnbButtonFormatData = .default
     )
     case multipleChoice(
         id: String,
@@ -44,6 +45,7 @@ enum OnbSlideType: OnbSlideProtocol {
         options: [OnbChoiceOption] = [],
         optionsSpacing: CGFloat = 12,
         optionsButtonStyle: OnbButtonStyleType = .outline(textColor: .blue, borderColor: .blue),
+        optionsButtonFormatData: OnbButtonFormatData = .default,
         selectionBehavior: OnbSelectionBehavior = .single(),
         isGrid: Bool = false,
         contentAlignment: OnbContentAlignment = .top,
@@ -52,16 +54,17 @@ enum OnbSlideType: OnbSlideProtocol {
         horizontalPaddingContent: CGFloat = 24,
         horizontalPaddingTitle: CGFloat = 40,
         contentSpacing: CGFloat = 24,
-        footerPadding: OnbFooterPadding = .default,
+        footerData: OnbFooterData = .default,
         ctaText: String = "Continue",
-        ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
+        ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white),
+        ctaButtonFormatData: OnbButtonFormatData = .default
     )
 
     var id: String {
         switch self {
-        case .regular(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+        case .regular(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
-        case .multipleChoice(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+        case .multipleChoice(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
         }
     }

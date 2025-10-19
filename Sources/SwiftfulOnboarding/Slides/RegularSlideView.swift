@@ -61,17 +61,33 @@ enum OnbContentAlignment {
     }
 }
 
-struct OnbFooterPadding {
+struct OnbFooterData {
     var leading: CGFloat
     var trailing: CGFloat
     var bottom: CGFloat
     var top: CGFloat
+    var cornerRadius: CGFloat
 
-    static let `default` = OnbFooterPadding(
+    static let `default` = OnbFooterData(
         leading: 24,
         trailing: 24,
         bottom: 24,
-        top: 24
+        top: 24,
+        cornerRadius: 12
+    )
+}
+
+struct OnbButtonFormatData {
+    var pressStyle: OnbButtonPressStyle
+    var font: Font
+    var height: CGFloat
+    var cornerRadius: CGFloat
+
+    static let `default` = OnbButtonFormatData(
+        pressStyle: .press,
+        font: .headline,
+        height: 56,
+        cornerRadius: 12
     )
 }
 
@@ -92,9 +108,10 @@ struct RegularSlideView: View {
     var horizontalPaddingContent: CGFloat = 0
     var horizontalPaddingTitle: CGFloat = 40
     var contentSpacing: CGFloat = 24
-    var footerPadding: OnbFooterPadding = .default
+    var footerData: OnbFooterData = .default
     var ctaText: String = "Continue"
     var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
+    var ctaButtonFormatData: OnbButtonFormatData = .default
     var onButtonClick: (() -> Void)? = nil
 
     var body: some View {
@@ -135,14 +152,15 @@ struct RegularSlideView: View {
             // Continue button at bottom
             Text(ctaText)
                 .onbButtonStyle(
-                    style: ctaButtonStyle
+                    style: ctaButtonStyle,
+                    format: ctaButtonFormatData
                 ) {
                     onButtonClick?()
                 }
-                .padding(.top, footerPadding.top)
-                .padding(.leading, footerPadding.leading)
-                .padding(.trailing, footerPadding.trailing)
-                .padding(.bottom, footerPadding.bottom)
+                .padding(.top, footerData.top)
+                .padding(.leading, footerData.leading)
+                .padding(.trailing, footerData.trailing)
+                .padding(.bottom, footerData.bottom)
         }
     }
 }

@@ -28,6 +28,7 @@ struct MultipleChoiceSlideView: View {
     var options: [OnbChoiceOption] = []
     var optionsSpacing: CGFloat = 12
     var optionsButtonStyle: OnbButtonStyleType = .outline(textColor: .blue, borderColor: .blue)
+    var optionsButtonFormatData: OnbButtonFormatData = .default
     var selectionBehavior: OnbSelectionBehavior = .single()
     var isGrid: Bool = false
     var contentAlignment: OnbContentAlignment = .top
@@ -36,10 +37,11 @@ struct MultipleChoiceSlideView: View {
     var horizontalPaddingContent: CGFloat = 24
     var horizontalPaddingTitle: CGFloat = 40
     var contentSpacing: CGFloat = 24
-   
-    var footerPadding: OnbFooterPadding = .default
+
+    var footerData: OnbFooterData = .default
     var ctaText: String = "Continue"
     var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
+    var ctaButtonFormatData: OnbButtonFormatData = .default
     var onOptionClick: ((String) -> Void)? = nil
     var onButtonClick: (() -> Void)? = nil
 
@@ -87,7 +89,9 @@ struct MultipleChoiceSlideView: View {
                                     )
                                     .onbButtonStyle(
                                         style: optionsButtonStyle,
-                                        isSelected: selectedOptions.contains(option.id)
+                                        isSelected: selectedOptions.contains(option.id),
+                                        format: optionsButtonFormatData,
+                                        horizontalPadding: horizontalButtonPadding
                                     ) {
                                         toggleSelection(for: option.id)
                                     }
@@ -103,7 +107,9 @@ struct MultipleChoiceSlideView: View {
                                     )
                                     .onbButtonStyle(
                                         style: optionsButtonStyle,
-                                        isSelected: selectedOptions.contains(option.id)
+                                        isSelected: selectedOptions.contains(option.id),
+                                        format: optionsButtonFormatData,
+                                        horizontalPadding: horizontalButtonPadding
                                     ) {
                                         toggleSelection(for: option.id)
                                     }
@@ -114,7 +120,7 @@ struct MultipleChoiceSlideView: View {
 
                         // Bottom padding to account for footer
                         Color.clear
-                            .frame(height: footerPadding.top + 56 + footerPadding.bottom)
+                            .frame(height: footerData.top + 56 + footerData.bottom)
                     }
                     .ignoresSafeArea(edges: .bottom)
 
@@ -124,15 +130,16 @@ struct MultipleChoiceSlideView: View {
                             Text(ctaText)
                                 .onbButtonStyle(
                                     style: ctaButtonStyle,
-                                    isSelected: !selectedOptions.isEmpty
+                                    isSelected: !selectedOptions.isEmpty,
+                                    format: ctaButtonFormatData
                                 ) {
                                     onButtonClick?()
                                 }
                                 .disabled(selectedOptions.isEmpty)
-                                .padding(.top, footerPadding.top)
-                                .padding(.leading, footerPadding.leading)
-                                .padding(.trailing, footerPadding.trailing)
-                                .padding(.bottom, footerPadding.bottom)
+                                .padding(.top, footerData.top)
+                                .padding(.leading, footerData.leading)
+                                .padding(.trailing, footerData.trailing)
+                                .padding(.bottom, footerData.bottom)
                         }
                         .background(
                             LinearGradient(colors: [
@@ -170,7 +177,9 @@ struct MultipleChoiceSlideView: View {
                                 )
                                 .onbButtonStyle(
                                     style: optionsButtonStyle,
-                                    isSelected: selectedOptions.contains(option.id)
+                                    isSelected: selectedOptions.contains(option.id),
+                                    format: optionsButtonFormatData,
+                                    horizontalPadding: horizontalButtonPadding
                                 ) {
                                     toggleSelection(for: option.id)
                                 }
@@ -186,7 +195,9 @@ struct MultipleChoiceSlideView: View {
                                 )
                                 .onbButtonStyle(
                                     style: optionsButtonStyle,
-                                    isSelected: selectedOptions.contains(option.id)
+                                    isSelected: selectedOptions.contains(option.id),
+                                    format: optionsButtonFormatData,
+                                    horizontalPadding: horizontalButtonPadding
                                 ) {
                                     toggleSelection(for: option.id)
                                 }
@@ -203,16 +214,17 @@ struct MultipleChoiceSlideView: View {
                 Text(ctaText)
                     .onbButtonStyle(
                         style: ctaButtonStyle,
-                        isSelected: !selectedOptions.isEmpty
+                        isSelected: !selectedOptions.isEmpty,
+                        format: ctaButtonFormatData
                     ) {
                         onButtonClick?()
                     }
                     .disabled(selectedOptions.isEmpty)
                     .opacity(selectedOptions.isEmpty ? 0.5 : 1.0)
-                    .padding(.top, footerPadding.top)
-                    .padding(.leading, footerPadding.leading)
-                    .padding(.trailing, footerPadding.trailing)
-                    .padding(.bottom, footerPadding.bottom)
+                    .padding(.top, footerData.top)
+                    .padding(.leading, footerData.leading)
+                    .padding(.trailing, footerData.trailing)
+                    .padding(.bottom, footerData.bottom)
                     .opacity(shouldShowContinueButton ? 1 : 0)
             }
         }
