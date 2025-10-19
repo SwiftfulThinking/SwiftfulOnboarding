@@ -15,6 +15,7 @@ enum OnbCheckboxStyle {
 enum OnbButtonSecondaryContent {
     case emoji(String)
     case checkbox(style: OnbCheckboxStyle, isChecked: Bool = false, borderColor: Color = .gray, fillColor: Color = .blue)
+    case media(media: OnbMediaType)
 }
 
 enum OnbButtonSecondaryContentPlacement {
@@ -126,6 +127,8 @@ struct OnbButtonContent: View {
             Text(emoji)
         case .checkbox(let style, let isChecked, let borderColor, let fillColor):
             checkboxView(style: style, isChecked: isChecked, borderColor: borderColor, fillColor: fillColor)
+        case .media(let media):
+            AnyMediaView(media: media)
         }
     }
 
@@ -306,6 +309,45 @@ struct OnbButtonContent: View {
                     ) {
                         isOptionSelected.toggle()
                         print("Select Option toggled: \(isOptionSelected)")
+                    }
+
+                    // With media
+                    Divider()
+
+                    Text("With Media")
+                        .font(.headline)
+
+                    OnbButtonContent(
+                        text: "Settings",
+                        secondaryContent: .media(media: .systemIcon(named: "gear")),
+                        secondaryContentPlacement: .leading
+                    )
+                    .onbButtonStyle(
+                        style: .outline(textColor: .gray, borderColor: .gray)
+                    ) {
+                        print("Settings with icon tapped")
+                    }
+
+                    OnbButtonContent(
+                        text: "Profile",
+                        secondaryContent: .media(media: .systemIcon(named: "person.circle.fill")),
+                        secondaryContentPlacement: .leading
+                    )
+                    .onbButtonStyle(
+                        style: .solid(backgroundColor: .blue, textColor: .white)
+                    ) {
+                        print("Profile with icon tapped")
+                    }
+
+                    OnbButtonContent(
+                        text: "Share",
+                        secondaryContent: .media(media: .systemIcon(named: "square.and.arrow.up")),
+                        secondaryContentPlacement: .trailing
+                    )
+                    .onbButtonStyle(
+                        style: .outline(textColor: .blue, borderColor: .blue)
+                    ) {
+                        print("Share with icon tapped")
                     }
 
                     // Static examples
