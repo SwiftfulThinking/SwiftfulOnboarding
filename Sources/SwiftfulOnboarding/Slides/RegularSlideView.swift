@@ -86,7 +86,6 @@ struct RegularSlideView: View {
                     let frameSize = mediaSize.frame
                     AnyMediaView(media: media)
                         .frame(width: frameSize.width, height: frameSize.height)
-                        .padding(.top, 40)
                 }
 
                 // Text content
@@ -104,7 +103,6 @@ struct RegularSlideView: View {
                     let frameSize = mediaSize.frame
                     AnyMediaView(media: media)
                         .frame(width: frameSize.width, height: frameSize.height)
-                        .padding(.bottom, 40)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: contentAlignment.alignment)
@@ -116,7 +114,6 @@ struct RegularSlideView: View {
                 ) {
                     onButtonClick?()
                 }
-                .padding(.bottom, 32)
         }
     }
 }
@@ -165,7 +162,7 @@ struct RegularSlideView: View {
                     contentAlignment: .center
                 ),
                 .regular(
-                    id: "slide2",
+                    id: "slide5",
                     title: "Get Started",
                     subtitle: "It's quick and easy",
                     media: .systemIcon(named: "play.circle.fill"),
@@ -173,7 +170,7 @@ struct RegularSlideView: View {
                     mediaPosition: .bottom
                 ),
                 .regular(
-                    id: "slide3",
+                    id: "slide6",
                     title: "Simple Setup",
                     subtitle: "Just a few taps",
                     media: .systemIcon(named: "gear"),
@@ -181,7 +178,7 @@ struct RegularSlideView: View {
                     mediaPosition: .top
                 ),
                 .regular(
-                    id: "slide4",
+                    id: "slide7",
                     title: "Privacy Policy",
                     subtitle: "Your data is safe with us",
                     media: .systemIcon(named: "lock.fill"),
@@ -189,7 +186,7 @@ struct RegularSlideView: View {
                     mediaPosition: .bottom
                 ),
                 .regular(
-                    id: "slide5",
+                    id: "slide8",
                     title: "All Done!",
                     subtitle: "You're ready to go",
                     media: .image(urlString: "https://picsum.photos/600/600"),

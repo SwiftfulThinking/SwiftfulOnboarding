@@ -66,9 +66,9 @@ struct OnbButtonStyle: ButtonStyle {
                 .foregroundColor(currentTextColor)
                 .frame(maxWidth: .infinity)
                 .frame(height: height)
+                .padding(.horizontal, horizontalPadding)
                 .background(currentBackgroundColor)
                 .cornerRadius(cornerRadius)
-                .padding(.horizontal, horizontalPadding)
                 .scaleEffect(scaleAmount)
                 .opacity(opacityAmount)
                 .animation(.easeInOut(duration: 0.2), value: isSelected)
@@ -83,11 +83,11 @@ struct OnbButtonStyle: ButtonStyle {
                 .frame(maxWidth: .infinity)
                 .frame(height: height)
                 .background(Color.black.opacity(0.001))
+                .padding(.horizontal, horizontalPadding)
                 .overlay(
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .stroke(currentBorderColor, lineWidth: borderWidth)
                 )
-                .padding(.horizontal, horizontalPadding)
                 .scaleEffect(scaleAmount)
                 .opacity(opacityAmount)
                 .animation(.easeInOut(duration: 0.2), value: isSelected)
@@ -102,13 +102,13 @@ struct OnbButtonStyle: ButtonStyle {
                 .foregroundColor(currentTextColor)
                 .frame(maxWidth: .infinity)
                 .frame(height: height)
+                .padding(.horizontal, horizontalPadding)
                 .background(currentBackgroundColor)
                 .overlay(
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .stroke(currentBorderColor, lineWidth: borderWidth)
                 )
                 .cornerRadius(cornerRadius)
-                .padding(.horizontal, horizontalPadding)
                 .scaleEffect(scaleAmount)
                 .opacity(opacityAmount)
                 .animation(.easeInOut(duration: 0.2), value: isSelected)
@@ -153,11 +153,11 @@ struct OnbButtonStyle: ButtonStyle {
                 configuration.label
                     .font(font.weight(.bold))
                     .foregroundColor(currentTextColor)
+                    .padding(.horizontal, horizontalPadding)
                     .offset(y: configuration.isPressed ? 3 : 0)
             }
             .frame(maxWidth: .infinity)
             .frame(height: height)
-            .padding(.horizontal, horizontalPadding)
             .animation(.easeInOut(duration: 0.2), value: isSelected)
         }
     }
