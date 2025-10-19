@@ -217,9 +217,9 @@ enum OnbSlideType: OnbSlideProtocol {
             return id
         case .textInput(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
-        case .datePicker(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+        case .datePicker(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
-        case .picker(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+        case .picker(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
         case .primaryAction(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id

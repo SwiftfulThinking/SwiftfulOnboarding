@@ -9,6 +9,7 @@ import SwiftUI
 
 enum HeaderStyle {
     case progressBar
+    case dots
     case count
     case none
 }
@@ -70,6 +71,19 @@ struct OnboardingHeaderView: View {
                     .padding(.trailing, 8)
                 }
 
+            case .dots:
+                DotsProgressBarView(
+                    currentPage: currentPage,
+                    totalPages: totalPages,
+                    backgroundColor: Color.gray.opacity(0.3),
+                    accentColor: .blue,
+                    borderWidth: 0,
+                    borderColor: .clear,
+                    height: 8
+                )
+                .frame(maxWidth: .infinity, alignment: alignment == .center ? .center : .trailing)
+                .padding(.horizontal, alignment == .center ? 64 : 8)
+
             case .count:
                 Text("\(currentPage)/\(totalPages)")
                     .font(.system(size: 16, weight: .medium))
@@ -106,6 +120,24 @@ struct OnboardingHeaderView: View {
         )
         .background(Color.gray.opacity(0.1))
 
+        // Dots centered
+        OnboardingHeaderView(
+            style: .dots,
+            alignment: .center,
+            currentPage: 3,
+            totalPages: 5
+        )
+        .background(Color.gray.opacity(0.1))
+
+        // Dots right aligned
+        OnboardingHeaderView(
+            style: .dots,
+            alignment: .right,
+            currentPage: 2,
+            totalPages: 7
+        )
+        .background(Color.gray.opacity(0.1))
+
         // Count centered
         OnboardingHeaderView(
             style: .count,
@@ -133,12 +165,12 @@ struct OnboardingHeaderView: View {
         )
         .background(Color.gray.opacity(0.1))
 
-        // Progress bar with no back button
+        // Dots with no back button
         OnboardingHeaderView(
-            style: .progressBar,
+            style: .dots,
             alignment: .center,
-            currentPage: 1,
-            totalPages: 10,
+            currentPage: 4,
+            totalPages: 6,
             showBackButton: false
         )
         .background(Color.gray.opacity(0.1))
