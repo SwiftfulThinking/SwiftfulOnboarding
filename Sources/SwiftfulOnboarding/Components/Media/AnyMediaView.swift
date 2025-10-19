@@ -11,6 +11,7 @@ import SDWebImageSwiftUI
 struct AnyMediaView: View {
 
     let media: OnbMediaType
+    var cornerRadius: CGFloat = 0
 
     var body: some View {
         switch media {
@@ -25,13 +26,15 @@ struct AnyMediaView: View {
         case .video(let urlString):
             VideoLoaderView(
                 urlString: urlString,
-                useSwiftUIVideoPlayer: false
+                useSwiftUIVideoPlayer: false,
+                cornerRadius: cornerRadius
             )
 
         case .lottie(let urlString):
             LottieLoaderView(
                 urlString: urlString,
-                loopMode: .loop
+                loopMode: .loop,
+                cornerRadius: cornerRadius
             )
         }
     }
