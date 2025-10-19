@@ -140,6 +140,33 @@ struct AnyOnboardingSlideView: View {
                 ctaButtonFormatData: ctaButtonFormatData,
                 onButtonClick: onButtonClick
             )
+        case .primaryAction(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, let secondaryButtonText, let secondaryButtonStyle, let secondaryButtonFormatData, let secondaryButtonSpacing, let onDidPressPrimaryButton):
+            PrimaryActionSlideView(
+                title: title,
+                titleFont: titleFont,
+                subtitle: subtitle,
+                subtitleFont: subtitleFont,
+                titleSubtitleSpacing: titleSubtitleSpacing,
+                titleAlignment: titleAlignment,
+                media: media,
+                mediaPosition: mediaPosition,
+                contentAlignment: contentAlignment,
+                paddingTop: paddingTop,
+                paddingBottom: paddingBottom,
+                horizontalPaddingContent: horizontalPaddingContent,
+                horizontalPaddingTitle: horizontalPaddingTitle,
+                contentSpacing: contentSpacing,
+                footerData: footerData,
+                ctaText: ctaText,
+                ctaButtonStyle: ctaButtonStyle,
+                ctaButtonFormatData: ctaButtonFormatData,
+                secondaryButtonText: secondaryButtonText,
+                secondaryButtonStyle: secondaryButtonStyle,
+                secondaryButtonFormatData: secondaryButtonFormatData,
+                secondaryButtonSpacing: secondaryButtonSpacing,
+                onDidPressPrimaryButton: onDidPressPrimaryButton,
+                onButtonClick: onButtonClick
+            )
         }
     }
 }

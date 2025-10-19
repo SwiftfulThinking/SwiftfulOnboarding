@@ -133,6 +133,32 @@ enum OnbSlideType: OnbSlideProtocol {
         ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white),
         ctaButtonFormatData: OnbButtonFormatData = .default
     )
+    case primaryAction(
+        id: String,
+        title: String? = nil,
+        titleFont: Font = .largeTitle,
+        subtitle: String? = nil,
+        subtitleFont: Font = .body,
+        titleSubtitleSpacing: CGFloat = 8,
+        titleAlignment: OnbTextAlignment = .center,
+        media: OnbMediaType? = nil,
+        mediaPosition: OnbMediaPosition = .top,
+        contentAlignment: OnbContentAlignment = .center,
+        paddingTop: CGFloat = 40,
+        paddingBottom: CGFloat = 0,
+        horizontalPaddingContent: CGFloat = 0,
+        horizontalPaddingTitle: CGFloat = 40,
+        contentSpacing: CGFloat = 24,
+        footerData: OnbFooterData = .default,
+        ctaText: String = "Continue",
+        ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white),
+        ctaButtonFormatData: OnbButtonFormatData = .default,
+        secondaryButtonText: String? = nil,
+        secondaryButtonStyle: OnbButtonStyleType = .outline(textColor: .blue, borderColor: .blue),
+        secondaryButtonFormatData: OnbButtonFormatData = .default,
+        secondaryButtonSpacing: CGFloat = 12,
+        onDidPressPrimaryButton: ((@escaping () -> Void) -> Void)? = nil
+    )
 
     var id: String {
         switch self {
@@ -145,6 +171,8 @@ enum OnbSlideType: OnbSlideProtocol {
         case .rating(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
         case .textInput(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+            return id
+        case .primaryAction(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
         }
     }
