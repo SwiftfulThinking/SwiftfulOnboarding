@@ -44,6 +44,23 @@ enum OnbMediaPosition {
     case bottom
 }
 
+enum OnbContentAlignment {
+    case top
+    case center
+    case bottom
+
+    var alignment: Alignment {
+        switch self {
+        case .top:
+            return .top
+        case .center:
+            return .center
+        case .bottom:
+            return .bottom
+        }
+    }
+}
+
 struct RegularSlideView: View {
 
     var title: String? = nil
@@ -55,6 +72,7 @@ struct RegularSlideView: View {
     var media: OnbMediaType? = nil
     var mediaSize: OnbMediaSize = .large
     var mediaPosition: OnbMediaPosition = .top
+    var contentAlignment: OnbContentAlignment = .center
     var ctaText: String = "Continue"
     var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
     var onButtonClick: (() -> Void)? = nil
@@ -88,10 +106,8 @@ struct RegularSlideView: View {
                         .frame(width: frameSize.width, height: frameSize.height)
                         .padding(.bottom, 40)
                 }
-
-                Spacer()
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: contentAlignment.alignment)
 
             // Continue button at bottom
             Text(ctaText)
@@ -113,36 +129,40 @@ struct RegularSlideView: View {
             showBackButton: true,
             slides: [
                 .regular(
-                    id: "slidea",
-                    title: "All Done!",
-                    subtitle: "You're ready to go",
-                    media: .image(urlString: "https://picsum.photos/600/600"),
-                    mediaSize: .small,
-                    mediaPosition: .top
-                ),
-                .regular(
-                    id: "slideb",
-                    title: "All Done!",
-                    subtitle: "You're ready to go",
-                    media: .image(urlString: "https://picsum.photos/600/600"),
-                    mediaSize: .medium,
-                    mediaPosition: .top
-                ),
-                .regular(
-                    id: "slidec",
-                    title: "All Done!",
-                    subtitle: "You're ready to go",
-                    media: .image(urlString: "https://picsum.photos/600/600"),
-                    mediaSize: .large,
-                    mediaPosition: .top
-                ),
-                .regular(
                     id: "slide1",
-                    title: "Welcome to Our App",
-                    subtitle: "Experience something amazing",
-                    media: .systemIcon(named: "hand.wave.fill"),
+                    title: "Content Aligned Top",
+                    subtitle: "This content is aligned to the top",
+                    media: .systemIcon(named: "arrow.up.circle.fill"),
                     mediaSize: .small,
-                    mediaPosition: .top
+                    mediaPosition: .top,
+                    contentAlignment: .top
+                ),
+                .regular(
+                    id: "slide2",
+                    title: "Content Aligned Center",
+                    subtitle: "This content is centered vertically",
+                    media: .systemIcon(named: "circle.fill"),
+                    mediaSize: .medium,
+                    mediaPosition: .top,
+                    contentAlignment: .center
+                ),
+                .regular(
+                    id: "slide3",
+                    title: "Content Aligned Bottom",
+                    subtitle: "This content is aligned to the bottom",
+                    media: .systemIcon(named: "arrow.down.circle.fill"),
+                    mediaSize: .large,
+                    mediaPosition: .top,
+                    contentAlignment: .bottom
+                ),
+                .regular(
+                    id: "slide4",
+                    title: "Media at Bottom",
+                    subtitle: "With content centered",
+                    media: .systemIcon(named: "star.fill"),
+                    mediaSize: .medium,
+                    mediaPosition: .bottom,
+                    contentAlignment: .center
                 ),
                 .regular(
                     id: "slide2",

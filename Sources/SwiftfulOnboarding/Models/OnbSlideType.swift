@@ -23,13 +23,14 @@ enum OnbSlideType: OnbSlideProtocol {
         media: OnbMediaType? = nil,
         mediaSize: OnbMediaSize = .large,
         mediaPosition: OnbMediaPosition = .top,
+        contentAlignment: OnbContentAlignment = .center,
         ctaText: String = "Continue",
         ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
     )
 
     var id: String {
         switch self {
-        case .regular(let id, _, _, _, _, _, _, _, _, _, _, _):
+        case .regular(let id, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
         }
     }
