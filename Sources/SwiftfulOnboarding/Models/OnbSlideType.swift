@@ -21,7 +21,6 @@ enum OnbSlideType: OnbSlideProtocol {
         titleSubtitleSpacing: CGFloat = 8,
         titleAlignment: OnbTextAlignment = .center,
         media: OnbMediaType? = nil,
-        mediaSize: OnbMediaSize = .auto,
         mediaPosition: OnbMediaPosition = .top,
         contentAlignment: OnbContentAlignment = .center,
         paddingTop: CGFloat = 40,
@@ -62,7 +61,7 @@ enum OnbSlideType: OnbSlideProtocol {
 
     var id: String {
         switch self {
-        case .regular(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+        case .regular(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
         case .multipleChoice(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id

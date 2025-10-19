@@ -123,7 +123,6 @@ struct RegularSlideView: View {
     var titleSubtitleSpacing: CGFloat = 8
     var titleAlignment: OnbTextAlignment = .center
     var media: OnbMediaType? = nil
-    var mediaSize: OnbMediaSize = .large
     var mediaPosition: OnbMediaPosition = .top
     var contentAlignment: OnbContentAlignment = .center
     var paddingTop: CGFloat = 40
@@ -143,7 +142,7 @@ struct RegularSlideView: View {
             VStack(spacing: contentSpacing) {
                 // Media at top
                 if let media = media, mediaPosition == .top {
-                    let frameSize = mediaSize.frame
+                    let frameSize = media.size.frame
                     AnyMediaView(media: media)
                         .frame(width: frameSize.width, height: frameSize.height)
                 }
@@ -161,7 +160,7 @@ struct RegularSlideView: View {
 
                 // Media at bottom
                 if let media = media, mediaPosition == .bottom {
-                    let frameSize = mediaSize.frame
+                    let frameSize = media.size.frame
                     AnyMediaView(media: media)
                         .frame(width: frameSize.width, height: frameSize.height)
                         .padding(.horizontal, horizontalPaddingContent)
@@ -199,16 +198,14 @@ struct RegularSlideView: View {
                     id: "slide8",
                     title: "All Done!",
                     subtitle: "You're ready to go",
-                    media: .image(urlString: "https://picsum.photos/600/600"),
-                    mediaSize: .auto,
+                    media: .image(urlString: "https://picsum.photos/600/600", size: .auto),
                     mediaPosition: .top
                 ),
                 .regular(
                     id: "slide1",
                     title: "Content Aligned Top",
                     subtitle: "This content is aligned to the top",
-                    media: .systemIcon(named: "arrow.up.circle.fill"),
-                    mediaSize: .small,
+                    media: .systemIcon(named: "arrow.up.circle.fill", size: .small),
                     mediaPosition: .top,
                     contentAlignment: .top
                 ),
@@ -216,8 +213,7 @@ struct RegularSlideView: View {
                     id: "slide2",
                     title: "Content Aligned Center",
                     subtitle: "This content is centered vertically",
-                    media: .systemIcon(named: "circle.fill"),
-                    mediaSize: .medium,
+                    media: .systemIcon(named: "circle.fill", size: .medium),
                     mediaPosition: .top,
                     contentAlignment: .center
                 ),
@@ -225,8 +221,7 @@ struct RegularSlideView: View {
                     id: "slide3",
                     title: "Content Aligned Bottom",
                     subtitle: "This content is aligned to the bottom",
-                    media: .systemIcon(named: "arrow.down.circle.fill"),
-                    mediaSize: .large,
+                    media: .systemIcon(named: "arrow.down.circle.fill", size: .large),
                     mediaPosition: .top,
                     contentAlignment: .bottom
                 ),
@@ -234,8 +229,7 @@ struct RegularSlideView: View {
                     id: "slide4",
                     title: "Media at Bottom",
                     subtitle: "With content centered",
-                    media: .systemIcon(named: "star.fill"),
-                    mediaSize: .medium,
+                    media: .systemIcon(named: "star.fill", size: .medium),
                     mediaPosition: .bottom,
                     contentAlignment: .center
                 ),
@@ -243,24 +237,21 @@ struct RegularSlideView: View {
                     id: "slide5",
                     title: "Get Started",
                     subtitle: "It's quick and easy",
-                    media: .systemIcon(named: "play.circle.fill"),
-                    mediaSize: .medium,
+                    media: .systemIcon(named: "play.circle.fill", size: .medium),
                     mediaPosition: .bottom
                 ),
                 .regular(
                     id: "slide6",
                     title: "Simple Setup",
                     subtitle: "Just a few taps",
-                    media: .systemIcon(named: "gear"),
-                    mediaSize: .large,
+                    media: .systemIcon(named: "gear", size: .large),
                     mediaPosition: .top
                 ),
                 .regular(
                     id: "slide7",
                     title: "Privacy Policy",
                     subtitle: "Your data is safe with us",
-                    media: .systemIcon(named: "lock.fill"),
-                    mediaSize: .fixed(width: 150, height: 150),
+                    media: .systemIcon(named: "lock.fill", size: .fixed(width: 150, height: 150)),
                     mediaPosition: .bottom
                 )
             ]

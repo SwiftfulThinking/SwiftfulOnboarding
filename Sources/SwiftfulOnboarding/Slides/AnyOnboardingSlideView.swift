@@ -14,7 +14,7 @@ struct AnyOnboardingSlideView: View {
 
     var body: some View {
         switch slideType {
-        case .regular(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaSize, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData):
+        case .regular(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData):
             RegularSlideView(
                 title: title,
                 titleFont: titleFont,
@@ -23,7 +23,6 @@ struct AnyOnboardingSlideView: View {
                 titleSubtitleSpacing: titleSubtitleSpacing,
                 titleAlignment: titleAlignment,
                 media: media,
-                mediaSize: mediaSize,
                 mediaPosition: mediaPosition,
                 contentAlignment: contentAlignment,
                 paddingTop: paddingTop,
