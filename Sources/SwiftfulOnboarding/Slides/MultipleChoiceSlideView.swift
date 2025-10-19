@@ -29,6 +29,7 @@ struct MultipleChoiceSlideView: View {
     var optionsSpacing: CGFloat = 12
     var optionsButtonStyle: OnbButtonStyleType = .outline(textColor: .blue, borderColor: .blue)
     var selectionBehavior: OnbSelectionBehavior = .single
+    var contentAlignment: OnbContentAlignment = .center
     var paddingTop: CGFloat = 24
     var paddingBottom: CGFloat = 0
     var horizontalPaddingContent: CGFloat = 24
@@ -134,7 +135,7 @@ struct MultipleChoiceSlideView: View {
                     }
                     .padding(.horizontal, horizontalPaddingContent)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: contentAlignment.alignment)
                 .padding(.top, paddingTop)
                 .padding(.bottom, paddingBottom)
 
