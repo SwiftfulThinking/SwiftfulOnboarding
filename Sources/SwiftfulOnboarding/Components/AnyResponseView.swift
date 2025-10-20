@@ -10,6 +10,7 @@ import SwiftUI
 enum AnyResponseViewTransition: Equatable {
     case slide
     case scale
+    case fade
     case opacity
     case bottom
     case none

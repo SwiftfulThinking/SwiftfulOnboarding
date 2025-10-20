@@ -153,30 +153,14 @@ struct SwiftfulOnboardingView: View {
             }
 
             // Response view layer
-            if viewModel.showResponseView, let config = viewModel.responseConfiguration {
-                AnyResponseView(
-                    style: config.style,
-                    backgroundColor: config.backgroundColor,
-                    borderWidth: config.borderWidth,
-                    borderColor: config.borderColor,
-                    cornerRadius: config.cornerRadius,
-                    horizontalPadding: config.horizontalPadding,
-                    title: config.title,
-                    titleFont: config.titleFont,
-                    subtitle: config.subtitle,
-                    subtitleFont: config.subtitleFont,
-                    titleSubtitleSpacing: config.titleSubtitleSpacing,
-                    titleAlignment: config.titleAlignment,
-                    paddingTop: config.paddingTop,
-                    paddingBottom: config.paddingBottom,
-                    footerData: config.footerData,
-                    ctaText: config.ctaText,
-                    ctaButtonStyle: config.ctaButtonStyle,
-                    ctaButtonFormatData: config.ctaButtonFormatData
-                ) {
-                    viewModel.nextSlide()
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: config.style == .bottom() ? .bottom : .center)
+            if let config = viewModel.responseConfiguration {
+                AnyResponseViewContainer(
+                    config: config,
+                    isShowing: viewModel.showResponseView,
+                    onButtonClick: {
+                        viewModel.nextSlide()
+                    }
+                )
             }
         }
     }
