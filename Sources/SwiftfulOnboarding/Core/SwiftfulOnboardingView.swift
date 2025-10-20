@@ -124,7 +124,10 @@ struct SwiftfulOnboardingView: View {
                     totalPages: viewModel.slides.count,
                     showBackButton: shouldShowBackButton,
                     isFirstSlide: viewModel.currentIndex == 0,
-                    backButtonColor: currentBackButtonColor
+                    backButtonColor: currentBackButtonColor,
+                    onBackButtonPressed: {
+                        viewModel.previousSlide()
+                    }
                 )
 
                 // Content area - ZStack with previous, current, and next slides

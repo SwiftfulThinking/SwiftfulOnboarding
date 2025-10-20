@@ -28,6 +28,7 @@ struct OnboardingHeaderView: View {
     var showBackButton: Bool = true
     var isFirstSlide: Bool = false
     var backButtonColor: Color = .primary
+    var onBackButtonPressed: (() -> Void)? = nil
 
     private var backButtonIcon: String {
         isFirstSlide ? "xmark" : "chevron.left"
@@ -37,7 +38,7 @@ struct OnboardingHeaderView: View {
         ZStack {
             // Back button on the left
             Button(action: {
-                // Back action
+                onBackButtonPressed?()
             }) {
                 Image(systemName: backButtonIcon)
                     .font(.system(size: 24, weight: .medium))
