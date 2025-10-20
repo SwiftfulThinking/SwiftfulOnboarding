@@ -13,6 +13,8 @@ class SwiftfulOnboardingViewModel: ObservableObject {
     let configuration: OnbConfiguration
     @Published var currentIndex: Int = 0
     @Published var slides: [OnbSlideType] = []
+    @Published var showResponseView: Bool = false
+    @Published var responseConfiguration: OnbResponseConfiguration? = nil
 
     init(configuration: OnbConfiguration) {
         self.configuration = configuration
