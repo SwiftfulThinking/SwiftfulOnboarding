@@ -10,7 +10,7 @@ import SwiftUI
 struct AnyOnboardingSlideView: View {
 
     let slideType: OnbSlideType
-    var onButtonClick: (() -> Void)? = nil
+    var onButtonClick: (([OnbChoiceOption]) -> Void)? = nil
 
     var body: some View {
         switch slideType {
@@ -34,7 +34,9 @@ struct AnyOnboardingSlideView: View {
                 ctaText: ctaText,
                 ctaButtonStyle: ctaButtonStyle,
                 ctaButtonFormatData: ctaButtonFormatData,
-                onButtonClick: onButtonClick
+                onButtonClick: {
+                    onButtonClick?([])
+                }
             )
         case .multipleChoice(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let options, let optionsSpacing, let optionsButtonStyle, let optionsButtonFormatData, let selectionBehavior, let isGrid, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, _, _, _):
             MultipleChoiceSlideView(
@@ -60,7 +62,9 @@ struct AnyOnboardingSlideView: View {
                 ctaText: ctaText,
                 ctaButtonStyle: ctaButtonStyle,
                 ctaButtonFormatData: ctaButtonFormatData,
-                onButtonClick: onButtonClick
+                onButtonClick: { selections in
+                    onButtonClick?(selections)
+                }
             )
         case .yesNo(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let yesNoSpacing, let yesText, let noText, let yesNoButtonStyle, let yesNoButtonFormatData, let selectionBehavior, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, _, _, _):
             YesNoSlideView(
@@ -88,7 +92,9 @@ struct AnyOnboardingSlideView: View {
                 ctaText: ctaText,
                 ctaButtonStyle: ctaButtonStyle,
                 ctaButtonFormatData: ctaButtonFormatData,
-                onButtonClick: onButtonClick
+                onButtonClick: {
+                    onButtonClick?([])
+                }
             )
         case .rating(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let ratingButtonStyle, let ratingCornerRadius, let ratingButtonOption, let ratingFont, let ratingLabels, let selectionBehavior, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, _, _, _):
             RatingSlideView(
@@ -116,7 +122,9 @@ struct AnyOnboardingSlideView: View {
                 ctaText: ctaText,
                 ctaButtonStyle: ctaButtonStyle,
                 ctaButtonFormatData: ctaButtonFormatData,
-                onButtonClick: onButtonClick
+                onButtonClick: {
+                    onButtonClick?([])
+                }
             )
         case .textInput(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingTitle, let contentSpacing, let textFieldKeyboardType, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, _, _, _):
             TextInputSlideView(
@@ -136,7 +144,9 @@ struct AnyOnboardingSlideView: View {
                 ctaText: ctaText,
                 ctaButtonStyle: ctaButtonStyle,
                 ctaButtonFormatData: ctaButtonFormatData,
-                onButtonClick: onButtonClick
+                onButtonClick: {
+                    onButtonClick?([])
+                }
             )
         case .datePicker(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingTitle, let contentSpacing, let datePickerPosition, let datePickerStyle, let datePickerComponents, let datePickerStartDate, let datePickerMinimumDate, let datePickerMaximumDate, let datePickerHorizontalPadding, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, _, _, _):
             DatePickerSlideView(
@@ -162,7 +172,9 @@ struct AnyOnboardingSlideView: View {
                 ctaText: ctaText,
                 ctaButtonStyle: ctaButtonStyle,
                 ctaButtonFormatData: ctaButtonFormatData,
-                onButtonClick: onButtonClick
+                onButtonClick: {
+                    onButtonClick?([])
+                }
             )
         case .picker(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingTitle, let contentSpacing, let pickerPosition, let pickerStyle, let pickerOptions, let pickerHorizontalPadding, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, _, _, _):
             AnyPickerSlideView(
@@ -185,7 +197,9 @@ struct AnyOnboardingSlideView: View {
                 ctaText: ctaText,
                 ctaButtonStyle: ctaButtonStyle,
                 ctaButtonFormatData: ctaButtonFormatData,
-                onButtonClick: onButtonClick
+                onButtonClick: {
+                    onButtonClick?([])
+                }
             )
         case .primaryAction(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, let secondaryButtonText, let secondaryButtonStyle, let secondaryButtonFormatData, let secondaryButtonSpacing, let onDidPressPrimaryButton, _, _, _):
             PrimaryActionSlideView(
@@ -212,7 +226,9 @@ struct AnyOnboardingSlideView: View {
                 secondaryButtonFormatData: secondaryButtonFormatData,
                 secondaryButtonSpacing: secondaryButtonSpacing,
                 onDidPressPrimaryButton: onDidPressPrimaryButton,
-                onButtonClick: onButtonClick
+                onButtonClick: {
+                    onButtonClick?([])
+                }
             )
         }
     }

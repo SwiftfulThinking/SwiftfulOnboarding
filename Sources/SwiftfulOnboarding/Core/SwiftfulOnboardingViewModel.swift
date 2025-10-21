@@ -15,13 +15,17 @@ class SwiftfulOnboardingViewModel: ObservableObject {
     @Published var slides: [OnbSlideType] = []
     @Published var showResponseView: Bool = false
     @Published var responseConfiguration: OnbResponseConfiguration? = nil
+    @Published var savedSelections: [String: [OnbChoiceOption]] = [:]
 
     init(configuration: OnbConfiguration) {
         self.configuration = configuration
         self.slides = configuration.slides
     }
 
-    func nextSlide() {
+    func nextSlide(selections: [OnbChoiceOption]) {
+        let currentSlide = slides[currentIndex]
+        savedSelections[currentSlide.id] = selections
+        
         if currentIndex < slides.count - 1 {
             currentIndex += 1
         }

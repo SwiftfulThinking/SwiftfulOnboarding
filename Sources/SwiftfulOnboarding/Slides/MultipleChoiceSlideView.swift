@@ -12,9 +12,17 @@ enum OnbSelectionBehavior {
     case multi
 }
 
-struct OnbChoiceOption {
+struct OnbChoiceOption: Hashable, Equatable {
     var id: String
     var content: OnbButtonContentData
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.id == rhs.id
+    }
 }
 
 struct MultipleChoiceSlideView: View {
@@ -42,10 +50,10 @@ struct MultipleChoiceSlideView: View {
     var ctaText: String = "Continue"
     var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
     var ctaButtonFormatData: OnbButtonFormatData = .default
-    var onOptionClick: ((String) -> Void)? = nil
-    var onButtonClick: (() -> Void)? = nil
+    var onOptionClick: ((OnbChoiceOption) -> Void)? = nil
+    var onButtonClick: (([OnbChoiceOption]) -> Void)? = nil
 
-    @State private var selectedOptions: Set<String> = []
+    @State private var selectedOptions: [OnbChoiceOption] = []
 
     private var shouldShowContinueButton: Bool {
         switch selectionBehavior {
@@ -89,11 +97,11 @@ struct MultipleChoiceSlideView: View {
                                     )
                                     .onbButtonStyle(
                                         style: optionsButtonStyle,
-                                        isSelected: selectedOptions.contains(option.id),
+                                        isSelected: selectedOptions.contains(option),
                                         format: optionsButtonFormatData,
                                         horizontalPadding: horizontalButtonPadding
                                     ) {
-                                        toggleSelection(for: option.id)
+                                        toggleSelection(for: option)
                                     }
                                 }
                             }
@@ -107,11 +115,11 @@ struct MultipleChoiceSlideView: View {
                                     )
                                     .onbButtonStyle(
                                         style: optionsButtonStyle,
-                                        isSelected: selectedOptions.contains(option.id),
+                                        isSelected: selectedOptions.contains(option),
                                         format: optionsButtonFormatData,
                                         horizontalPadding: horizontalButtonPadding
                                     ) {
-                                        toggleSelection(for: option.id)
+                                        toggleSelection(for: option)
                                     }
                                 }
                             }
@@ -133,7 +141,7 @@ struct MultipleChoiceSlideView: View {
                                     isSelected: !selectedOptions.isEmpty,
                                     format: ctaButtonFormatData
                                 ) {
-                                    onButtonClick?()
+                                    onButtonClick?(selectedOptions)
                                 }
                                 .disabled(selectedOptions.isEmpty)
                                 .padding(.top, footerData.top)
@@ -177,11 +185,11 @@ struct MultipleChoiceSlideView: View {
                                 )
                                 .onbButtonStyle(
                                     style: optionsButtonStyle,
-                                    isSelected: selectedOptions.contains(option.id),
+                                    isSelected: selectedOptions.contains(option),
                                     format: optionsButtonFormatData,
                                     horizontalPadding: horizontalButtonPadding
                                 ) {
-                                    toggleSelection(for: option.id)
+                                    toggleSelection(for: option)
                                 }
                             }
                         }
@@ -195,11 +203,11 @@ struct MultipleChoiceSlideView: View {
                                 )
                                 .onbButtonStyle(
                                     style: optionsButtonStyle,
-                                    isSelected: selectedOptions.contains(option.id),
+                                    isSelected: selectedOptions.contains(option),
                                     format: optionsButtonFormatData,
                                     horizontalPadding: horizontalButtonPadding
                                 ) {
-                                    toggleSelection(for: option.id)
+                                    toggleSelection(for: option)
                                 }
                             }
                         }
@@ -218,7 +226,7 @@ struct MultipleChoiceSlideView: View {
                             isSelected: !selectedOptions.isEmpty,
                             format: ctaButtonFormatData
                         ) {
-                            onButtonClick?()
+                            onButtonClick?(selectedOptions)
                         }
                         .disabled(selectedOptions.isEmpty)
                         .opacity(selectedOptions.isEmpty ? 0.5 : 1.0)
@@ -231,28 +239,28 @@ struct MultipleChoiceSlideView: View {
         }
     }
 
-    private func toggleSelection(for optionId: String) {
+    private func toggleSelection(for option: OnbChoiceOption) {
         switch selectionBehavior {
         case .single(let autoAdvance):
-            if selectedOptions.contains(optionId) {
-                selectedOptions.remove(optionId)
+            if let index = selectedOptions.firstIndex(of: option) {
+                selectedOptions.remove(at: index)
             } else {
-                selectedOptions = [optionId]
+                selectedOptions = [option]
 
                 if autoAdvance {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        onButtonClick?()
+                        onButtonClick?(selectedOptions)
                     }
                 }
             }
         case .multi:
-            if selectedOptions.contains(optionId) {
-                selectedOptions.remove(optionId)
+            if let index = selectedOptions.firstIndex(of: option) {
+                selectedOptions.remove(at: index)
             } else {
-                selectedOptions.insert(optionId)
+                selectedOptions.append(option)
             }
         }
-        onOptionClick?(optionId)
+        onOptionClick?(option)
     }
 }
 

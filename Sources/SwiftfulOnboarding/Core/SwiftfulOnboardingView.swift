@@ -140,8 +140,8 @@ struct SwiftfulOnboardingView: View {
                         if isPreviousSlide || isCurrentSlide || isNextSlide {
                             AnyOnboardingSlideView(
                                 slideType: slide,
-                                onButtonClick: {
-                                    viewModel.nextSlide()
+                                onButtonClick: { selections in
+                                    viewModel.nextSlide(selections: selections)
                                 }
                             )
                             .offset(x: slideOffset(for: index))
@@ -158,7 +158,7 @@ struct SwiftfulOnboardingView: View {
                     config: config,
                     isShowing: viewModel.showResponseView,
                     onButtonClick: {
-                        viewModel.nextSlide()
+                        viewModel.nextSlide(selections: [])
                     }
                 )
             }
