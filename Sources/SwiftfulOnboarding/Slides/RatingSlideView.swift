@@ -33,10 +33,24 @@ struct RatingSlideView: View {
     var ctaText: String = "Continue"
     var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
     var ctaButtonFormatData: OnbButtonFormatData = .default
-    var onRatingTap: ((Int) -> Void)? = nil
-    var onButtonClick: (() -> Void)? = nil
+    var handleSelection: ((OnbChoiceOption, OnbSelectionBehavior) -> Void)? = nil
+    var onButtonClick: (([OnbChoiceOption]) -> Void)? = nil
+    var selectedOptions: [OnbChoiceOption] = []
 
-    @State private var selectedRating: Int? = nil
+    private var selectedRating: Int? {
+        guard let option = selectedOptions.first,
+              let rating = Int(option.id) else {
+            return nil
+        }
+        return rating
+    }
+
+    private func ratingToOption(_ rating: Int) -> OnbChoiceOption {
+        OnbChoiceOption(
+            id: "\(rating)",
+            content: OnbButtonContentData(text: "\(rating)")
+        )
+    }
 
     private var shouldShowContinueButton: Bool {
         switch selectionBehavior {
@@ -76,14 +90,14 @@ struct RatingSlideView: View {
                 labels: ratingLabels,
                 selectedRating: selectedRating,
                 onTap: { rating in
-                    selectedRating = rating
-                    onRatingTap?(rating)
+                    let option = ratingToOption(rating)
+                    handleSelection?(option, selectionBehavior)
 
                     switch selectionBehavior {
                     case .single(let autoAdvance):
                         if autoAdvance {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                onButtonClick?()
+                                onButtonClick?(selectedOptions)
                             }
                         }
                     case .multi:
@@ -99,12 +113,12 @@ struct RatingSlideView: View {
                 Text(ctaText)
                     .onbButtonStyle(
                         style: ctaButtonStyle,
-                        isSelected: selectedRating != nil,
+                        isSelected: !selectedOptions.isEmpty,
                         format: ctaButtonFormatData
                     ) {
-                        onButtonClick?()
+                        onButtonClick?(selectedOptions)
                     }
-                    .disabled(selectedRating == nil)
+                    .disabled(selectedOptions.isEmpty)
                     .padding(.top, footerData.top)
                     .padding(.leading, footerData.leading)
                     .padding(.trailing, footerData.trailing)
