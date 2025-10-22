@@ -37,4 +37,35 @@ class SwiftfulOnboardingViewModel: ObservableObject {
         }
     }
 
+    func toggleSelection(for option: OnbChoiceOption, selectionBehavior: OnbSelectionBehavior) {
+        let currentSlide = slides[currentIndex]
+        var currentSelections = savedSelections[currentSlide.id] ?? []
+
+        switch selectionBehavior {
+        case .single:
+            if let index = currentSelections.firstIndex(of: option) {
+                currentSelections.remove(at: index)
+            } else {
+                currentSelections = [option]
+            }
+        case .multi:
+            if let index = currentSelections.firstIndex(of: option) {
+                currentSelections.remove(at: index)
+            } else {
+                currentSelections.append(option)
+            }
+        }
+
+        savedSelections[currentSlide.id] = currentSelections
+    }
+
+    func getSelections(for slideId: String) -> [OnbChoiceOption] {
+        return savedSelections[slideId] ?? []
+    }
+
+    func getCurrentSelections() -> [OnbChoiceOption] {
+        let currentSlide = slides[currentIndex]
+        return savedSelections[currentSlide.id] ?? []
+    }
+
 }

@@ -10,6 +10,8 @@ import SwiftUI
 struct AnyOnboardingSlideView: View {
 
     let slideType: OnbSlideType
+    var selectedOptions: [OnbChoiceOption]
+    var handleSelection: ((OnbChoiceOption, OnbSelectionBehavior) -> Void)? = nil
     var onButtonClick: (([OnbChoiceOption]) -> Void)? = nil
 
     var body: some View {
@@ -62,9 +64,11 @@ struct AnyOnboardingSlideView: View {
                 ctaText: ctaText,
                 ctaButtonStyle: ctaButtonStyle,
                 ctaButtonFormatData: ctaButtonFormatData,
+                handleSelection: handleSelection,
                 onButtonClick: { selections in
                     onButtonClick?(selections)
-                }
+                },
+                selectedOptions: selectedOptions
             )
         case .yesNo(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let yesNoSpacing, let yesOption, let noOption, let yesNoButtonStyle, let yesNoButtonFormatData, let selectionBehavior, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, _, _, _):
             YesNoSlideView(
@@ -92,9 +96,11 @@ struct AnyOnboardingSlideView: View {
                 ctaText: ctaText,
                 ctaButtonStyle: ctaButtonStyle,
                 ctaButtonFormatData: ctaButtonFormatData,
+                handleSelection: handleSelection,
                 onButtonClick: { selections in
                     onButtonClick?(selections)
-                }
+                },
+                selectedOptions: selectedOptions
             )
         case .rating(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let ratingButtonStyle, let ratingCornerRadius, let ratingButtonOption, let ratingFont, let ratingLabels, let selectionBehavior, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, _, _, _):
             RatingSlideView(
@@ -235,32 +241,27 @@ struct AnyOnboardingSlideView: View {
 }
 
 #Preview {
-    VStack(spacing: 24) {
-        AnyOnboardingSlideView(
-            slideType: .regular(
-                id: "welcome",
-                title: "Welcome",
-                subtitle: "Get started with our app",
-                media: .systemIcon(named: "star.fill")
-            )
+    SwiftfulOnboardingView(
+        configuration: OnbConfiguration(
+            headerStyle: .progressBar,
+            headerAlignment: .center,
+            showBackButton: .afterFirstSlide,
+            slides: [
+                .regular(
+                    id: "welcome",
+                    title: "Welcome",
+                    subtitle: "Get started with our app",
+                    media: .systemIcon(named: "star.fill")
+                ),
+                .multipleChoice(
+                    id: "choice",
+                    title: "Pick your favorites",
+                    options: [
+                        OnbChoiceOption(id: "1", content: OnbButtonContentData(text: "Option 1")),
+                        OnbChoiceOption(id: "2", content: OnbButtonContentData(text: "Option 2"))
+                    ]
+                )
+            ]
         )
-
-        AnyOnboardingSlideView(
-            slideType: .regular(
-                id: "features",
-                title: "Features",
-                subtitle: nil,
-                media: nil
-            )
-        )
-
-        AnyOnboardingSlideView(
-            slideType: .regular(
-                id: "video-demo",
-                title: "Video Demo",
-                subtitle: "Watch our intro",
-                media: .video(urlString: "https://example.com/intro.mp4")
-            )
-        )
-    }
+    )
 }

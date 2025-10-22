@@ -50,10 +50,9 @@ struct MultipleChoiceSlideView: View {
     var ctaText: String = "Continue"
     var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
     var ctaButtonFormatData: OnbButtonFormatData = .default
-    var onOptionClick: ((OnbChoiceOption) -> Void)? = nil
+    var handleSelection: ((OnbChoiceOption, OnbSelectionBehavior) -> Void)? = nil
     var onButtonClick: (([OnbChoiceOption]) -> Void)? = nil
-
-    @State private var selectedOptions: [OnbChoiceOption] = []
+    var selectedOptions: [OnbChoiceOption] = []
 
     private var shouldShowContinueButton: Bool {
         switch selectionBehavior {
@@ -240,27 +239,18 @@ struct MultipleChoiceSlideView: View {
     }
 
     private func toggleSelection(for option: OnbChoiceOption) {
+        handleSelection?(option, selectionBehavior)
+
         switch selectionBehavior {
         case .single(let autoAdvance):
-            if let index = selectedOptions.firstIndex(of: option) {
-                selectedOptions.remove(at: index)
-            } else {
-                selectedOptions = [option]
-
-                if autoAdvance {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        onButtonClick?(selectedOptions)
-                    }
+            if autoAdvance && !selectedOptions.contains(option) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    onButtonClick?(selectedOptions)
                 }
             }
         case .multi:
-            if let index = selectedOptions.firstIndex(of: option) {
-                selectedOptions.remove(at: index)
-            } else {
-                selectedOptions.append(option)
-            }
+            break
         }
-        onOptionClick?(option)
     }
 }
 
