@@ -15,11 +15,12 @@ enum OnbSelectionBehavior {
 struct OnbChoiceOption: Hashable, Equatable {
     var id: String
     var content: OnbButtonContentData
-    
+    var responseConfiguration: OnbResponseConfiguration?
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
-    
+
     static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.id == rhs.id
     }
