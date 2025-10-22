@@ -22,10 +22,26 @@ class SwiftfulOnboardingViewModel: ObservableObject {
         self.slides = configuration.slides
     }
 
-    func nextSlide(selections: [OnbChoiceOption]) {
+    func onSlideButtonClick(selections: [OnbChoiceOption]) {
         let currentSlide = slides[currentIndex]
         savedSelections[currentSlide.id] = selections
-        
+
+        // Check if any selection has a responseConfiguration
+        if let responseConfig = selections.first(where: { $0.responseConfiguration != nil })?.responseConfiguration {
+            responseConfiguration = responseConfig
+            showResponseView = true
+        } else {
+            nextSlide()
+        }
+    }
+
+    func onResponseButtonClick() {
+        showResponseView = false
+        responseConfiguration = nil
+        nextSlide()
+    }
+
+    private func nextSlide() {
         if currentIndex < slides.count - 1 {
             currentIndex += 1
         }

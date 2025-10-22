@@ -145,7 +145,7 @@ struct SwiftfulOnboardingView: View {
                                     viewModel.toggleSelection(for: option, selectionBehavior: behavior)
                                 },
                                 onButtonClick: { selections in
-                                    viewModel.nextSlide(selections: selections)
+                                    viewModel.onSlideButtonClick(selections: selections)
                                 }
                             )
                             .offset(x: slideOffset(for: index))
@@ -162,7 +162,7 @@ struct SwiftfulOnboardingView: View {
                     config: config,
                     isShowing: viewModel.showResponseView,
                     onButtonClick: {
-                        viewModel.nextSlide(selections: [])
+                        viewModel.onResponseButtonClick()
                     }
                 )
             }
