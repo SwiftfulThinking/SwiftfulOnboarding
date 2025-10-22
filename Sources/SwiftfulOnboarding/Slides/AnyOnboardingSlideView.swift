@@ -207,9 +207,10 @@ struct AnyOnboardingSlideView: View {
                 ctaText: ctaText,
                 ctaButtonStyle: ctaButtonStyle,
                 ctaButtonFormatData: ctaButtonFormatData,
-                onButtonClick: {
-                    onButtonClick?([])
-                }
+                onButtonClick: { selections in
+                    onButtonClick?(selections)
+                },
+                selectedOptions: selectedOptions
             )
         case .primaryAction(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, let secondaryButtonText, let secondaryButtonStyle, let secondaryButtonFormatData, let secondaryButtonSpacing, let onDidPressPrimaryButton, _, _, _):
             PrimaryActionSlideView(

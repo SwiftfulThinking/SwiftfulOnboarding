@@ -35,14 +35,21 @@ struct AnyPickerSlideView: View {
     var pickerStyle: OnbPickerStyle = .wheel
     var pickerOptions: [String] = []
     var pickerHorizontalPadding: CGFloat = 24
-    var onPickerChanged: ((String) -> Void)? = nil
     var footerData: OnbFooterData = .default
     var ctaText: String = "Continue"
     var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
     var ctaButtonFormatData: OnbButtonFormatData = .default
-    var onButtonClick: (() -> Void)? = nil
+    var onButtonClick: (([OnbChoiceOption]) -> Void)? = nil
+    var selectedOptions: [OnbChoiceOption] = []
 
     @State private var selectedOption: String = ""
+
+    private func stringToOption(_ string: String) -> OnbChoiceOption {
+        OnbChoiceOption(
+            id: "picker",
+            content: OnbButtonContentData(text: string, value: string)
+        )
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -87,11 +94,10 @@ struct AnyPickerSlideView: View {
                         .labelsHidden()
                     }
                 }
-                .onChange(of: selectedOption) { newValue in
-                    onPickerChanged?(newValue)
-                }
                 .onAppear {
-                    if selectedOption.isEmpty, let firstOption = pickerOptions.first {
+                    if let savedOption = selectedOptions.first?.content.text {
+                        selectedOption = savedOption
+                    } else if selectedOption.isEmpty, let firstOption = pickerOptions.first {
                         selectedOption = firstOption
                     }
                 }
@@ -108,7 +114,8 @@ struct AnyPickerSlideView: View {
                     style: ctaButtonStyle,
                     format: ctaButtonFormatData
                 ) {
-                    onButtonClick?()
+                    let option = stringToOption(selectedOption)
+                    onButtonClick?([option])
                 }
                 .padding(.top, footerData.top)
                 .padding(.leading, footerData.leading)

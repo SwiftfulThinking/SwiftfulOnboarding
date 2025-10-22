@@ -64,7 +64,7 @@ struct TextInputSlideView: View {
     private func textToOption(_ text: String) -> OnbChoiceOption {
         OnbChoiceOption(
             id: "text_input",
-            content: OnbButtonContentData(text: text)
+            content: OnbButtonContentData(text: text, value: text)
         )
     }
 

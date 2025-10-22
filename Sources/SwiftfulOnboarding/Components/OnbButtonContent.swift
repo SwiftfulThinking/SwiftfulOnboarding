@@ -42,6 +42,7 @@ struct OnbButtonContentData {
     var secondaryContentPlacement: OnbButtonSecondaryContentPlacement
     var mediaContent: OnbMediaType?
     var mediaContentPlacement: OnbMediaContentPlacement
+    var value: Any?
 
     init(
         text: String,
@@ -49,7 +50,8 @@ struct OnbButtonContentData {
         secondaryContent: OnbButtonSecondaryContent? = nil,
         secondaryContentPlacement: OnbButtonSecondaryContentPlacement = .trailing,
         mediaContent: OnbMediaType? = nil,
-        mediaContentPlacement: OnbMediaContentPlacement = .top
+        mediaContentPlacement: OnbMediaContentPlacement = .top,
+        value: Any? = nil
     ) {
         self.text = text
         self.textPlacement = textPlacement
@@ -57,6 +59,7 @@ struct OnbButtonContentData {
         self.secondaryContentPlacement = secondaryContentPlacement
         self.mediaContent = mediaContent
         self.mediaContentPlacement = mediaContentPlacement
+        self.value = value
     }
 }
 

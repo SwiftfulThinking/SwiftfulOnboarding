@@ -77,7 +77,7 @@ struct DatePickerSlideView: View {
         let timestamp = date.timeIntervalSince1970
         return OnbChoiceOption(
             id: "date_picker",
-            content: OnbButtonContentData(text: "\(timestamp)")
+            content: OnbButtonContentData(text: "\(timestamp)", value: date)
         )
     }
 

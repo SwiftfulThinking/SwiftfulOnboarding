@@ -48,7 +48,7 @@ struct RatingSlideView: View {
     private func ratingToOption(_ rating: Int) -> OnbChoiceOption {
         OnbChoiceOption(
             id: "\(rating)",
-            content: OnbButtonContentData(text: "\(rating)")
+            content: OnbButtonContentData(text: "\(rating)", value: rating)
         )
     }
 
