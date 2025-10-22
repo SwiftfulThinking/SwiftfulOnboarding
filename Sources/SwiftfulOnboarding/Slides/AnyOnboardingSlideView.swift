@@ -152,9 +152,10 @@ struct AnyOnboardingSlideView: View {
                 ctaText: ctaText,
                 ctaButtonStyle: ctaButtonStyle,
                 ctaButtonFormatData: ctaButtonFormatData,
-                onButtonClick: {
-                    onButtonClick?([])
-                }
+                onButtonClick: { selections in
+                    onButtonClick?(selections)
+                },
+                selectedOptions: selectedOptions
             )
         case .datePicker(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingTitle, let contentSpacing, let datePickerPosition, let datePickerStyle, let datePickerComponents, let datePickerStartDate, let datePickerMinimumDate, let datePickerMaximumDate, let datePickerHorizontalPadding, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, _, _, _):
             DatePickerSlideView(

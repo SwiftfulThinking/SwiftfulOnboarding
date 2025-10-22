@@ -41,13 +41,16 @@ struct TextInputSlideView: View {
     var ctaText: String = "Continue"
     var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
     var ctaButtonFormatData: OnbButtonFormatData = .default
-    var onButtonClick: (() -> Void)? = nil
+    var onButtonClick: (([OnbChoiceOption]) -> Void)? = nil
+    var selectedOptions: [OnbChoiceOption] = []
 
     @State private var currentText: String = ""
 
     private func initializeText() {
         if let startingText = textFieldStartingText, currentText.isEmpty {
             currentText = startingText
+        } else if let savedText = selectedOptions.first?.content.text, currentText.isEmpty {
+            currentText = savedText
         }
     }
 
@@ -56,6 +59,13 @@ struct TextInputSlideView: View {
             return isValidText(currentText)
         }
         return !currentText.isEmpty
+    }
+
+    private func textToOption(_ text: String) -> OnbChoiceOption {
+        OnbChoiceOption(
+            id: "text_input",
+            content: OnbButtonContentData(text: text)
+        )
     }
 
     var body: some View {
@@ -101,7 +111,8 @@ struct TextInputSlideView: View {
                     isSelected: isTextValid,
                     format: ctaButtonFormatData
                 ) {
-                    onButtonClick?()
+                    let option = textToOption(currentText)
+                    onButtonClick?([option])
                 }
                 .disabled(!isTextValid)
                 .padding(.top, footerData.top)
