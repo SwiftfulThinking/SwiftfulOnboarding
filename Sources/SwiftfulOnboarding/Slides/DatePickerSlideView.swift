@@ -55,17 +55,30 @@ struct DatePickerSlideView: View {
     var datePickerMinimumDate: Date? = nil
     var datePickerMaximumDate: Date? = nil
     var datePickerHorizontalPadding: CGFloat = 24
-    var onDateChanged: ((Date) -> Void)? = nil
     var footerData: OnbFooterData = .default
     var ctaText: String = "Continue"
     var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
     var ctaButtonFormatData: OnbButtonFormatData = .default
-    var onButtonClick: (() -> Void)? = nil
+    var onButtonClick: (([OnbChoiceOption]) -> Void)? = nil
+    var selectedOptions: [OnbChoiceOption] = []
 
     @State private var selectedDate: Date = Date()
 
     private var initialDate: Date {
-        datePickerStartDate ?? Date()
+        if let savedDate = selectedOptions.first?.content.text,
+           let timestamp = TimeInterval(savedDate),
+           timestamp > 0 {
+            return Date(timeIntervalSince1970: timestamp)
+        }
+        return datePickerStartDate ?? Date()
+    }
+
+    private func dateToOption(_ date: Date) -> OnbChoiceOption {
+        let timestamp = date.timeIntervalSince1970
+        return OnbChoiceOption(
+            id: "date_picker",
+            content: OnbButtonContentData(text: "\(timestamp)")
+        )
     }
 
     var body: some View {
@@ -146,9 +159,6 @@ struct DatePickerSlideView: View {
                         }
                     }
                 }
-                .onChange(of: selectedDate) { newValue in
-                    onDateChanged?(newValue)
-                }
                 .onAppear {
                     selectedDate = initialDate
                 }
@@ -165,7 +175,8 @@ struct DatePickerSlideView: View {
                     style: ctaButtonStyle,
                     format: ctaButtonFormatData
                 ) {
-                    onButtonClick?()
+                    let option = dateToOption(selectedDate)
+                    onButtonClick?([option])
                 }
                 .padding(.top, footerData.top)
                 .padding(.leading, footerData.leading)
