@@ -24,8 +24,8 @@ struct YesNoSlideView: View {
     var horizontalPaddingTitle: CGFloat = 40
     var contentSpacing: CGFloat = 24
     var yesNoSpacing: CGFloat = 12
-    var yesText: String = "Yes"
-    var noText: String = "No"
+    var yesOption: OnbChoiceOption = OnbChoiceOption(id: "yes", content: OnbButtonContentData(text: "Yes"))
+    var noOption: OnbChoiceOption = OnbChoiceOption(id: "no", content: OnbButtonContentData(text: "No"))
     var yesNoButtonStyle: OnbButtonStyleType = .solidOutline(backgroundColor: .clear, textColor: .blue, borderColor: .blue, selectedBackgroundColor: .blue, selectedTextColor: .white, selectedBorderColor: .blue)
     var yesNoButtonFormatData: OnbButtonFormatData = .default
     var selectionBehavior: OnbSelectionBehavior = .single()
@@ -33,10 +33,10 @@ struct YesNoSlideView: View {
     var ctaText: String = "Continue"
     var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .gray, textColor: .white, selectedBackgroundColor: .blue, selectedTextColor: .white)
     var ctaButtonFormatData: OnbButtonFormatData = .default
-    var onYesNoClick: ((Bool) -> Void)? = nil
-    var onButtonClick: (() -> Void)? = nil
+    var onYesNoClick: ((OnbChoiceOption) -> Void)? = nil
+    var onButtonClick: (([OnbChoiceOption]) -> Void)? = nil
 
-    @State private var selectedOption: Bool? = nil
+    @State private var selectedOption: OnbChoiceOption? = nil
 
     private var shouldShowContinueButton: Bool {
         switch selectionBehavior {
@@ -70,25 +70,25 @@ struct YesNoSlideView: View {
             // Yes/No buttons
             HStack(spacing: yesNoSpacing) {
                 OnbButtonContent(
-                    data: OnbButtonContentData(text: noText)
+                    data: noOption.content
                 )
                 .onbButtonStyle(
                     style: yesNoButtonStyle,
-                    isSelected: selectedOption == false,
+                    isSelected: selectedOption == noOption,
                     format: yesNoButtonFormatData
                 ) {
-                    toggleSelection(for: false)
+                    toggleSelection(for: noOption)
                 }
 
                 OnbButtonContent(
-                    data: OnbButtonContentData(text: yesText)
+                    data: yesOption.content
                 )
                 .onbButtonStyle(
                     style: yesNoButtonStyle,
-                    isSelected: selectedOption == true,
+                    isSelected: selectedOption == yesOption,
                     format: yesNoButtonFormatData
                 ) {
-                    toggleSelection(for: true)
+                    toggleSelection(for: yesOption)
                 }
             }
             .padding(.horizontal, 24)
@@ -104,7 +104,9 @@ struct YesNoSlideView: View {
                     isSelected: selectedOption != nil,
                     format: ctaButtonFormatData
                 ) {
-                    onButtonClick?()
+                    if let selectedOption {
+                        onButtonClick?([selectedOption])
+                    }
                 }
                 .disabled(selectedOption == nil)
                 .padding(.top, footerData.top)
@@ -115,7 +117,7 @@ struct YesNoSlideView: View {
         }
     }
 
-    private func toggleSelection(for option: Bool) {
+    private func toggleSelection(for option: OnbChoiceOption) {
         if selectedOption == option {
             selectedOption = nil
         } else {
@@ -127,7 +129,9 @@ struct YesNoSlideView: View {
         case .single(let autoAdvance):
             if autoAdvance {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    onButtonClick?()
+                    if let selectedOption {
+                        onButtonClick?([selectedOption])
+                    }
                 }
             }
         case .multi:

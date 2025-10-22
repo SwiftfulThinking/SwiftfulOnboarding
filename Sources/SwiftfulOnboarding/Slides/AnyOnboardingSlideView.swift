@@ -66,7 +66,7 @@ struct AnyOnboardingSlideView: View {
                     onButtonClick?(selections)
                 }
             )
-        case .yesNo(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let yesNoSpacing, let yesText, let noText, let yesNoButtonStyle, let yesNoButtonFormatData, let selectionBehavior, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, _, _, _):
+        case .yesNo(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let yesNoSpacing, let yesOption, let noOption, let yesNoButtonStyle, let yesNoButtonFormatData, let selectionBehavior, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, _, _, _):
             YesNoSlideView(
                 title: title,
                 titleFont: titleFont,
@@ -83,8 +83,8 @@ struct AnyOnboardingSlideView: View {
                 horizontalPaddingTitle: horizontalPaddingTitle,
                 contentSpacing: contentSpacing,
                 yesNoSpacing: yesNoSpacing,
-                yesText: yesText,
-                noText: noText,
+                yesOption: yesOption,
+                noOption: noOption,
                 yesNoButtonStyle: yesNoButtonStyle,
                 yesNoButtonFormatData: yesNoButtonFormatData,
                 selectionBehavior: selectionBehavior,
@@ -92,8 +92,8 @@ struct AnyOnboardingSlideView: View {
                 ctaText: ctaText,
                 ctaButtonStyle: ctaButtonStyle,
                 ctaButtonFormatData: ctaButtonFormatData,
-                onButtonClick: {
-                    onButtonClick?([])
+                onButtonClick: { selections in
+                    onButtonClick?(selections)
                 }
             )
         case .rating(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let ratingButtonStyle, let ratingCornerRadius, let ratingButtonOption, let ratingFont, let ratingLabels, let selectionBehavior, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, _, _, _):
