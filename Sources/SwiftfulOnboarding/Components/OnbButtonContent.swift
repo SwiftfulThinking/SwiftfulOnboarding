@@ -37,6 +37,7 @@ enum OnbMediaContentPlacement {
 
 struct OnbButtonContentData {
     var text: String
+    var subtitle: String?
     var textPlacement: OnbButtonTextPlacement
     var secondaryContent: OnbButtonSecondaryContent?
     var secondaryContentPlacement: OnbButtonSecondaryContentPlacement
@@ -46,6 +47,7 @@ struct OnbButtonContentData {
 
     init(
         text: String,
+        subtitle: String? = nil,
         textPlacement: OnbButtonTextPlacement = .center,
         secondaryContent: OnbButtonSecondaryContent? = nil,
         secondaryContentPlacement: OnbButtonSecondaryContentPlacement = .trailing,
@@ -54,6 +56,7 @@ struct OnbButtonContentData {
         value: Any? = nil
     ) {
         self.text = text
+        self.subtitle = subtitle
         self.textPlacement = textPlacement
         self.secondaryContent = secondaryContent
         self.secondaryContentPlacement = secondaryContentPlacement
@@ -108,15 +111,30 @@ struct OnbButtonContent: View {
         } else {
             switch data.textPlacement {
             case .center:
-                Text(data.text)
-                    .multilineTextAlignment(multilineTextAlignment)
+                textWithSubtitle
             case .leading:
                 HStack {
-                    Text(data.text)
-                        .multilineTextAlignment(multilineTextAlignment)
+                    textWithSubtitle
                     Spacer()
                 }
             }
+        }
+    }
+
+    @ViewBuilder
+    private var textWithSubtitle: some View {
+        if let subtitle = data.subtitle {
+            VStack(spacing: 4) {
+                Text(data.text)
+                    .multilineTextAlignment(multilineTextAlignment)
+                Text(subtitle)
+                    .font(.caption)
+                    .multilineTextAlignment(multilineTextAlignment)
+                    .opacity(0.7)
+            }
+        } else {
+            Text(data.text)
+                .multilineTextAlignment(multilineTextAlignment)
         }
     }
 
@@ -132,8 +150,7 @@ struct OnbButtonContent: View {
         switch data.textPlacement {
         case .center:
             ZStack {
-                Text(data.text)
-                    .multilineTextAlignment(multilineTextAlignment)
+                textWithSubtitle
 
                 secondaryContentView(secondaryContent)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -141,8 +158,7 @@ struct OnbButtonContent: View {
         case .leading:
             HStack(spacing: 8) {
                 secondaryContentView(secondaryContent)
-                Text(data.text)
-                    .multilineTextAlignment(multilineTextAlignment)
+                textWithSubtitle
                 Spacer()
             }
         }
@@ -152,16 +168,14 @@ struct OnbButtonContent: View {
     private func centerLeadingView(secondaryContent: OnbButtonSecondaryContent) -> some View {
         HStack(spacing: 8) {
             secondaryContentView(secondaryContent)
-            Text(data.text)
-                .multilineTextAlignment(multilineTextAlignment)
+            textWithSubtitle
         }
     }
 
     @ViewBuilder
     private func centerTrailingView(secondaryContent: OnbButtonSecondaryContent) -> some View {
         HStack(spacing: 8) {
-            Text(data.text)
-                .multilineTextAlignment(multilineTextAlignment)
+            textWithSubtitle
             secondaryContentView(secondaryContent)
         }
     }
@@ -171,16 +185,14 @@ struct OnbButtonContent: View {
         switch data.textPlacement {
         case .center:
             ZStack {
-                Text(data.text)
-                    .multilineTextAlignment(multilineTextAlignment)
+                textWithSubtitle
 
                 secondaryContentView(secondaryContent)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
         case .leading:
             HStack(spacing: 8) {
-                Text(data.text)
-                    .multilineTextAlignment(multilineTextAlignment)
+                textWithSubtitle
                 secondaryContentView(secondaryContent)
                 Spacer()
             }
