@@ -19,7 +19,7 @@ struct SwiftfulOnboardingView: View {
         guard viewModel.currentIndex >= 0 && viewModel.currentIndex < viewModel.slides.count else {
             return viewModel.configuration.slideDefaults.backgroundColor
         }
-        if let override = viewModel.slides[viewModel.currentIndex].backgroundColorOverride {
+        if let override = viewModel.slides[viewModel.currentIndex].backgroundColor {
             return override
         }
         return viewModel.configuration.slideDefaults.backgroundColor
@@ -31,7 +31,7 @@ struct SwiftfulOnboardingView: View {
         }
 
         // Check for slide-specific override first
-        if let override = viewModel.slides[viewModel.currentIndex].showBackButtonOverride {
+        if let override = viewModel.slides[viewModel.currentIndex].showBackButton {
             return override
         }
 
@@ -50,7 +50,7 @@ struct SwiftfulOnboardingView: View {
         guard viewModel.currentIndex >= 0 && viewModel.currentIndex < viewModel.slides.count else {
             return viewModel.configuration.headerConfiguration.backButtonColor
         }
-        if let override = viewModel.slides[viewModel.currentIndex].backButtonColorOverride {
+        if let override = viewModel.slides[viewModel.currentIndex].backButtonColor {
             return override
         }
         return viewModel.configuration.headerConfiguration.backButtonColor
