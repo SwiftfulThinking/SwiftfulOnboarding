@@ -78,15 +78,11 @@ struct RatingSlideView: View {
     var body: some View {
         VStack(spacing: 0) {
             // Top feedback
-            if anyRatingHasFeedback, case .top = feedbackStyle {
-                if let feedback = currentFeedback {
-                    AnyFeedbackViewContainer(config: feedback, style: feedbackStyle)
-                        .padding(.horizontal, 24)
-                } else if let placeholderFeedback = (1...5).compactMap({ getFeedbackConfiguration?($0) }).first {
-                    AnyFeedbackViewContainer(config: placeholderFeedback, style: feedbackStyle)
-                        .padding(.horizontal, 24)
-                        .opacity(0.0)
-                }
+            if anyRatingHasFeedback, case .top = feedbackStyle,
+               let feedbackConfig = currentFeedback ?? (1...5).compactMap({ getFeedbackConfiguration?($0) }).first {
+                AnyFeedbackViewContainer(config: feedbackConfig, style: feedbackStyle)
+                    .padding(.horizontal, horizontalPaddingContent > 0 ? horizontalPaddingContent : 24)
+                    .opacity(currentFeedback != nil ? 1.0 : 0.0)
             }
 
             // Content
@@ -135,15 +131,11 @@ struct RatingSlideView: View {
             .padding(.top, 24)
 
             // Bottom feedback
-            if anyRatingHasFeedback, case .bottom = feedbackStyle {
-                if let feedback = currentFeedback {
-                    AnyFeedbackViewContainer(config: feedback, style: feedbackStyle)
-                        .padding(.horizontal, 24)
-                } else if let placeholderFeedback = (1...5).compactMap({ getFeedbackConfiguration?($0) }).first {
-                    AnyFeedbackViewContainer(config: placeholderFeedback, style: feedbackStyle)
-                        .padding(.horizontal, 24)
-                        .opacity(0.0)
-                }
+            if anyRatingHasFeedback, case .bottom = feedbackStyle,
+               let feedbackConfig = currentFeedback ?? (1...5).compactMap({ getFeedbackConfiguration?($0) }).first {
+                AnyFeedbackViewContainer(config: feedbackConfig, style: feedbackStyle)
+                    .padding(.horizontal, horizontalPaddingContent > 0 ? horizontalPaddingContent : 24)
+                    .opacity(currentFeedback != nil ? 1.0 : 0.0)
             }
 
             // Continue button at bottom

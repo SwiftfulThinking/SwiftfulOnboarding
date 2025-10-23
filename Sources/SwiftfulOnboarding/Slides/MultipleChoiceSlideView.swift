@@ -83,13 +83,11 @@ struct MultipleChoiceSlideView: View {
             // UI with ScrollView
             VStack(spacing: 0) {
                 // Top feedback
-                if anyOptionHasFeedback, case .top = feedbackStyle {
-                    if let feedback = currentFeedback {
-                        AnyFeedbackViewContainer(config: feedback, style: feedbackStyle)
-                    } else if let placeholderFeedback = options.first(where: { $0.feedbackConfiguration != nil })?.feedbackConfiguration {
-                        AnyFeedbackViewContainer(config: placeholderFeedback, style: feedbackStyle)
-                            .opacity(0.0)
-                    }
+                if anyOptionHasFeedback, case .top = feedbackStyle,
+                   let feedbackConfig = currentFeedback ?? options.first(where: { $0.feedbackConfiguration != nil })?.feedbackConfiguration {
+                    AnyFeedbackViewContainer(config: feedbackConfig, style: feedbackStyle)
+                        .padding(.horizontal, horizontalPaddingContent)
+                        .opacity(currentFeedback != nil ? 1.0 : 0.0)
                 }
 
                 // Title/Subtitle at top
@@ -154,13 +152,11 @@ struct MultipleChoiceSlideView: View {
 
                     VStack(spacing: 0) {
                         // Bottom feedback
-                        if anyOptionHasFeedback, case .bottom = feedbackStyle {
-                            if let feedback = currentFeedback {
-                                AnyFeedbackViewContainer(config: feedback, style: feedbackStyle)
-                            } else if let placeholderFeedback = options.first(where: { $0.feedbackConfiguration != nil })?.feedbackConfiguration {
-                                AnyFeedbackViewContainer(config: placeholderFeedback, style: feedbackStyle)
-                                    .opacity(0.0)
-                            }
+                        if anyOptionHasFeedback, case .bottom = feedbackStyle,
+                           let feedbackConfig = currentFeedback ?? options.first(where: { $0.feedbackConfiguration != nil })?.feedbackConfiguration {
+                            AnyFeedbackViewContainer(config: feedbackConfig, style: feedbackStyle)
+                                .padding(.horizontal, horizontalPaddingContent)
+                                .opacity(currentFeedback != nil ? 1.0 : 0.0)
                         }
 
                         // Continue button overlaying at bottom
@@ -195,15 +191,11 @@ struct MultipleChoiceSlideView: View {
             // UI without ScrollView
             VStack(spacing: 0) {
                 // Top feedback
-                if anyOptionHasFeedback, case .top = feedbackStyle {
-                    if let feedback = currentFeedback {
-                        AnyFeedbackViewContainer(config: feedback, style: feedbackStyle)
-                            .padding(.horizontal, horizontalPaddingContent)
-                    } else if let placeholderFeedback = options.first(where: { $0.feedbackConfiguration != nil })?.feedbackConfiguration {
-                        AnyFeedbackViewContainer(config: placeholderFeedback, style: feedbackStyle)
-                            .padding(.horizontal, horizontalPaddingContent)
-                            .opacity(0.0)
-                    }
+                if anyOptionHasFeedback, case .top = feedbackStyle,
+                   let feedbackConfig = currentFeedback ?? options.first(where: { $0.feedbackConfiguration != nil })?.feedbackConfiguration {
+                    AnyFeedbackViewContainer(config: feedbackConfig, style: feedbackStyle)
+                        .padding(.horizontal, horizontalPaddingContent)
+                        .opacity(currentFeedback != nil ? 1.0 : 0.0)
                 }
 
                 // Content
@@ -263,15 +255,11 @@ struct MultipleChoiceSlideView: View {
                 .padding(.bottom, paddingBottom)
 
                 // Bottom feedback
-                if anyOptionHasFeedback, case .bottom = feedbackStyle {
-                    if let feedback = currentFeedback {
-                        AnyFeedbackViewContainer(config: feedback, style: feedbackStyle)
-                            .padding(.horizontal, horizontalPaddingContent)
-                    } else if let placeholderFeedback = options.first(where: { $0.feedbackConfiguration != nil })?.feedbackConfiguration {
-                        AnyFeedbackViewContainer(config: placeholderFeedback, style: feedbackStyle)
-                            .padding(.horizontal, horizontalPaddingContent)
-                            .opacity(0.0)
-                    }
+                if anyOptionHasFeedback, case .bottom = feedbackStyle,
+                   let feedbackConfig = currentFeedback ?? options.first(where: { $0.feedbackConfiguration != nil })?.feedbackConfiguration {
+                    AnyFeedbackViewContainer(config: feedbackConfig, style: feedbackStyle)
+                        .padding(.horizontal, horizontalPaddingContent)
+                        .opacity(currentFeedback != nil ? 1.0 : 0.0)
                 }
 
                 // Continue button at bottom
