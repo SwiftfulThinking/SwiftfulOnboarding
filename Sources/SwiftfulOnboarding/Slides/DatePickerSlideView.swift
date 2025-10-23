@@ -195,9 +195,11 @@ struct DatePickerSlideView: View {
 
     return SwiftfulOnboardingView(
         configuration: OnbConfiguration(
-            headerStyle: .progressBar,
-            headerAlignment: .center,
-            showBackButton: .afterFirstSlide,
+            headerConfiguration: OnbHeaderConfiguration(
+                headerStyle: .progressBar,
+                headerAlignment: .center,
+                showBackButton: .afterFirstSlide
+            ),
             slides: [
                 .datePicker(
                     id: "slide1",

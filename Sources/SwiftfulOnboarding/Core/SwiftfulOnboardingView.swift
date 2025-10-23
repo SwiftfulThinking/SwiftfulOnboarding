@@ -36,7 +36,7 @@ struct SwiftfulOnboardingView: View {
         }
 
         // Use configuration behavior
-        switch viewModel.configuration.showBackButton {
+        switch viewModel.configuration.headerConfiguration.showBackButton {
         case .always:
             return true
         case .afterFirstSlide:
@@ -48,12 +48,12 @@ struct SwiftfulOnboardingView: View {
 
     private var currentBackButtonColor: Color {
         guard viewModel.currentIndex >= 0 && viewModel.currentIndex < viewModel.slides.count else {
-            return viewModel.configuration.backButtonColor
+            return viewModel.configuration.headerConfiguration.backButtonColor
         }
         if let override = viewModel.slides[viewModel.currentIndex].backButtonColorOverride {
             return override
         }
-        return viewModel.configuration.backButtonColor
+        return viewModel.configuration.headerConfiguration.backButtonColor
     }
 
     private var screenWidth: CGFloat {
@@ -118,8 +118,8 @@ struct SwiftfulOnboardingView: View {
             VStack(spacing: 0) {
                 // Header
                 OnboardingHeaderView(
-                    style: viewModel.configuration.headerStyle,
-                    alignment: viewModel.configuration.headerAlignment,
+                    style: viewModel.configuration.headerConfiguration.headerStyle,
+                    alignment: viewModel.configuration.headerConfiguration.headerAlignment,
                     currentPage: viewModel.currentIndex + 1,
                     totalPages: viewModel.slides.count,
                     showBackButton: shouldShowBackButton,
@@ -173,9 +173,11 @@ struct SwiftfulOnboardingView: View {
 #Preview {
     SwiftfulOnboardingView(
         configuration: OnbConfiguration(
-            headerStyle: .progressBar,
-            headerAlignment: .center,
-            showBackButton: .afterFirstSlide,
+            headerConfiguration: OnbHeaderConfiguration(
+                headerStyle: .progressBar,
+                headerAlignment: .center,
+                showBackButton: .afterFirstSlide
+            ),
             slides: [
                 .regular(
                     id: "welcome",

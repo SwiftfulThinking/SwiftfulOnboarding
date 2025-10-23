@@ -254,9 +254,11 @@ struct AnyOnboardingSlideView: View {
 #Preview {
     SwiftfulOnboardingView(
         configuration: OnbConfiguration(
-            headerStyle: .progressBar,
-            headerAlignment: .center,
-            showBackButton: .afterFirstSlide,
+            headerConfiguration: OnbHeaderConfiguration(
+                headerStyle: .progressBar,
+                headerAlignment: .center,
+                showBackButton: .afterFirstSlide
+            ),
             slides: [
                 .regular(
                     id: "welcome",

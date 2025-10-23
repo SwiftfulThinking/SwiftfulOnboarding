@@ -23,10 +23,7 @@ enum OnbTransitionStyle {
 struct OnbConfiguration {
 
     // Header configuration
-    var headerStyle: HeaderStyle = .progressBar
-    var headerAlignment: HeaderAlignment = .center
-    var showBackButton: OnbBackButtonBehavior = .afterFirstSlide
-    var backButtonColor: Color = .primary
+    var headerConfiguration: OnbHeaderConfiguration = .default
 
     // Slides data
     var slides: [OnbSlideType] = []
