@@ -61,7 +61,7 @@ struct YesNoSlideView: View {
             if anyOptionHasFeedback, case .top = feedbackStyle,
                let feedbackConfig = currentFeedback ?? [yesOption, noOption].first(where: { $0.feedbackConfiguration != nil })?.feedbackConfiguration {
                 AnyFeedbackViewContainer(config: feedbackConfig, style: feedbackStyle)
-                    .padding(.horizontal, horizontalPaddingContent > 0 ? horizontalPaddingContent : 24)
+                    .padding(.horizontal, horizontalPaddingContent)
                     .opacity(currentFeedback != nil ? 1.0 : 0.0)
             }
 
@@ -107,8 +107,8 @@ struct YesNoSlideView: View {
                     toggleSelection(for: yesOption)
                 }
             }
-            .padding(.horizontal, 24)
-            .padding(.top, 24)
+            .padding(.horizontal, horizontalPaddingContent)
+            .padding(.top, contentSpacing)
 
             // Bottom feedback
             if anyOptionHasFeedback, case .bottom = feedbackStyle,
@@ -116,6 +116,7 @@ struct YesNoSlideView: View {
                 AnyFeedbackViewContainer(config: feedbackConfig, style: feedbackStyle)
                     .padding(.horizontal, horizontalPaddingContent > 0 ? horizontalPaddingContent : 24)
                     .opacity(currentFeedback != nil ? 1.0 : 0.0)
+                    .padding(.top, contentSpacing)
             }
 
             // Continue button at bottom

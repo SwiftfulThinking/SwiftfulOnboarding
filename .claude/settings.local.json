@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(swift build:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []

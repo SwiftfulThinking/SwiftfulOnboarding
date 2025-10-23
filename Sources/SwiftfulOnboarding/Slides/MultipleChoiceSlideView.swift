@@ -278,7 +278,6 @@ struct MultipleChoiceSlideView: View {
                             onButtonClick?(selectedOptions)
                         }
                         .disabled(selectedOptions.isEmpty)
-                        .opacity(selectedOptions.isEmpty ? 0.5 : 1.0)
                         .padding(.top, footerData.top)
                         .padding(.leading, footerData.leading)
                         .padding(.trailing, footerData.trailing)
