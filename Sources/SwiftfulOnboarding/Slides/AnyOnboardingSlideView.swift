@@ -71,7 +71,7 @@ struct AnyOnboardingSlideView: View {
                 selectedOptions: selectedOptions,
                 feedbackStyle: feedbackStyle
             )
-        case .yesNo(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let yesNoSpacing, let yesOption, let noOption, let yesNoButtonStyle, let yesNoButtonFormatData, let selectionBehavior, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, _, _, _):
+        case .yesNo(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let yesNoSpacing, let yesOption, let noOption, let yesNoButtonStyle, let yesNoButtonFormatData, let selectionBehavior, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, let feedbackStyle, _, _, _):
             YesNoSlideView(
                 title: title,
                 titleFont: titleFont,
@@ -101,7 +101,8 @@ struct AnyOnboardingSlideView: View {
                 onButtonClick: { selections in
                     onButtonClick?(selections)
                 },
-                selectedOptions: selectedOptions
+                selectedOptions: selectedOptions,
+                feedbackStyle: feedbackStyle
             )
         case .rating(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let ratingButtonStyle, let ratingCornerRadius, let ratingButtonOption, let ratingFont, let ratingLabels, let selectionBehavior, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, _, _, _):
             RatingSlideView(

@@ -36,6 +36,7 @@ struct YesNoSlideView: View {
     var handleSelection: ((OnbChoiceOption, OnbSelectionBehavior) -> Void)? = nil
     var onButtonClick: (([OnbChoiceOption]) -> Void)? = nil
     var selectedOptions: [OnbChoiceOption] = []
+    var feedbackStyle: AnyFeedbackViewStyle = .top()
 
     private var shouldShowContinueButton: Bool {
         switch selectionBehavior {
@@ -46,8 +47,28 @@ struct YesNoSlideView: View {
         }
     }
 
+    private var currentFeedback: OnbFeedbackConfiguration? {
+        selectedOptions.last(where: { $0.feedbackConfiguration != nil })?.feedbackConfiguration
+    }
+
+    private var anyOptionHasFeedback: Bool {
+        [yesOption, noOption].contains(where: { $0.feedbackConfiguration != nil })
+    }
+
     var body: some View {
         VStack(spacing: 0) {
+            // Top feedback
+            if anyOptionHasFeedback, case .top = feedbackStyle {
+                if let feedback = currentFeedback {
+                    AnyFeedbackViewContainer(config: feedback, style: feedbackStyle)
+                        .padding(.horizontal, 24)
+                } else if let placeholderFeedback = [yesOption, noOption].first(where: { $0.feedbackConfiguration != nil })?.feedbackConfiguration {
+                    AnyFeedbackViewContainer(config: placeholderFeedback, style: feedbackStyle)
+                        .padding(.horizontal, 24)
+                        .opacity(0.0)
+                }
+            }
+
             // Content
             AnyRegularContentView(
                 title: title,
@@ -92,6 +113,18 @@ struct YesNoSlideView: View {
             }
             .padding(.horizontal, 24)
             .padding(.top, 24)
+
+            // Bottom feedback
+            if anyOptionHasFeedback, case .bottom = feedbackStyle {
+                if let feedback = currentFeedback {
+                    AnyFeedbackViewContainer(config: feedback, style: feedbackStyle)
+                        .padding(.horizontal, 24)
+                } else if let placeholderFeedback = [yesOption, noOption].first(where: { $0.feedbackConfiguration != nil })?.feedbackConfiguration {
+                    AnyFeedbackViewContainer(config: placeholderFeedback, style: feedbackStyle)
+                        .padding(.horizontal, 24)
+                        .opacity(0.0)
+                }
+            }
 
             // Continue button at bottom
             if shouldShowContinueButton {
