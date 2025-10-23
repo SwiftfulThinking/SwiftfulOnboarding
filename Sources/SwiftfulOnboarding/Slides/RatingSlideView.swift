@@ -36,6 +36,9 @@ struct RatingSlideView: View {
     var handleSelection: ((OnbChoiceOption, OnbSelectionBehavior) -> Void)? = nil
     var onButtonClick: (([OnbChoiceOption]) -> Void)? = nil
     var selectedOptions: [OnbChoiceOption] = []
+    var getResponseConfiguration: ((Int) -> OnbResponseConfiguration?)? = nil
+    var getFeedbackConfiguration: ((Int) -> OnbFeedbackConfiguration?)? = nil
+    var feedbackStyle: AnyFeedbackViewStyle = .top()
 
     private var selectedRating: Int? {
         guard let option = selectedOptions.first,
@@ -48,7 +51,9 @@ struct RatingSlideView: View {
     private func ratingToOption(_ rating: Int) -> OnbChoiceOption {
         OnbChoiceOption(
             id: "\(rating)",
-            content: OnbButtonContentData(text: "\(rating)", value: rating)
+            content: OnbButtonContentData(text: "\(rating)", value: rating),
+            responseConfiguration: getResponseConfiguration?(rating),
+            feedbackConfiguration: getFeedbackConfiguration?(rating)
         )
     }
 
@@ -61,8 +66,29 @@ struct RatingSlideView: View {
         }
     }
 
+    private var currentFeedback: OnbFeedbackConfiguration? {
+        selectedOptions.last(where: { $0.feedbackConfiguration != nil })?.feedbackConfiguration
+    }
+
+    private var anyRatingHasFeedback: Bool {
+        guard let getFeedback = getFeedbackConfiguration else { return false }
+        return (1...5).contains(where: { getFeedback($0) != nil })
+    }
+
     var body: some View {
         VStack(spacing: 0) {
+            // Top feedback
+            if anyRatingHasFeedback, case .top = feedbackStyle {
+                if let feedback = currentFeedback {
+                    AnyFeedbackViewContainer(config: feedback, style: feedbackStyle)
+                        .padding(.horizontal, 24)
+                } else if let placeholderFeedback = (1...5).compactMap({ getFeedbackConfiguration?($0) }).first {
+                    AnyFeedbackViewContainer(config: placeholderFeedback, style: feedbackStyle)
+                        .padding(.horizontal, 24)
+                        .opacity(0.0)
+                }
+            }
+
             // Content
             AnyRegularContentView(
                 title: title,
@@ -107,6 +133,18 @@ struct RatingSlideView: View {
             )
             .padding(.horizontal, 24)
             .padding(.top, 24)
+
+            // Bottom feedback
+            if anyRatingHasFeedback, case .bottom = feedbackStyle {
+                if let feedback = currentFeedback {
+                    AnyFeedbackViewContainer(config: feedback, style: feedbackStyle)
+                        .padding(.horizontal, 24)
+                } else if let placeholderFeedback = (1...5).compactMap({ getFeedbackConfiguration?($0) }).first {
+                    AnyFeedbackViewContainer(config: placeholderFeedback, style: feedbackStyle)
+                        .padding(.horizontal, 24)
+                        .opacity(0.0)
+                }
+            }
 
             // Continue button at bottom
             if shouldShowContinueButton {

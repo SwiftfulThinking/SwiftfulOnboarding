@@ -122,6 +122,9 @@ enum OnbSlideType: OnbSlideProtocol {
         ctaText: String = "Continue",
         ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white),
         ctaButtonFormatData: OnbButtonFormatData = .default,
+        getResponseConfiguration: ((Int) -> OnbResponseConfiguration?)? = nil,
+        getFeedbackConfiguration: ((Int) -> OnbFeedbackConfiguration?)? = nil,
+        feedbackStyle: AnyFeedbackViewStyle = .top(),
         backgroundColorOverride: Color? = nil,
         showBackButtonOverride: Bool? = nil,
         backButtonColorOverride: Color? = nil
@@ -239,7 +242,7 @@ enum OnbSlideType: OnbSlideProtocol {
             return id
         case .yesNo(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
-        case .rating(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+        case .rating(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
         case .textInput(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
@@ -260,7 +263,7 @@ enum OnbSlideType: OnbSlideProtocol {
             return backgroundColorOverride
         case .yesNo(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColorOverride, _, _):
             return backgroundColorOverride
-        case .rating(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColorOverride, _, _):
+        case .rating(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColorOverride, _, _):
             return backgroundColorOverride
         case .textInput(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColorOverride, _, _):
             return backgroundColorOverride
@@ -281,7 +284,7 @@ enum OnbSlideType: OnbSlideProtocol {
             return showBackButtonOverride
         case .yesNo(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let showBackButtonOverride, _):
             return showBackButtonOverride
-        case .rating(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let showBackButtonOverride, _):
+        case .rating(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let showBackButtonOverride, _):
             return showBackButtonOverride
         case .textInput(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let showBackButtonOverride, _):
             return showBackButtonOverride
@@ -302,7 +305,7 @@ enum OnbSlideType: OnbSlideProtocol {
             return backButtonColorOverride
         case .yesNo(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backButtonColorOverride):
             return backButtonColorOverride
-        case .rating(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backButtonColorOverride):
+        case .rating(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backButtonColorOverride):
             return backButtonColorOverride
         case .textInput(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backButtonColorOverride):
             return backButtonColorOverride
