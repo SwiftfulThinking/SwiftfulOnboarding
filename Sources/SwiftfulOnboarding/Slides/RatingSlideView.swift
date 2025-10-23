@@ -38,6 +38,7 @@ struct RatingSlideView: View {
     var selectedOptions: [OnbChoiceOption] = []
     var getResponseConfiguration: ((Int) -> OnbResponseConfiguration?)? = nil
     var getFeedbackConfiguration: ((Int) -> OnbFeedbackConfiguration?)? = nil
+    var getInsertConfiguration: ((Int) -> [InsertSlideData]?)? = nil
     var feedbackStyle: AnyFeedbackViewStyle = .top()
 
     private var selectedRating: Int? {
@@ -53,7 +54,8 @@ struct RatingSlideView: View {
             id: "\(rating)",
             content: OnbButtonContentData(text: "\(rating)", value: rating),
             responseConfiguration: getResponseConfiguration?(rating),
-            feedbackConfiguration: getFeedbackConfiguration?(rating)
+            feedbackConfiguration: getFeedbackConfiguration?(rating),
+            insertConfiguration: getInsertConfiguration?(rating)
         )
     }
 
