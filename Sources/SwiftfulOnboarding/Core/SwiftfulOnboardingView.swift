@@ -17,12 +17,12 @@ struct SwiftfulOnboardingView: View {
 
     private var currentBackgroundColor: Color {
         guard viewModel.currentIndex >= 0 && viewModel.currentIndex < viewModel.slides.count else {
-            return viewModel.configuration.backgroundColor
+            return viewModel.configuration.slideDefaults.backgroundColor
         }
         if let override = viewModel.slides[viewModel.currentIndex].backgroundColorOverride {
             return override
         }
-        return viewModel.configuration.backgroundColor
+        return viewModel.configuration.slideDefaults.backgroundColor
     }
 
     private var shouldShowBackButton: Bool {
@@ -65,7 +65,7 @@ struct SwiftfulOnboardingView: View {
     }
 
     private func slideOpacity(for index: Int) -> Double {
-        switch viewModel.configuration.transitionStyle {
+        switch viewModel.configuration.slideDefaults.transitionStyle {
         case .none:
             return index == viewModel.currentIndex ? 1 : 0
         case .slide:
@@ -76,7 +76,7 @@ struct SwiftfulOnboardingView: View {
     }
 
     private func slideOffset(for index: Int) -> CGFloat {
-        switch viewModel.configuration.transitionStyle {
+        switch viewModel.configuration.slideDefaults.transitionStyle {
         case .none, .opacity:
             return 0
         case .slide:
@@ -99,7 +99,7 @@ struct SwiftfulOnboardingView: View {
     }
 
     private var shouldAnimateTransition: Bool {
-        switch viewModel.configuration.transitionStyle {
+        switch viewModel.configuration.slideDefaults.transitionStyle {
         case .none:
             return false
         case .opacity, .slide, .fade:

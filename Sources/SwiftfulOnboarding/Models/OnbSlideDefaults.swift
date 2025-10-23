@@ -55,6 +55,10 @@ struct OnbSlideDefaults {
     // Selection (for slides that support it)
     var selectionBehavior: OnbSelectionBehavior
 
+    // Background & Transitions
+    var backgroundColor: Color
+    var transitionStyle: OnbTransitionStyle
+
     static let `default` = OnbSlideDefaults(
         titleFont: .largeTitle,
         subtitleFont: .body,
@@ -72,6 +76,8 @@ struct OnbSlideDefaults {
         ctaButtonFormatData: .default,
         mediaPosition: .top,
         feedbackStyle: .top(),
-        selectionBehavior: .single()
+        selectionBehavior: .single(),
+        backgroundColor: .clear,
+        transitionStyle: .slide
     )
 }

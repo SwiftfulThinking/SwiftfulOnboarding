@@ -34,10 +34,4 @@ struct OnbConfiguration {
     // Slide defaults
     var slideDefaults: OnbSlideDefaults = .default
 
-    // Background color
-    var backgroundColor: Color = .clear
-
-    // Transition style
-    var transitionStyle: OnbTransitionStyle = .slide
-
 }
