@@ -185,6 +185,76 @@ struct YesNoSlideView: View {
                     media: .systemIcon(named: "person.3.fill", size: .large),
                     mediaPosition: .top,
                     selectionBehavior: .single()
+                ),
+                .yesNo(
+                    id: "feedback_top",
+                    title: "Top Feedback Example",
+                    subtitle: "Select an option to see feedback at top",
+                    yesOption: OnbChoiceOption(
+                        id: "yes",
+                        content: OnbButtonContentData(text: "Yes"),
+                        feedbackConfiguration: OnbFeedbackConfiguration(
+                            backgroundColor: Color(red: 0.8, green: 0.95, blue: 0.8),
+                            borderWidth: 2,
+                            borderColor: Color(red: 0.2, green: 0.6, blue: 0.2),
+                            title: "Great choice!",
+                            titleFont: .headline,
+                            subtitle: "You selected Yes",
+                            subtitleFont: .subheadline,
+                            titleAlignment: .leading
+                        )
+                    ),
+                    noOption: OnbChoiceOption(
+                        id: "no",
+                        content: OnbButtonContentData(text: "No"),
+                        feedbackConfiguration: OnbFeedbackConfiguration(
+                            backgroundColor: Color(red: 0.95, green: 0.8, blue: 0.8),
+                            borderWidth: 2,
+                            borderColor: Color(red: 0.8, green: 0.2, blue: 0.2),
+                            title: "That's okay!",
+                            titleFont: .headline,
+                            subtitle: "You selected No",
+                            subtitleFont: .subheadline,
+                            titleAlignment: .leading
+                        )
+                    ),
+                    selectionBehavior: .single(),
+                    feedbackStyle: .top()
+                ),
+                .yesNo(
+                    id: "feedback_bottom",
+                    title: "Bottom Feedback Example",
+                    subtitle: "Select an option to see feedback at bottom",
+                    yesOption: OnbChoiceOption(
+                        id: "yes",
+                        content: OnbButtonContentData(text: "Yes"),
+                        feedbackConfiguration: OnbFeedbackConfiguration(
+                            backgroundColor: Color(red: 0.8, green: 0.9, blue: 0.95),
+                            borderWidth: 2,
+                            borderColor: Color(red: 0.2, green: 0.4, blue: 0.8),
+                            title: "Excellent!",
+                            titleFont: .headline,
+                            subtitle: "You chose Yes",
+                            subtitleFont: .subheadline,
+                            titleAlignment: .leading
+                        )
+                    ),
+                    noOption: OnbChoiceOption(
+                        id: "no",
+                        content: OnbButtonContentData(text: "No"),
+                        feedbackConfiguration: OnbFeedbackConfiguration(
+                            backgroundColor: Color(red: 0.95, green: 0.9, blue: 0.8),
+                            borderWidth: 2,
+                            borderColor: Color(red: 0.8, green: 0.5, blue: 0.2),
+                            title: "No problem!",
+                            titleFont: .headline,
+                            subtitle: "You chose No",
+                            subtitleFont: .subheadline,
+                            titleAlignment: .leading
+                        )
+                    ),
+                    selectionBehavior: .single(),
+                    feedbackStyle: .bottom()
                 )
             ]
         )

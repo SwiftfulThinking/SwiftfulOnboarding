@@ -187,6 +187,68 @@ struct RatingSlideView: View {
                     subtitle: "How satisfied are you with our service?",
                     media: .systemIcon(named: "person.fill", size: .large),
                     mediaPosition: .top
+                ),
+                .rating(
+                    id: "feedback_top",
+                    title: "Top Feedback Example",
+                    subtitle: "Select a rating to see feedback at top",
+                    getFeedbackConfiguration: { rating in
+                        if rating >= 4 {
+                            return OnbFeedbackConfiguration(
+                                backgroundColor: Color(red: 0.8, green: 0.95, blue: 0.8),
+                                borderWidth: 2,
+                                borderColor: Color(red: 0.2, green: 0.6, blue: 0.2),
+                                title: "Thanks!",
+                                titleFont: .headline,
+                                subtitle: "You rated \(rating) stars",
+                                subtitleFont: .subheadline,
+                                titleAlignment: .leading
+                            )
+                        } else {
+                            return OnbFeedbackConfiguration(
+                                backgroundColor: Color(red: 0.95, green: 0.8, blue: 0.8),
+                                borderWidth: 2,
+                                borderColor: Color(red: 0.8, green: 0.2, blue: 0.2),
+                                title: "We can improve",
+                                titleFont: .headline,
+                                subtitle: "You rated \(rating) stars",
+                                subtitleFont: .subheadline,
+                                titleAlignment: .leading
+                            )
+                        }
+                    },
+                    feedbackStyle: .top()
+                ),
+                .rating(
+                    id: "feedback_bottom",
+                    title: "Bottom Feedback Example",
+                    subtitle: "Select a rating to see feedback at bottom",
+                    getFeedbackConfiguration: { rating in
+                        if rating == 5 {
+                            return OnbFeedbackConfiguration(
+                                backgroundColor: Color(red: 0.8, green: 0.9, blue: 0.95),
+                                borderWidth: 2,
+                                borderColor: Color(red: 0.2, green: 0.4, blue: 0.8),
+                                title: "Perfect score!",
+                                titleFont: .headline,
+                                subtitle: "You gave us 5 stars",
+                                subtitleFont: .subheadline,
+                                titleAlignment: .leading
+                            )
+                        } else {
+                            return OnbFeedbackConfiguration(
+                                backgroundColor: Color(red: 0.95, green: 0.9, blue: 0.8),
+                                borderWidth: 2,
+                                borderColor: Color(red: 0.8, green: 0.5, blue: 0.2),
+                                title: "Thanks for rating!",
+                                titleFont: .headline,
+                                subtitle: "You selected \(rating) stars",
+                                subtitleFont: .subheadline,
+                                titleAlignment: .leading
+                            )
+                        }
+                    },
+                    feedbackStyle: .bottom()
                 )
             ]
         )
