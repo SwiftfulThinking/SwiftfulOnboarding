@@ -9,8 +9,8 @@ import SwiftUI
 
 enum InsertSlidePlacement {
     case next
-    case after(slideId: String)
-    case after(slideCount: Int)
+    case afterSlide(id: String)
+    case afterCount(count: Int)
 }
 
 struct InsertSlideData {
