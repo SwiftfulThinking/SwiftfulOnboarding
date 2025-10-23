@@ -42,11 +42,56 @@ class SwiftfulOnboardingViewModel: ObservableObject {
     }
 
     private func nextSlide() {
+        // Call onSlideComplete callback before advancing
+        callOnSlideComplete()
+
         insertSlidesFromSelections()
 
         if currentIndex < slides.count - 1 {
             currentIndex += 1
+        } else {
+            // We've reached the end of the flow
+            callOnFlowComplete()
         }
+    }
+
+    private func callOnSlideComplete() {
+        guard let callback = configuration.onSlideComplete else { return }
+
+        let currentSlide = slides[currentIndex]
+        let slideData = createSlideData(for: currentSlide)
+
+        callback(slideData)
+    }
+
+    private func callOnFlowComplete() {
+        guard let callback = configuration.onFlowComplete else { return }
+
+        let allSlideData = slides.map { slide in
+            createSlideData(for: slide)
+        }
+
+        let flowData = OnbFlowData(slides: allSlideData)
+        callback(flowData)
+    }
+
+    private func createSlideData(for slide: OnbSlideType) -> OnbSlideData {
+        let selections = savedSelections[slide.id] ?? []
+
+        let selectionData = selections.map { option in
+            OnbSelectionData(
+                id: option.id,
+                text: option.content.text,
+                value: option.content.value
+            )
+        }
+
+        return OnbSlideData(
+            slideId: slide.id,
+            slideTitle: slide.title,
+            slideType: slide.slideType,
+            selections: selectionData
+        )
     }
 
     private func insertSlidesFromSelections() {

@@ -31,4 +31,8 @@ struct OnbConfiguration {
     // Slide defaults
     var slideDefaults: OnbSlideDefaults = .default
 
+    // Callbacks
+    var onSlideComplete: ((OnbSlideData) -> Void)? = nil
+    var onFlowComplete: ((OnbFlowData) -> Void)? = nil
+
 }

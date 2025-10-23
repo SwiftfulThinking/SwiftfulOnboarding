@@ -321,4 +321,46 @@ enum OnbSlideType: OnbSlideProtocol {
             return backButtonColor
         }
     }
+
+    var title: String? {
+        switch self {
+        case .regular(_, let title, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+            return title
+        case .multipleChoice(_, let title, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+            return title
+        case .yesNo(_, let title, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+            return title
+        case .rating(_, let title, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+            return title
+        case .textInput(_, let title, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+            return title
+        case .datePicker(_, let title, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+            return title
+        case .picker(_, let title, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+            return title
+        case .primaryAction(_, let title, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+            return title
+        }
+    }
+
+    var slideType: String {
+        switch self {
+        case .regular:
+            return "regular"
+        case .multipleChoice:
+            return "multipleChoice"
+        case .yesNo:
+            return "yesNo"
+        case .rating:
+            return "rating"
+        case .textInput:
+            return "textInput"
+        case .datePicker:
+            return "datePicker"
+        case .picker:
+            return "picker"
+        case .primaryAction:
+            return "primaryAction"
+        }
+    }
 }
