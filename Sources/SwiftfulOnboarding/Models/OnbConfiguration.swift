@@ -31,6 +31,9 @@ struct OnbConfiguration {
     // Slides data
     var slides: [OnbSlideType] = []
 
+    // Slide defaults
+    var slideDefaults: OnbSlideDefaults = .default
+
     // Background color
     var backgroundColor: Color = .clear
 
