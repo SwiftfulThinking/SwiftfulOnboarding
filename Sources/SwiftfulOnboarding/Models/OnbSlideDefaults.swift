@@ -27,57 +27,37 @@ import SwiftUI
 /// Note: Individual slide parameters will override these defaults when specified.
 struct OnbSlideDefaults {
     // Title & Subtitle
-    var titleFont: Font
-    var subtitleFont: Font
-    var titleSubtitleSpacing: CGFloat
-    var titleAlignment: OnbTextAlignment
+    var titleFont: Font = .largeTitle
+    var subtitleFont: Font = .body
+    var titleSubtitleSpacing: CGFloat = 8
+    var titleAlignment: OnbTextAlignment = .center
 
     // Content
-    var contentAlignment: OnbContentAlignment
-    var paddingTop: CGFloat
-    var paddingBottom: CGFloat
-    var horizontalPaddingContent: CGFloat
-    var horizontalPaddingTitle: CGFloat
-    var contentSpacing: CGFloat
+    var contentAlignment: OnbContentAlignment = .center
+    var paddingTop: CGFloat = 40
+    var paddingBottom: CGFloat = 0
+    var horizontalPaddingContent: CGFloat = 0
+    var horizontalPaddingTitle: CGFloat = 40
+    var contentSpacing: CGFloat = 24
 
     // Footer
-    var footerData: OnbFooterData
-    var ctaText: String
-    var ctaButtonStyle: OnbButtonStyleType
-    var ctaButtonFormatData: OnbButtonFormatData
+    var footerData: OnbFooterData = .default
+    var ctaText: String = "Continue"
+    var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
+    var ctaButtonFormatData: OnbButtonFormatData = .default
 
     // Media (for slides that support it)
-    var mediaPosition: OnbMediaPosition
+    var mediaPosition: OnbMediaPosition = .top
 
     // Feedback (for slides that support it)
-    var feedbackStyle: AnyFeedbackViewStyle
+    var feedbackStyle: AnyFeedbackViewStyle = .top()
 
     // Selection (for slides that support it)
-    var selectionBehavior: OnbSelectionBehavior
+    var selectionBehavior: OnbSelectionBehavior = .single()
 
     // Background & Transitions
-    var backgroundColor: Color
-    var transitionStyle: OnbTransitionStyle
+    var backgroundColor: Color = .clear
+    var transitionStyle: OnbTransitionStyle = .slide
 
-    static let `default` = OnbSlideDefaults(
-        titleFont: .largeTitle,
-        subtitleFont: .body,
-        titleSubtitleSpacing: 8,
-        titleAlignment: .center,
-        contentAlignment: .center,
-        paddingTop: 40,
-        paddingBottom: 0,
-        horizontalPaddingContent: 0,
-        horizontalPaddingTitle: 40,
-        contentSpacing: 24,
-        footerData: .default,
-        ctaText: "Continue",
-        ctaButtonStyle: .solid(backgroundColor: .blue, textColor: .white),
-        ctaButtonFormatData: .default,
-        mediaPosition: .top,
-        feedbackStyle: .top(),
-        selectionBehavior: .single(),
-        backgroundColor: .clear,
-        transitionStyle: .slide
-    )
+    static let `default` = OnbSlideDefaults()
 }

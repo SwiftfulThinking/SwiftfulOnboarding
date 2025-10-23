@@ -8,15 +8,10 @@
 import SwiftUI
 
 struct OnbHeaderConfiguration {
-    var headerStyle: HeaderStyle
-    var headerAlignment: HeaderAlignment
-    var showBackButton: OnbBackButtonBehavior
-    var backButtonColor: Color
+    var headerStyle: HeaderStyle = .progressBar
+    var headerAlignment: HeaderAlignment = .center
+    var showBackButton: OnbBackButtonBehavior = .afterFirstSlide
+    var backButtonColor: Color = .primary
 
-    static let `default` = OnbHeaderConfiguration(
-        headerStyle: .progressBar,
-        headerAlignment: .center,
-        showBackButton: .afterFirstSlide,
-        backButtonColor: .primary
-    )
+    static let `default` = OnbHeaderConfiguration()
 }
