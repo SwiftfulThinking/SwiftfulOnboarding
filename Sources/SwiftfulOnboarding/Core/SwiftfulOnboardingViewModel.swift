@@ -42,8 +42,53 @@ class SwiftfulOnboardingViewModel: ObservableObject {
     }
 
     private func nextSlide() {
+        insertSlidesFromSelections()
+
         if currentIndex < slides.count - 1 {
             currentIndex += 1
+        }
+    }
+
+    private func insertSlidesFromSelections() {
+        let currentSlide = slides[currentIndex]
+        guard let selections = savedSelections[currentSlide.id] else { return }
+
+        // Process selections in reverse order
+        for selection in selections.reversed() {
+            guard let insertConfigs = selection.insertConfiguration else { continue }
+
+            // Process insertConfiguration array in order
+            for insertConfig in insertConfigs {
+                insertSlide(insertConfig)
+            }
+        }
+    }
+
+    private func insertSlide(_ insertConfig: InsertSlideData) {
+        let insertIndex: Int?
+
+        switch insertConfig.placement {
+        case .next:
+            // Insert right after current slide
+            insertIndex = currentIndex + 1
+
+        case .after(let slideCount):
+            // Insert at currentIndex + slideCount, or at end if out of bounds
+            let targetIndex = currentIndex + slideCount
+            insertIndex = min(targetIndex, slides.count)
+
+        case .after(let slideId):
+            // Find slide with matching ID ahead of current position
+            if let foundIndex = slides[(currentIndex + 1)...].firstIndex(where: { $0.id == slideId }) {
+                insertIndex = foundIndex + 1
+            } else {
+                // Slide ID not found ahead of current position, do nothing
+                insertIndex = nil
+            }
+        }
+
+        if let index = insertIndex {
+            slides.insert(insertConfig.slide, at: index)
         }
     }
 
