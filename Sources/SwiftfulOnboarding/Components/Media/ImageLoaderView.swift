@@ -13,6 +13,7 @@ struct ImageLoaderView: View {
     var resizingMode: ContentMode = .fill
     var forceTransitionAnimation: Bool = false
     var placeholderOpacity: Double = 0.5
+    var aspectRatioValue: CGFloat? = nil
 
     var body: some View {
         Rectangle()

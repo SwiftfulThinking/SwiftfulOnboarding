@@ -11,6 +11,7 @@ import SDWebImageSwiftUI
 struct AnyMediaView: View {
 
     let media: OnbMediaType
+    var isSelected: Bool = false
 
     private var aspectRatioValue: CGFloat? {
         switch media.aspectRatio {
@@ -32,15 +33,26 @@ struct AnyMediaView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
 
-        case .image(let urlString, _, _, let cornerRadius):
-            ImageLoaderView(urlString: urlString)
+        case .image(let urlString, _, _, let cornerRadius, let borderColor, let borderWidth, let selectedBorderColor, let selectedBorderWidth):
+            let currentBorderColor = isSelected ? (selectedBorderColor ?? borderColor) : borderColor
+            let currentBorderWidth = isSelected ? (selectedBorderWidth ?? borderWidth) : borderWidth
+
+            ImageLoaderView(urlString: urlString, aspectRatioValue: nil)
                 .ifSatisfiesCondition(aspectRatioValue != nil, transform: { content in
                     content
-                        .aspectRatio(aspectRatioValue, contentMode: .fill)
+                        .aspectRatio(aspectRatioValue, contentMode: .fit)
                 })
                 .cornerRadius(cornerRadius)
+                .overlay(
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .stroke(currentBorderColor ?? .clear, lineWidth: currentBorderWidth)
+                )
+                .animation(.easeInOut(duration: 0.2), value: isSelected)
 
-        case .video(let urlString, _, _, let useSwiftUIVideoPlayer, let loop, let cornerRadius):
+        case .video(let urlString, _, _, let useSwiftUIVideoPlayer, let loop, let cornerRadius, let borderColor, let borderWidth, let selectedBorderColor, let selectedBorderWidth):
+            let currentBorderColor = isSelected ? (selectedBorderColor ?? borderColor) : borderColor
+            let currentBorderWidth = isSelected ? (selectedBorderWidth ?? borderWidth) : borderWidth
+
             VideoLoaderView(
                 urlString: urlString,
                 useSwiftUIVideoPlayer: useSwiftUIVideoPlayer,
@@ -48,11 +60,19 @@ struct AnyMediaView: View {
             )
                 .ifSatisfiesCondition(aspectRatioValue != nil, transform: { content in
                     content
-                        .aspectRatio(aspectRatioValue, contentMode: .fill)
+                        .aspectRatio(aspectRatioValue, contentMode: .fit)
                 })
                 .cornerRadius(cornerRadius)
+                .overlay(
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .stroke(currentBorderColor ?? .clear, lineWidth: currentBorderWidth)
+                )
+                .animation(.easeInOut(duration: 0.2), value: isSelected)
 
-        case .lottie(let urlString, _, _, let loopMode, let cornerRadius):
+        case .lottie(let urlString, _, _, let loopMode, let cornerRadius, let borderColor, let borderWidth, let selectedBorderColor, let selectedBorderWidth):
+            let currentBorderColor = isSelected ? (selectedBorderColor ?? borderColor) : borderColor
+            let currentBorderWidth = isSelected ? (selectedBorderWidth ?? borderWidth) : borderWidth
+
             LottieLoaderView(
                 urlString: urlString,
                 loopMode: loopMode,
@@ -60,36 +80,96 @@ struct AnyMediaView: View {
             )
             .ifSatisfiesCondition(aspectRatioValue != nil, transform: { content in
                 content
-                    .aspectRatio(aspectRatioValue, contentMode: .fill)
+                    .aspectRatio(aspectRatioValue, contentMode: .fit)
             })
+            .overlay(
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .stroke(currentBorderColor ?? .clear, lineWidth: currentBorderWidth)
+            )
+            .animation(.easeInOut(duration: 0.2), value: isSelected)
         }
     }
 }
 
 #Preview {
-    VStack(spacing: 40) {
-        // Small size
-        HStack(spacing: 16) {
-            AnyMediaView(media: .systemIcon(named: "star.fill"))
-                .frame(width: 24, height: 24)
+    struct PreviewContent: View {
+        @State private var isSelected: Bool = false
 
-            AnyMediaView(media: .systemIcon(named: "heart.circle.fill"))
-                .frame(width: 24, height: 24)
+        var body: some View {
+            ScrollView {
+                VStack(spacing: 40) {
+                    // Small size
+                    HStack(spacing: 16) {
+                        AnyMediaView(media: .systemIcon(named: "star.fill"))
+                            .frame(width: 24, height: 24)
+
+                        AnyMediaView(media: .systemIcon(named: "heart.circle.fill"))
+                            .frame(width: 24, height: 24)
+                    }
+
+                    // Medium size
+                    AnyMediaView(media: .systemIcon(named: "person.circle.fill"))
+                        .frame(width: 64, height: 64)
+
+                    // Image with border and selected state
+                    Button {
+                        isSelected.toggle()
+                    } label: {
+                        AnyMediaView(
+                            media: .image(
+                                urlString: "https://picsum.photos/600/600",
+                                cornerRadius: 12,
+                                borderColor: .blue,
+                                borderWidth: 2,
+                                selectedBorderColor: .green,
+                                selectedBorderWidth: 4
+                            ),
+                            isSelected: isSelected
+                        )
+                        .frame(height: 200)
+                    }
+
+                    // Image with border only when selected
+                    Button {
+                        isSelected.toggle()
+                    } label: {
+                        AnyMediaView(
+                            media: .image(
+                                urlString: "https://picsum.photos/400/400",
+                                cornerRadius: 16,
+                                borderColor: nil,
+                                borderWidth: 0,
+                                selectedBorderColor: .orange,
+                                selectedBorderWidth: 3
+                            ),
+                            isSelected: isSelected
+                        )
+                        .frame(height: 200)
+                    }
+
+                    // Video with border
+                    AnyMediaView(
+                        media: .video(
+                            urlString: "https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8",
+                            aspectRatio: .auto,
+                            cornerRadius: 16,
+                            borderColor: .purple,
+                            borderWidth: 3,
+                            selectedBorderColor: .pink,
+                            selectedBorderWidth: 5
+                        ),
+                        isSelected: isSelected
+                    )
+                    .frame(height: 200)
+
+                    Text(isSelected ? "Selected" : "Not Selected")
+                        .font(.headline)
+                        .foregroundColor(isSelected ? .green : .gray)
+                }
+                .padding()
+            }
         }
-
-        // Medium size
-        AnyMediaView(media: .systemIcon(named: "person.circle.fill"))
-            .frame(width: 64, height: 64)
-
-        // Large size with corner radius
-        AnyMediaView(media: .image(urlString: "https://picsum.photos/600/600", cornerRadius: 12))
-//            .frame(width: 120, height: 120)
-
-        AnyMediaView(media: .video(urlString: "https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8", aspectRatio: .auto, cornerRadius: 16))
-            .frame(height: 120)
-
-//        AnyMediaView(media: .lottie(urlString: "https://lottie.host/94e07a1d-7159-4ed1-b7ba-6e0dc5f96ab2/xHR9ygBKCu.json", cornerRadius: 8))
-//            .frame(width: 120, height: 120)
     }
-    .padding()
+
+    return PreviewContent()
 }

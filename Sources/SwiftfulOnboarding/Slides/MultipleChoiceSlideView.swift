@@ -112,6 +112,7 @@ struct MultipleChoiceSlideView: View {
                                 if let option {
                                     OnbButtonContent(
                                         data: option.content,
+                                        isSelected: selectedOptions.contains(option),
                                         horizontalPadding: horizontalButtonPadding
                                     )
                                     .onbButtonStyle(
@@ -130,6 +131,7 @@ struct MultipleChoiceSlideView: View {
                                 ForEach(options, id: \.id) { option in
                                     OnbButtonContent(
                                         data: option.content,
+                                        isSelected: selectedOptions.contains(option),
                                         horizontalPadding: horizontalButtonPadding
                                     )
                                     .onbButtonStyle(
@@ -218,6 +220,7 @@ struct MultipleChoiceSlideView: View {
                             if let option {
                                 OnbButtonContent(
                                     data: option.content,
+                                    isSelected: selectedOptions.contains(option),
                                     horizontalPadding: horizontalButtonPadding
                                 )
                                 .onbButtonStyle(
@@ -236,6 +239,7 @@ struct MultipleChoiceSlideView: View {
                             ForEach(options, id: \.id) { option in
                                 OnbButtonContent(
                                     data: option.content,
+                                    isSelected: selectedOptions.contains(option),
                                     horizontalPadding: horizontalButtonPadding
                                 )
                                 .onbButtonStyle(
@@ -316,8 +320,14 @@ struct MultipleChoiceSlideView: View {
                             id: "nature",
                             content: OnbButtonContentData(
                                 text: "Nature",
-                                textPlacement: .leading,
-                                mediaContent: .image(urlString: "https://picsum.photos/600/600"),
+                                textPlacement: .center,
+                                mediaContent: .image(
+                                    urlString: "https://picsum.photos/600/600",
+                                    aspectRatio: .square,
+                                    cornerRadius: 100,
+                                    selectedBorderColor: .blue,
+                                    selectedBorderWidth: 2
+                                ),
                                 mediaContentPlacement: .top
                             )
                         ),
@@ -325,8 +335,14 @@ struct MultipleChoiceSlideView: View {
                             id: "urban",
                             content: OnbButtonContentData(
                                 text: "Urban",
-                                textPlacement: .leading,
-                                mediaContent: .image(urlString: "https://picsum.photos/600/600"),
+                                textPlacement: .center,
+                                mediaContent: .image(
+                                    urlString: "https://picsum.photos/600/600",
+                                    aspectRatio: .square,
+                                    cornerRadius: 100,
+                                    selectedBorderColor: .blue,
+                                    selectedBorderWidth: 2
+                                ),
                                 mediaContentPlacement: .top
                             )
                         ),
@@ -334,8 +350,14 @@ struct MultipleChoiceSlideView: View {
                             id: "minimal",
                             content: OnbButtonContentData(
                                 text: "Minimal",
-                                textPlacement: .leading,
-                                mediaContent: .image(urlString: "https://picsum.photos/600/600"),
+                                textPlacement: .center,
+                                mediaContent: .image(
+                                    urlString: "https://picsum.photos/600/600",
+                                    aspectRatio: .square,
+                                    cornerRadius: 100,
+                                    selectedBorderColor: .blue,
+                                    selectedBorderWidth: 2
+                                ),
                                 mediaContentPlacement: .top
                             )
                         ),
@@ -343,8 +365,14 @@ struct MultipleChoiceSlideView: View {
                             id: "colorful",
                             content: OnbButtonContentData(
                                 text: "Colorful",
-                                textPlacement: .leading,
-                                mediaContent: .image(urlString: "https://picsum.photos/600/600"),
+                                textPlacement: .center,
+                                mediaContent: .image(
+                                    urlString: "https://picsum.photos/600/600",
+                                    aspectRatio: .square,
+                                    cornerRadius: 100,
+                                    selectedBorderColor: .blue,
+                                    selectedBorderWidth: 2
+                                ),
                                 mediaContentPlacement: .top
                             )
                         )

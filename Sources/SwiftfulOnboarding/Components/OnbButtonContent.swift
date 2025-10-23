@@ -35,6 +35,20 @@ enum OnbMediaContentPlacement {
     case bottom
 }
 
+extension TextAlignment {
+    
+    var asAlignment: Alignment {
+        switch self {
+        case .leading:
+            return .leading
+        case .center:
+            return .center
+        case .trailing:
+            return .trailing
+        }
+    }
+}
+
 struct OnbButtonContentData {
     var text: String
     var subtitle: String?
@@ -69,8 +83,9 @@ struct OnbButtonContentData {
 struct OnbButtonContent: View {
 
     var data: OnbButtonContentData
+    var isSelected: Bool = false
     var horizontalPadding: CGFloat = 12
-    
+
     var multilineTextAlignment: TextAlignment {
         data.textPlacement == .center ? .center : .leading
     }
@@ -132,16 +147,18 @@ struct OnbButtonContent: View {
                     .multilineTextAlignment(multilineTextAlignment)
                     .opacity(0.7)
             }
+            .frame(maxWidth: .infinity, alignment: multilineTextAlignment.asAlignment)
         } else {
             Text(data.text)
-                .multilineTextAlignment(multilineTextAlignment)
+                .frame(maxWidth: .infinity, alignment: multilineTextAlignment.asAlignment)
+                .frame(maxWidth: .infinity)
         }
     }
 
     @ViewBuilder
     private func mediaContentView(_ media: OnbMediaType) -> some View {
         let frameSize = media.size.frame
-        AnyMediaView(media: media)
+        AnyMediaView(media: media, isSelected: isSelected)
             .frame(width: frameSize.width, height: frameSize.height)
     }
 
@@ -208,7 +225,7 @@ struct OnbButtonContent: View {
             checkboxView(style: style, isChecked: isChecked, borderColor: borderColor, fillColor: fillColor)
         case .media(let media):
             let frameSize = media.size.frameSecondary
-            AnyMediaView(media: media)
+            AnyMediaView(media: media, isSelected: isSelected)
                 .frame(width: frameSize.width, height: frameSize.height)
         }
     }
