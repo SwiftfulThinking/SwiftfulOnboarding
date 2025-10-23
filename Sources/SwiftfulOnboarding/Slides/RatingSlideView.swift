@@ -20,7 +20,7 @@ struct RatingSlideView: View {
     var contentAlignment: OnbContentAlignment = .center
     var paddingTop: CGFloat = 40
     var paddingBottom: CGFloat = 0
-    var horizontalPaddingContent: CGFloat = 0
+    var horizontalPaddingContent: CGFloat = 24
     var horizontalPaddingTitle: CGFloat = 40
     var contentSpacing: CGFloat = 24
     var ratingButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
@@ -81,7 +81,7 @@ struct RatingSlideView: View {
             if anyRatingHasFeedback, case .top = feedbackStyle,
                let feedbackConfig = currentFeedback ?? (1...5).compactMap({ getFeedbackConfiguration?($0) }).first {
                 AnyFeedbackViewContainer(config: feedbackConfig, style: feedbackStyle)
-                    .padding(.horizontal, horizontalPaddingContent > 0 ? horizontalPaddingContent : 24)
+                    .padding(.horizontal, horizontalPaddingContent)
                     .opacity(currentFeedback != nil ? 1.0 : 0.0)
             }
 
@@ -127,15 +127,16 @@ struct RatingSlideView: View {
                     }
                 }
             )
-            .padding(.horizontal, 24)
-            .padding(.top, 24)
+            .padding(.horizontal, horizontalPaddingContent)
+            .padding(.top, contentSpacing)
 
             // Bottom feedback
             if anyRatingHasFeedback, case .bottom = feedbackStyle,
                let feedbackConfig = currentFeedback ?? (1...5).compactMap({ getFeedbackConfiguration?($0) }).first {
                 AnyFeedbackViewContainer(config: feedbackConfig, style: feedbackStyle)
-                    .padding(.horizontal, horizontalPaddingContent > 0 ? horizontalPaddingContent : 24)
+                    .padding(.horizontal, horizontalPaddingContent)
                     .opacity(currentFeedback != nil ? 1.0 : 0.0)
+                    .padding(.top, contentSpacing)
             }
 
             // Continue button at bottom

@@ -109,7 +109,7 @@ enum OnbSlideType: OnbSlideProtocol {
         contentAlignment: OnbContentAlignment = .center,
         paddingTop: CGFloat = 40,
         paddingBottom: CGFloat = 0,
-        horizontalPaddingContent: CGFloat = 0,
+        horizontalPaddingContent: CGFloat = 24,
         horizontalPaddingTitle: CGFloat = 40,
         contentSpacing: CGFloat = 24,
         ratingButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white),
