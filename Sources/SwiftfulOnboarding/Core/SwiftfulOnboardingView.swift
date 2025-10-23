@@ -300,8 +300,7 @@ struct SwiftfulOnboardingView: View {
                     subtitle: "Get started with our amazing app",
                     media: .systemIcon(named: "star.fill"),
                     background: .image(
-                        urlString: "https://picsum.photos/400/800",
-                        contentMode: .fill
+                        urlString: "https://picsum.photos/400/800"
                     )
                 ),
                 .regular(
@@ -310,8 +309,7 @@ struct SwiftfulOnboardingView: View {
                     subtitle: "Discover what you can do",
                     media: .systemIcon(named: "sparkles"),
                     background: .image(
-                        urlString: "https://picsum.photos/400/801",
-                        contentMode: .fill
+                        urlString: "https://picsum.photos/400/801"
                     )
                 ),
                 .regular(
@@ -324,8 +322,7 @@ struct SwiftfulOnboardingView: View {
             ],
             slideDefaults: OnbSlideDefaults(
                 background: .image(
-                    urlString: "https://picsum.photos/400/802",
-                    contentMode: .fill
+                    urlString: "https://picsum.photos/400/802"
                 )
             )
         )
