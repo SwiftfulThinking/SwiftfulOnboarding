@@ -17,6 +17,7 @@ struct OnbChoiceOption: Hashable, Equatable {
     var content: OnbButtonContentData
     var responseConfiguration: OnbResponseConfiguration?
     var feedbackConfiguration: OnbFeedbackConfiguration?
+    var insertConfiguration: [InsertSlideData]?
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
