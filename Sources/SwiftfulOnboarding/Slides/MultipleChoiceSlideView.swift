@@ -55,6 +55,7 @@ struct MultipleChoiceSlideView: View {
     var handleSelection: ((OnbChoiceOption, OnbSelectionBehavior) -> Void)? = nil
     var onButtonClick: (([OnbChoiceOption]) -> Void)? = nil
     var selectedOptions: [OnbChoiceOption] = []
+    var feedbackStyle: AnyFeedbackViewStyle = .top()
 
     private var shouldShowContinueButton: Bool {
         switch selectionBehavior {
@@ -64,15 +65,33 @@ struct MultipleChoiceSlideView: View {
             return true
         }
     }
-    
+
     private var horizontalButtonPadding: CGFloat {
         isGrid ? 4 : 12
+    }
+
+    private var currentFeedback: OnbFeedbackConfiguration? {
+        selectedOptions.last(where: { $0.feedbackConfiguration != nil })?.feedbackConfiguration
+    }
+
+    private var anyOptionHasFeedback: Bool {
+        options.contains(where: { $0.feedbackConfiguration != nil })
     }
 
     var body: some View {
         if options.count > 4 {
             // UI with ScrollView
             VStack(spacing: 0) {
+                // Top feedback
+                if anyOptionHasFeedback, case .top = feedbackStyle {
+                    if let feedback = currentFeedback {
+                        AnyFeedbackViewContainer(config: feedback, style: feedbackStyle)
+                    } else if let placeholderFeedback = options.first(where: { $0.feedbackConfiguration != nil })?.feedbackConfiguration {
+                        AnyFeedbackViewContainer(config: placeholderFeedback, style: feedbackStyle)
+                            .opacity(0.0)
+                    }
+                }
+
                 // Title/Subtitle at top
                 OnbTitleContent(
                     title: title,
@@ -133,36 +152,60 @@ struct MultipleChoiceSlideView: View {
                     }
                     .ignoresSafeArea(edges: .bottom)
 
-                    // Continue button overlaying at bottom
-                    if shouldShowContinueButton {
-                        VStack(spacing: 0) {
-                            Text(ctaText)
-                                .onbButtonStyle(
-                                    style: ctaButtonStyle,
-                                    isSelected: !selectedOptions.isEmpty,
-                                    format: ctaButtonFormatData
-                                ) {
-                                    onButtonClick?(selectedOptions)
-                                }
-                                .disabled(selectedOptions.isEmpty)
-                                .padding(.top, footerData.top)
-                                .padding(.leading, footerData.leading)
-                                .padding(.trailing, footerData.trailing)
-                                .padding(.bottom, footerData.bottom)
+                    VStack(spacing: 0) {
+                        // Bottom feedback
+                        if anyOptionHasFeedback, case .bottom = feedbackStyle {
+                            if let feedback = currentFeedback {
+                                AnyFeedbackViewContainer(config: feedback, style: feedbackStyle)
+                            } else if let placeholderFeedback = options.first(where: { $0.feedbackConfiguration != nil })?.feedbackConfiguration {
+                                AnyFeedbackViewContainer(config: placeholderFeedback, style: feedbackStyle)
+                                    .opacity(0.0)
+                            }
                         }
-                        .background(
-                            LinearGradient(colors: [
-                                Color(uiColor: .systemBackground).opacity(0.0),
-                                Color(uiColor: .systemBackground).opacity(0.4),
-                                Color(uiColor: .systemBackground).opacity(0.8)
-                            ], startPoint: .top, endPoint: .bottom)
-                        )
+
+                        // Continue button overlaying at bottom
+                        if shouldShowContinueButton {
+                            VStack(spacing: 0) {
+                                Text(ctaText)
+                                    .onbButtonStyle(
+                                        style: ctaButtonStyle,
+                                        isSelected: !selectedOptions.isEmpty,
+                                        format: ctaButtonFormatData
+                                    ) {
+                                        onButtonClick?(selectedOptions)
+                                    }
+                                    .disabled(selectedOptions.isEmpty)
+                                    .padding(.top, footerData.top)
+                                    .padding(.leading, footerData.leading)
+                                    .padding(.trailing, footerData.trailing)
+                                    .padding(.bottom, footerData.bottom)
+                            }
+                            .background(
+                                LinearGradient(colors: [
+                                    Color(uiColor: .systemBackground).opacity(0.0),
+                                    Color(uiColor: .systemBackground).opacity(0.4),
+                                    Color(uiColor: .systemBackground).opacity(0.8)
+                                ], startPoint: .top, endPoint: .bottom)
+                            )
+                        }
                     }
                 }
             }
         } else {
             // UI without ScrollView
             VStack(spacing: 0) {
+                // Top feedback
+                if anyOptionHasFeedback, case .top = feedbackStyle {
+                    if let feedback = currentFeedback {
+                        AnyFeedbackViewContainer(config: feedback, style: feedbackStyle)
+                            .padding(.horizontal, horizontalPaddingContent)
+                    } else if let placeholderFeedback = options.first(where: { $0.feedbackConfiguration != nil })?.feedbackConfiguration {
+                        AnyFeedbackViewContainer(config: placeholderFeedback, style: feedbackStyle)
+                            .padding(.horizontal, horizontalPaddingContent)
+                            .opacity(0.0)
+                    }
+                }
+
                 // Content
                 VStack(spacing: contentSpacing) {
                     // Title/Subtitle at top
@@ -218,6 +261,18 @@ struct MultipleChoiceSlideView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: contentAlignment.alignment)
                 .padding(.top, paddingTop)
                 .padding(.bottom, paddingBottom)
+
+                // Bottom feedback
+                if anyOptionHasFeedback, case .bottom = feedbackStyle {
+                    if let feedback = currentFeedback {
+                        AnyFeedbackViewContainer(config: feedback, style: feedbackStyle)
+                            .padding(.horizontal, horizontalPaddingContent)
+                    } else if let placeholderFeedback = options.first(where: { $0.feedbackConfiguration != nil })?.feedbackConfiguration {
+                        AnyFeedbackViewContainer(config: placeholderFeedback, style: feedbackStyle)
+                            .padding(.horizontal, horizontalPaddingContent)
+                            .opacity(0.0)
+                    }
+                }
 
                 // Continue button at bottom
                 if shouldShowContinueButton {
@@ -386,6 +441,82 @@ struct MultipleChoiceSlideView: View {
                         selectedBorderColor: .purple
                     ),
                     isGrid: true
+                ),
+                .multipleChoice(
+                    id: "feedback_top",
+                    title: "Top Feedback Example",
+                    subtitle: "Select an option to see feedback at top",
+                    options: [
+                        OnbChoiceOption(
+                            id: "correct",
+                            content: OnbButtonContentData(text: "Correct Answer"),
+                            feedbackConfiguration: OnbFeedbackConfiguration(
+                                backgroundColor: Color(red: 0.8, green: 0.95, blue: 0.8),
+                                borderWidth: 2,
+                                borderColor: Color(red: 0.2, green: 0.6, blue: 0.2),
+                                title: "Great job!",
+                                titleFont: .headline,
+                                subtitle: "You got it right",
+                                subtitleFont: .subheadline,
+                                titleAlignment: .leading
+                            )
+                        ),
+                        OnbChoiceOption(
+                            id: "wrong",
+                            content: OnbButtonContentData(text: "Wrong Answer"),
+                            feedbackConfiguration: OnbFeedbackConfiguration(
+                                backgroundColor: Color(red: 0.95, green: 0.8, blue: 0.8),
+                                borderWidth: 2,
+                                borderColor: Color(red: 0.8, green: 0.2, blue: 0.2),
+                                title: "Oops!",
+                                titleFont: .headline,
+                                subtitle: "Try again",
+                                subtitleFont: .subheadline,
+                                titleAlignment: .leading
+                            )
+                        )
+                    ],
+                    optionsButtonStyle: .outline(textColor: .blue, borderColor: .blue),
+                    selectionBehavior: .single(),
+                    feedbackStyle: .top()
+                ),
+                .multipleChoice(
+                    id: "feedback_bottom",
+                    title: "Bottom Feedback Example",
+                    subtitle: "Select an option to see feedback at bottom",
+                    options: [
+                        OnbChoiceOption(
+                            id: "option1",
+                            content: OnbButtonContentData(text: "Option 1"),
+                            feedbackConfiguration: OnbFeedbackConfiguration(
+                                backgroundColor: Color(red: 0.8, green: 0.9, blue: 0.95),
+                                borderWidth: 2,
+                                borderColor: Color(red: 0.2, green: 0.4, blue: 0.8),
+                                title: "Nice choice!",
+                                titleFont: .headline,
+                                subtitle: "This is a bottom feedback message",
+                                subtitleFont: .subheadline,
+                                titleAlignment: .leading
+                            )
+                        ),
+                        OnbChoiceOption(
+                            id: "option2",
+                            content: OnbButtonContentData(text: "Option 2"),
+                            feedbackConfiguration: OnbFeedbackConfiguration(
+                                backgroundColor: Color(red: 0.95, green: 0.9, blue: 0.8),
+                                borderWidth: 2,
+                                borderColor: Color(red: 0.8, green: 0.5, blue: 0.2),
+                                title: "Interesting!",
+                                titleFont: .headline,
+                                subtitle: "Another bottom feedback",
+                                subtitleFont: .subheadline,
+                                titleAlignment: .leading
+                            )
+                        )
+                    ],
+                    optionsButtonStyle: .solid(backgroundColor: .gray, textColor: .white, selectedBackgroundColor: .blue, selectedTextColor: .white),
+                    selectionBehavior: .single(),
+                    feedbackStyle: .bottom()
                 )
             ]
         )

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct OnbFeedbackConfiguration {
 
-    var style: AnyFeedbackViewStyle = .top()
     var backgroundColor: Color = .green
     var borderWidth: CGFloat = 0
     var borderColor: Color = .clear

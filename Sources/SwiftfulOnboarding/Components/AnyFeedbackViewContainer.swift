@@ -10,10 +10,11 @@ import SwiftUI
 struct AnyFeedbackViewContainer: View {
 
     let config: OnbFeedbackConfiguration
+    var style: AnyFeedbackViewStyle = .top()
 
     var body: some View {
         AnyFeedbackView(
-            style: config.style,
+            style: style,
             backgroundColor: config.backgroundColor,
             borderWidth: config.borderWidth,
             borderColor: config.borderColor,
