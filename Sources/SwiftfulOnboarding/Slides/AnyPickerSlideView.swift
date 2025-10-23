@@ -34,7 +34,7 @@ struct AnyPickerSlideView: View {
     var pickerPosition: OnbPickerPosition = .auto
     var pickerStyle: OnbPickerStyle = .wheel
     var pickerOptions: [String] = []
-    var pickerHorizontalPadding: CGFloat = 24
+    var horizontalPaddingContent: CGFloat = 24
     var footerData: OnbFooterData = .default
     var ctaText: String = "Continue"
     var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
@@ -101,7 +101,7 @@ struct AnyPickerSlideView: View {
                         selectedOption = firstOption
                     }
                 }
-                .padding(.horizontal, pickerHorizontalPadding)
+                .padding(.horizontal, horizontalPaddingContent)
                 .frame(maxWidth: .infinity, maxHeight: pickerPosition == .bottom ? .infinity : nil, alignment: pickerPosition == .bottom ? .bottom : .center)
             }
             .padding(.top, paddingTop)

@@ -54,7 +54,7 @@ struct DatePickerSlideView: View {
     var datePickerStartDate: Date? = nil
     var datePickerMinimumDate: Date? = nil
     var datePickerMaximumDate: Date? = nil
-    var datePickerHorizontalPadding: CGFloat = 24
+    var horizontalPaddingContent: CGFloat = 24
     var footerData: OnbFooterData = .default
     var ctaText: String = "Continue"
     var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
@@ -162,7 +162,7 @@ struct DatePickerSlideView: View {
                 .onAppear {
                     selectedDate = initialDate
                 }
-                .padding(.horizontal, datePickerHorizontalPadding)
+                .padding(.horizontal, horizontalPaddingContent)
                 .frame(maxWidth: .infinity, maxHeight: datePickerPosition == .bottom ? .infinity : nil, alignment: datePickerPosition == .bottom ? .bottom : .center)
             }
             .padding(.top, paddingTop)

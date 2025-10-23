@@ -4,6 +4,9 @@
 //
 //  Created by Nick Sarno on 10/18/25.
 //
+#if canImport(UIKit)
+import UIKit
+#endif
 import SwiftUI
 
 extension View {

@@ -23,7 +23,7 @@ struct RatingSlideView: View {
     var horizontalPaddingContent: CGFloat = 24
     var horizontalPaddingTitle: CGFloat = 40
     var contentSpacing: CGFloat = 24
-    var ratingButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
+    var optionsButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
     var ratingCornerRadius: CGFloat = 32
     var ratingButtonOption: OnbRatingButtonOption = .thumbs
     var ratingFont: Font = .title.weight(.medium)
@@ -107,7 +107,7 @@ struct RatingSlideView: View {
 
             // Rating buttons
             RatingFooterButton(
-                buttonStyle: ratingButtonStyle,
+                buttonStyle: optionsButtonStyle,
                 cornerRadius: ratingCornerRadius,
                 buttonOption: ratingButtonOption,
                 font: ratingFont,

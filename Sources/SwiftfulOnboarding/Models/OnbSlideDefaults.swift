@@ -55,6 +55,17 @@ struct OnbSlideDefaults {
     // Selection (for slides that support it)
     var selectionBehavior: OnbSelectionBehavior = .single()
 
+    // Multiple Choice Options (for multipleChoice and yesNo slides)
+    var optionsSpacing: CGFloat = 12
+    var optionsButtonStyle: OnbButtonStyleType = .solidOutline(backgroundColor: .clear, textColor: .blue, borderColor: .blue, selectedBackgroundColor: .blue, selectedTextColor: .white, selectedBorderColor: .blue)
+    var optionsButtonFormatData: OnbButtonFormatData = .default
+    var isGrid: Bool = false
+
+    // Secondary Button (for primaryAction slide)
+    var secondaryButtonStyle: OnbButtonStyleType = .outline(textColor: .blue, borderColor: .blue)
+    var secondaryButtonFormatData: OnbButtonFormatData = .default
+    var secondaryButtonSpacing: CGFloat = 12
+
     // Background & Transitions
     var backgroundColor: Color = .clear
     var transitionStyle: OnbTransitionStyle = .slide

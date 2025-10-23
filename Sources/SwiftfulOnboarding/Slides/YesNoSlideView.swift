@@ -23,11 +23,11 @@ struct YesNoSlideView: View {
     var horizontalPaddingContent: CGFloat = 0
     var horizontalPaddingTitle: CGFloat = 40
     var contentSpacing: CGFloat = 24
-    var yesNoSpacing: CGFloat = 12
+    var optionsSpacing: CGFloat = 12
     var yesOption: OnbChoiceOption = OnbChoiceOption(id: "yes", content: OnbButtonContentData(text: "Yes"))
     var noOption: OnbChoiceOption = OnbChoiceOption(id: "no", content: OnbButtonContentData(text: "No"))
-    var yesNoButtonStyle: OnbButtonStyleType = .solidOutline(backgroundColor: .clear, textColor: .blue, borderColor: .blue, selectedBackgroundColor: .blue, selectedTextColor: .white, selectedBorderColor: .blue)
-    var yesNoButtonFormatData: OnbButtonFormatData = .default
+    var optionsButtonStyle: OnbButtonStyleType = .solidOutline(backgroundColor: .clear, textColor: .blue, borderColor: .blue, selectedBackgroundColor: .blue, selectedTextColor: .white, selectedBorderColor: .blue)
+    var optionsButtonFormatData: OnbButtonFormatData = .default
     var selectionBehavior: OnbSelectionBehavior = .single()
     var footerData: OnbFooterData = .default
     var ctaText: String = "Continue"
@@ -84,14 +84,14 @@ struct YesNoSlideView: View {
             )
 
             // Yes/No buttons
-            HStack(spacing: yesNoSpacing) {
+            HStack(spacing: optionsSpacing) {
                 OnbButtonContent(
                     data: noOption.content
                 )
                 .onbButtonStyle(
-                    style: yesNoButtonStyle,
+                    style: optionsButtonStyle,
                     isSelected: selectedOptions.contains(noOption),
-                    format: yesNoButtonFormatData
+                    format: optionsButtonFormatData
                 ) {
                     toggleSelection(for: noOption)
                 }
@@ -100,9 +100,9 @@ struct YesNoSlideView: View {
                     data: yesOption.content
                 )
                 .onbButtonStyle(
-                    style: yesNoButtonStyle,
+                    style: optionsButtonStyle,
                     isSelected: selectedOptions.contains(yesOption),
-                    format: yesNoButtonFormatData
+                    format: optionsButtonFormatData
                 ) {
                     toggleSelection(for: yesOption)
                 }

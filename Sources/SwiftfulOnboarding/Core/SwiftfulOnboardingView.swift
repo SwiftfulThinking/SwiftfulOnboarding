@@ -140,6 +140,7 @@ struct SwiftfulOnboardingView: View {
                         if isPreviousSlide || isCurrentSlide || isNextSlide {
                             AnyOnboardingSlideView(
                                 slideType: slide,
+                                slideDefaults: viewModel.configuration.slideDefaults,
                                 selectedOptions: viewModel.getSelections(for: slide.id),
                                 handleSelection: { option, behavior in
                                     viewModel.toggleSelection(for: option, selectionBehavior: behavior)
