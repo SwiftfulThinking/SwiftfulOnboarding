@@ -35,7 +35,7 @@ enum OnbSlideType: OnbSlideProtocol {
         ctaText: String? = nil,
         ctaButtonStyle: OnbButtonStyleType? = nil,
         ctaButtonFormatData: OnbButtonFormatData? = nil,
-        backgroundColor: Color? = nil,
+        background: OnbBackgroundType? = nil,
         showBackButton: Bool? = nil,
         backButtonColor: Color? = nil
     )
@@ -64,7 +64,7 @@ enum OnbSlideType: OnbSlideProtocol {
         ctaButtonStyle: OnbButtonStyleType? = nil,
         ctaButtonFormatData: OnbButtonFormatData? = nil,
         feedbackStyle: AnyFeedbackViewStyle? = nil,
-        backgroundColor: Color? = nil,
+        background: OnbBackgroundType? = nil,
         showBackButton: Bool? = nil,
         backButtonColor: Color? = nil
     )
@@ -95,7 +95,7 @@ enum OnbSlideType: OnbSlideProtocol {
         ctaButtonStyle: OnbButtonStyleType? = nil,
         ctaButtonFormatData: OnbButtonFormatData? = nil,
         feedbackStyle: AnyFeedbackViewStyle? = nil,
-        backgroundColor: Color? = nil,
+        background: OnbBackgroundType? = nil,
         showBackButton: Bool? = nil,
         backButtonColor: Color? = nil
     )
@@ -129,7 +129,7 @@ enum OnbSlideType: OnbSlideProtocol {
         getFeedbackConfiguration: ((Int) -> OnbFeedbackConfiguration?)? = nil,
         getInsertConfiguration: ((Int) -> [InsertSlideData]?)? = nil,
         feedbackStyle: AnyFeedbackViewStyle? = nil,
-        backgroundColor: Color? = nil,
+        background: OnbBackgroundType? = nil,
         showBackButton: Bool? = nil,
         backButtonColor: Color? = nil
     )
@@ -151,7 +151,7 @@ enum OnbSlideType: OnbSlideProtocol {
         ctaText: String? = nil,
         ctaButtonStyle: OnbButtonStyleType? = nil,
         ctaButtonFormatData: OnbButtonFormatData? = nil,
-        backgroundColor: Color? = nil,
+        background: OnbBackgroundType? = nil,
         showBackButton: Bool? = nil,
         backButtonColor: Color? = nil
     )
@@ -179,7 +179,7 @@ enum OnbSlideType: OnbSlideProtocol {
         ctaText: String? = nil,
         ctaButtonStyle: OnbButtonStyleType? = nil,
         ctaButtonFormatData: OnbButtonFormatData? = nil,
-        backgroundColor: Color? = nil,
+        background: OnbBackgroundType? = nil,
         showBackButton: Bool? = nil,
         backButtonColor: Color? = nil
     )
@@ -204,7 +204,7 @@ enum OnbSlideType: OnbSlideProtocol {
         ctaText: String? = nil,
         ctaButtonStyle: OnbButtonStyleType? = nil,
         ctaButtonFormatData: OnbButtonFormatData? = nil,
-        backgroundColor: Color? = nil,
+        background: OnbBackgroundType? = nil,
         showBackButton: Bool? = nil,
         backButtonColor: Color? = nil
     )
@@ -233,7 +233,7 @@ enum OnbSlideType: OnbSlideProtocol {
         secondaryButtonFormatData: OnbButtonFormatData? = nil,
         secondaryButtonSpacing: CGFloat? = nil,
         onDidPressPrimaryButton: ((@escaping () -> Void) -> Void)? = nil,
-        backgroundColor: Color? = nil,
+        background: OnbBackgroundType? = nil,
         showBackButton: Bool? = nil,
         backButtonColor: Color? = nil
     )
@@ -259,24 +259,24 @@ enum OnbSlideType: OnbSlideProtocol {
         }
     }
 
-    var backgroundColor: Color? {
+    var background: OnbBackgroundType? {
         switch self {
-        case .regular(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColor, _, _):
-            return backgroundColor
-        case .multipleChoice(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColor, _, _):
-            return backgroundColor
-        case .yesNo(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColor, _, _):
-            return backgroundColor
-        case .rating(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColor, _, _):
-            return backgroundColor
-        case .textInput(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColor, _, _):
-            return backgroundColor
-        case .datePicker(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColor, _, _):
-            return backgroundColor
-        case .picker(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColor, _, _):
-            return backgroundColor
-        case .primaryAction(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backgroundColor, _, _):
-            return backgroundColor
+        case .regular(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let background, _, _):
+            return background
+        case .multipleChoice(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let background, _, _):
+            return background
+        case .yesNo(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let background, _, _):
+            return background
+        case .rating(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let background, _, _):
+            return background
+        case .textInput(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let background, _, _):
+            return background
+        case .datePicker(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let background, _, _):
+            return background
+        case .picker(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let background, _, _):
+            return background
+        case .primaryAction(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let background, _, _):
+            return background
         }
     }
 

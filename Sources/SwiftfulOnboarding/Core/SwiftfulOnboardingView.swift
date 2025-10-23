@@ -15,14 +15,14 @@ struct SwiftfulOnboardingView: View {
         _viewModel = StateObject(wrappedValue: SwiftfulOnboardingViewModel(configuration: configuration))
     }
 
-    private var currentBackgroundColor: Color {
+    private var currentBackground: OnbBackgroundType {
         guard viewModel.currentIndex >= 0 && viewModel.currentIndex < viewModel.slides.count else {
-            return viewModel.configuration.slideDefaults.backgroundColor
+            return viewModel.configuration.slideDefaults.background
         }
-        if let override = viewModel.slides[viewModel.currentIndex].backgroundColor {
+        if let override = viewModel.slides[viewModel.currentIndex].background {
             return override
         }
-        return viewModel.configuration.slideDefaults.backgroundColor
+        return viewModel.configuration.slideDefaults.background
     }
 
     private var shouldShowBackButton: Bool {
@@ -107,10 +107,26 @@ struct SwiftfulOnboardingView: View {
         }
     }
 
+    @ViewBuilder
+    private var backgroundView: some View {
+        switch currentBackground {
+        case .solidColor(let color):
+            color
+        case .gradient(let gradient, let startPoint, let endPoint):
+            LinearGradient(gradient: gradient, startPoint: startPoint, endPoint: endPoint)
+        case .image(let urlString):
+            AnyMediaView(
+                media: .image(urlString: urlString),
+                isSelected: false
+            )
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+    }
+
     var body: some View {
         ZStack {
-            // Background color
-            currentBackgroundColor
+            // Background
+            backgroundView
                 .ignoresSafeArea()
                 .animation(.easeInOut, value: viewModel.currentIndex)
 
@@ -171,7 +187,7 @@ struct SwiftfulOnboardingView: View {
     }
 }
 
-#Preview {
+#Preview("Default") {
     SwiftfulOnboardingView(
         configuration: OnbConfiguration(
             headerConfiguration: OnbHeaderConfiguration(
@@ -211,6 +227,107 @@ struct SwiftfulOnboardingView: View {
                     media: .systemIcon(named: "checkmark.circle.fill")
                 )
             ]
+        )
+    )
+}
+
+#Preview("Gradient Background") {
+    SwiftfulOnboardingView(
+        configuration: OnbConfiguration(
+            headerConfiguration: OnbHeaderConfiguration(
+                headerStyle: .progressBar,
+                headerAlignment: .center,
+                showBackButton: .afterFirstSlide
+            ),
+            slides: [
+                .regular(
+                    id: "welcome",
+                    title: "Welcome",
+                    subtitle: "Get started with our amazing app",
+                    media: .systemIcon(named: "star.fill"),
+                    background: .gradient(
+                        Gradient(colors: [.purple, .blue]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                ),
+                .regular(
+                    id: "features",
+                    title: "Key Features",
+                    subtitle: "Discover what you can do",
+                    media: .systemIcon(named: "sparkles"),
+                    background: .gradient(
+                        Gradient(colors: [.blue, .cyan]),
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                ),
+                .regular(
+                    id: "get-started",
+                    title: "Get Started",
+                    subtitle: "Just a few steps to begin",
+                    media: .systemIcon(named: "arrow.right.circle.fill"),
+                    background: .gradient(
+                        Gradient(colors: [.orange, .pink]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+            ],
+            slideDefaults: OnbSlideDefaults(
+                background: .gradient(
+                    Gradient(colors: [.purple, .pink]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            )
+        )
+    )
+}
+
+#Preview("Image Background") {
+    SwiftfulOnboardingView(
+        configuration: OnbConfiguration(
+            headerConfiguration: OnbHeaderConfiguration(
+                headerStyle: .progressBar,
+                headerAlignment: .center,
+                showBackButton: .afterFirstSlide
+            ),
+            slides: [
+                .regular(
+                    id: "welcome",
+                    title: "Welcome",
+                    subtitle: "Get started with our amazing app",
+                    media: .systemIcon(named: "star.fill"),
+                    background: .image(
+                        urlString: "https://picsum.photos/400/800",
+                        contentMode: .fill
+                    )
+                ),
+                .regular(
+                    id: "features",
+                    title: "Key Features",
+                    subtitle: "Discover what you can do",
+                    media: .systemIcon(named: "sparkles"),
+                    background: .image(
+                        urlString: "https://picsum.photos/400/801",
+                        contentMode: .fill
+                    )
+                ),
+                .regular(
+                    id: "get-started",
+                    title: "Get Started",
+                    subtitle: "Just a few steps to begin",
+                    media: .systemIcon(named: "arrow.right.circle.fill"),
+                    background: .solidColor(.black.opacity(0.8))
+                )
+            ],
+            slideDefaults: OnbSlideDefaults(
+                background: .image(
+                    urlString: "https://picsum.photos/400/802",
+                    contentMode: .fill
+                )
+            )
         )
     )
 }

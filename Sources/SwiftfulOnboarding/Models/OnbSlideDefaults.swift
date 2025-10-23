@@ -67,7 +67,7 @@ struct OnbSlideDefaults {
     var secondaryButtonSpacing: CGFloat = 12
 
     // Background & Transitions
-    var backgroundColor: Color = .clear
+    var background: OnbBackgroundType = .solidColor(.clear)
     var transitionStyle: OnbTransitionStyle = .slide
 
     static let `default` = OnbSlideDefaults()
