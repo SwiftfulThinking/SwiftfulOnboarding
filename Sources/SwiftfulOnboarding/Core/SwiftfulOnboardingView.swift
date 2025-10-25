@@ -148,7 +148,7 @@ struct SwiftfulOnboardingView: View {
                 )
 
                 // Content area - ZStack with previous, current, and next slides
-                ZStack {
+                ZStack(alignment: .top) {
                     ForEach(Array(viewModel.slides.enumerated()), id: \.element.id) { index, slide in
                         let isPreviousSlide = index == viewModel.currentIndex - 1
                         let isCurrentSlide = index == viewModel.currentIndex
@@ -166,6 +166,7 @@ struct SwiftfulOnboardingView: View {
                                     viewModel.onSlideButtonClick(selections: selections)
                                 }
                             )
+                            .frame(maxWidth: .infinity)
                             .offset(x: slideOffset(for: index))
                             .opacity(slideOpacity(for: index))
                             .animation(shouldAnimateTransition ? .easeInOut(duration: 0.2) : nil, value: viewModel.currentIndex)

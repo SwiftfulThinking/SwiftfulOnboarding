@@ -109,6 +109,7 @@ struct YesNoSlideView: View {
             }
             .padding(.horizontal, horizontalPaddingContent)
             .padding(.top, contentSpacing)
+            .padding(.bottom, shouldShowContinueButton ? 0 : footerData.bottom)
 
             // Bottom feedback
             if anyOptionHasFeedback, case .bottom = feedbackStyle,
