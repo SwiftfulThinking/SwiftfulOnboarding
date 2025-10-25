@@ -10,7 +10,7 @@ import UIKit
 #endif
 import SwiftUI
 
-enum AnyResponseViewTransition: Equatable {
+public enum AnyResponseViewTransition: Equatable {
     case slide
     case scale
     case fade
@@ -19,7 +19,7 @@ enum AnyResponseViewTransition: Equatable {
     case none
 }
 
-enum AnyResponseViewStyle: Equatable {
+public enum AnyResponseViewStyle: Equatable {
     case bottom(transition: AnyResponseViewTransition = .bottom)
     case center(transition: AnyResponseViewTransition = .slide)
 }

@@ -7,32 +7,46 @@
 
 import SwiftUI
 
-enum OnbBackButtonBehavior {
+public enum OnbBackButtonBehavior {
     case always
     case afterFirstSlide
     case never
 }
 
-enum OnbTransitionStyle {
+public enum OnbTransitionStyle {
     case none
     case opacity
     case slide
     case fade
 }
 
-struct OnbConfiguration {
+public struct OnbConfiguration {
 
     // Header configuration
-    var headerConfiguration: OnbHeaderConfiguration = .default
+    public var headerConfiguration: OnbHeaderConfiguration
 
     // Slides data
-    var slides: [OnbSlideType] = []
+    public var slides: [OnbSlideType]
 
     // Slide defaults
-    var slideDefaults: OnbSlideDefaults = .default
+    public var slideDefaults: OnbSlideDefaults
 
     // Callbacks
-    var onSlideComplete: ((OnbSlideData) -> Void)? = nil
-    var onFlowComplete: ((OnbFlowData) -> Void)? = nil
+    public var onSlideComplete: ((OnbSlideData) -> Void)?
+    public var onFlowComplete: ((OnbFlowData) -> Void)?
+
+    public init(
+        headerConfiguration: OnbHeaderConfiguration = .default,
+        slides: [OnbSlideType] = [],
+        slideDefaults: OnbSlideDefaults = .default,
+        onSlideComplete: ((OnbSlideData) -> Void)? = nil,
+        onFlowComplete: ((OnbFlowData) -> Void)? = nil
+    ) {
+        self.headerConfiguration = headerConfiguration
+        self.slides = slides
+        self.slideDefaults = slideDefaults
+        self.onSlideComplete = onSlideComplete
+        self.onFlowComplete = onFlowComplete
+    }
 
 }

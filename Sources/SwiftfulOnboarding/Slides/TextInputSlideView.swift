@@ -35,7 +35,7 @@ struct TextInputSlideView: View {
     var textFieldCornerRadius: CGFloat = 8
     var textFieldFont: Font = .body
     var textFieldPlaceholder: String = "Enter text"
-    var textFieldKeyboardType: UIKeyboardType = .default
+    var textFieldKeyboardType: OnbKeyboardType = .default
     var textFieldHorizontalPadding: CGFloat = 24
     var textFieldStartingText: String? = nil
     var isValidText: ((String) -> Bool)? = nil

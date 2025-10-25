@@ -18,7 +18,7 @@ struct AnyTextInputField: View {
     var cornerRadius: CGFloat = 8
     var font: Font = .body
     var placeholder: String = "Enter text"
-    var keyboardType: UIKeyboardType = .default
+    var keyboardType: OnbKeyboardType = .default
     var startingText: String? = nil
     var onTextChanged: ((String) -> Void)? = nil
 
@@ -27,7 +27,9 @@ struct AnyTextInputField: View {
     var body: some View {
         TextField(placeholder, text: $text)
             .font(font)
+            #if canImport(UIKit)
             .keyboardType(keyboardType)
+            #endif
             .padding(12)
             .background(backgroundColor)
             .overlay(

@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-enum OnbPickerPosition {
+public enum OnbPickerPosition {
     case auto
     case bottom
 }
 
-enum OnbPickerStyle {
+public enum OnbPickerStyle {
     case wheel
     case menu
     case segmented

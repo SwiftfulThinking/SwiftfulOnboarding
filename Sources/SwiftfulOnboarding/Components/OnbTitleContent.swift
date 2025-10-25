@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum OnbTextAlignment {
+public enum OnbTextAlignment {
     case leading
     case center
     case trailing

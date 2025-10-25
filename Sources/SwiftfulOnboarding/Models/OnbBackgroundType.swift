@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum OnbBackgroundType {
+public enum OnbBackgroundType {
     case solidColor(Color)
     case gradient(Gradient, startPoint: UnitPoint = .top, endPoint: UnitPoint = .bottom)
     case image(urlString: String)

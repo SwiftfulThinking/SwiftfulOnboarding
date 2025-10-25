@@ -7,30 +7,30 @@
 
 import SwiftUI
 
-enum OnbCheckboxStyle {
+public enum OnbCheckboxStyle {
     case circle
     case square
 }
 
-enum OnbButtonSecondaryContent {
+public enum OnbButtonSecondaryContent {
     case emoji(String)
     case checkbox(style: OnbCheckboxStyle, isChecked: Bool = false, borderColor: Color = .gray, fillColor: Color = .blue)
     case media(media: OnbMediaType)
 }
 
-enum OnbButtonSecondaryContentPlacement {
+public enum OnbButtonSecondaryContentPlacement {
     case leading
     case centerLeading
     case centerTrailing
     case trailing
 }
 
-enum OnbButtonTextPlacement {
+public enum OnbButtonTextPlacement {
     case center
     case leading
 }
 
-enum OnbMediaContentPlacement {
+public enum OnbMediaContentPlacement {
     case top
     case bottom
 }
@@ -49,17 +49,17 @@ extension TextAlignment {
     }
 }
 
-struct OnbButtonContentData {
-    var text: String
-    var subtitle: String?
-    var textPlacement: OnbButtonTextPlacement
-    var secondaryContent: OnbButtonSecondaryContent?
-    var secondaryContentPlacement: OnbButtonSecondaryContentPlacement
-    var mediaContent: OnbMediaType?
-    var mediaContentPlacement: OnbMediaContentPlacement
-    var value: Any?
+public struct OnbButtonContentData {
+    public var text: String
+    public var subtitle: String?
+    public var textPlacement: OnbButtonTextPlacement
+    public var secondaryContent: OnbButtonSecondaryContent?
+    public var secondaryContentPlacement: OnbButtonSecondaryContentPlacement
+    public var mediaContent: OnbMediaType?
+    public var mediaContentPlacement: OnbMediaContentPlacement
+    public var value: Any?
 
-    init(
+    public init(
         text: String,
         subtitle: String? = nil,
         textPlacement: OnbButtonTextPlacement = .center,

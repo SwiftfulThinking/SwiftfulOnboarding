@@ -8,14 +8,14 @@
 import SwiftUI
 import Lottie
 
-enum OnbMediaAspectRatio {
+public enum OnbMediaAspectRatio {
     case auto
     case square
     case portrait
     case landscape
 }
 
-enum OnbMediaType {
+public enum OnbMediaType {
     case image(urlString: String, size: OnbMediaSize = .auto, aspectRatio: OnbMediaAspectRatio = .auto, cornerRadius: CGFloat = 0, borderColor: Color? = nil, borderWidth: CGFloat = 0, selectedBorderColor: Color? = nil, selectedBorderWidth: CGFloat? = nil)
     case systemIcon(named: String, size: OnbMediaSize = .auto)
     case video(urlString: String, size: OnbMediaSize = .auto, aspectRatio: OnbMediaAspectRatio = .auto, useSwiftUIVideoPlayer: Bool = false, loop: Bool = true, cornerRadius: CGFloat = 0, borderColor: Color? = nil, borderWidth: CGFloat = 0, selectedBorderColor: Color? = nil, selectedBorderWidth: CGFloat? = nil)

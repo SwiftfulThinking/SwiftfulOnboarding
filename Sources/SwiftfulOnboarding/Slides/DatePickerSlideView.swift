@@ -7,23 +7,23 @@
 
 import SwiftUI
 
-enum OnbDatePickerPosition {
+public enum OnbDatePickerPosition {
     case auto
     case bottom
 }
 
-enum OnbDatePickerStyle {
+public enum OnbDatePickerStyle {
     case graphical
     case wheel
     case compact
 }
 
-enum OnbDatePickerComponents {
+public enum OnbDatePickerComponents {
     case date
     case dateTime
     case time
 
-    var displayedComponents: DatePickerComponents {
+    public var displayedComponents: DatePickerComponents {
         switch self {
         case .date:
             return .date

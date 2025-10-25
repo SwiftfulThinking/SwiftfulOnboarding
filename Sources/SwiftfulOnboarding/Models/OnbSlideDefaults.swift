@@ -25,54 +25,114 @@ import SwiftUI
 /// ```
 ///
 /// Note: Individual slide parameters will override these defaults when specified.
-struct OnbSlideDefaults {
+public struct OnbSlideDefaults {
     // Title & Subtitle
-    var titleFont: Font = .title.weight(.semibold)
-    var subtitleFont: Font = .body
-    var titleSubtitleSpacing: CGFloat = 8
-    var titleAlignment: OnbTextAlignment = .center
+    public var titleFont: Font
+    public var subtitleFont: Font
+    public var titleSubtitleSpacing: CGFloat
+    public var titleAlignment: OnbTextAlignment
 
     // Content
-    var contentAlignment: OnbContentAlignment = .center
-    var paddingTop: CGFloat = 40
-    var paddingBottom: CGFloat = 0
-    var horizontalPaddingContent: CGFloat = 24
-    var horizontalPaddingTitle: CGFloat = 40
-    var contentSpacing: CGFloat = 12
+    public var contentAlignment: OnbContentAlignment
+    public var paddingTop: CGFloat
+    public var paddingBottom: CGFloat
+    public var horizontalPaddingContent: CGFloat
+    public var horizontalPaddingTitle: CGFloat
+    public var contentSpacing: CGFloat
 
     // Footer
-    var footerData: OnbFooterData = .default
-    var ctaText: String = "Continue"
-    var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: Color(uiColor: .systemGray5), textColor: .black, selectedBackgroundColor: .blue, selectedTextColor: .white)
-    var ctaButtonFormatData: OnbButtonFormatData = .default
+    public var footerData: OnbFooterData
+    public var ctaText: String
+    public var ctaButtonStyle: OnbButtonStyleType
+    public var ctaButtonFormatData: OnbButtonFormatData
 
     // Media (for slides that support it)
-    var mediaPosition: OnbMediaPosition = .top
+    public var mediaPosition: OnbMediaPosition
 
     // Feedback (for slides that support it)
-    var feedbackStyle: AnyFeedbackViewStyle = .bottom(transition: .none)
-    var feedbackConfiguration: OnbFeedbackConfiguration = .default
+    public var feedbackStyle: AnyFeedbackViewStyle
+    public var feedbackConfiguration: OnbFeedbackConfiguration
 
     // Response (for slides that support it)
-    var responseConfiguration: OnbResponseConfiguration = .default
+    public var responseConfiguration: OnbResponseConfiguration
 
     // Selection (for slides that support it)
-    var selectionBehavior: OnbSelectionBehavior = .single()
+    public var selectionBehavior: OnbSelectionBehavior
 
     // Multiple Choice Options (for multipleChoice and yesNo slides)
-    var optionsSpacing: CGFloat = 12
-    var optionsButtonStyle: OnbButtonStyleType = .solid(backgroundColor: Color(uiColor: .systemGray5), textColor: .black, selectedBackgroundColor: .blue, selectedTextColor: .white)
-    var optionsButtonFormatData: OnbButtonFormatData = .default
-    var isGrid: Bool = false
+    public var optionsSpacing: CGFloat
+    public var optionsButtonStyle: OnbButtonStyleType
+    public var optionsButtonFormatData: OnbButtonFormatData
+    public var isGrid: Bool
 
     // Secondary Button (for primaryAction slide)
-    var secondaryButtonStyle: OnbButtonStyleType = .outline(textColor: Color(uiColor: .systemGray4), borderColor: Color(uiColor: .systemGray4))
-    var secondaryButtonFormatData: OnbButtonFormatData = .default
-    var secondaryButtonSpacing: CGFloat = 12
+    public var secondaryButtonStyle: OnbButtonStyleType
+    public var secondaryButtonFormatData: OnbButtonFormatData
+    public var secondaryButtonSpacing: CGFloat
 
     // Background & Transitions
-    var background: OnbBackgroundType = .solidColor(.clear)
-    var transitionStyle: OnbTransitionStyle = .slide
+    public var background: OnbBackgroundType
+    public var transitionStyle: OnbTransitionStyle
 
-    static let `default` = OnbSlideDefaults()
+    public init(
+        titleFont: Font = .title.weight(.semibold),
+        subtitleFont: Font = .body,
+        titleSubtitleSpacing: CGFloat = 8,
+        titleAlignment: OnbTextAlignment = .center,
+        contentAlignment: OnbContentAlignment = .center,
+        paddingTop: CGFloat = 40,
+        paddingBottom: CGFloat = 0,
+        horizontalPaddingContent: CGFloat = 24,
+        horizontalPaddingTitle: CGFloat = 40,
+        contentSpacing: CGFloat = 12,
+        footerData: OnbFooterData = .default,
+        ctaText: String = "Continue",
+        ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: Color.gray.opacity(0.2), textColor: .primary, selectedBackgroundColor: .blue, selectedTextColor: .white),
+        ctaButtonFormatData: OnbButtonFormatData = .default,
+        mediaPosition: OnbMediaPosition = .top,
+        feedbackStyle: AnyFeedbackViewStyle = .bottom(transition: .none),
+        feedbackConfiguration: OnbFeedbackConfiguration = .default,
+        responseConfiguration: OnbResponseConfiguration = .default,
+        selectionBehavior: OnbSelectionBehavior = .single(),
+        optionsSpacing: CGFloat = 12,
+        optionsButtonStyle: OnbButtonStyleType = .solid(backgroundColor: Color.gray.opacity(0.2), textColor: .primary, selectedBackgroundColor: .blue, selectedTextColor: .white),
+        optionsButtonFormatData: OnbButtonFormatData = .default,
+        isGrid: Bool = false,
+        secondaryButtonStyle: OnbButtonStyleType = .outline(textColor: Color.gray, borderColor: Color.gray),
+        secondaryButtonFormatData: OnbButtonFormatData = .default,
+        secondaryButtonSpacing: CGFloat = 12,
+        background: OnbBackgroundType = .solidColor(.clear),
+        transitionStyle: OnbTransitionStyle = .slide
+    ) {
+        self.titleFont = titleFont
+        self.subtitleFont = subtitleFont
+        self.titleSubtitleSpacing = titleSubtitleSpacing
+        self.titleAlignment = titleAlignment
+        self.contentAlignment = contentAlignment
+        self.paddingTop = paddingTop
+        self.paddingBottom = paddingBottom
+        self.horizontalPaddingContent = horizontalPaddingContent
+        self.horizontalPaddingTitle = horizontalPaddingTitle
+        self.contentSpacing = contentSpacing
+        self.footerData = footerData
+        self.ctaText = ctaText
+        self.ctaButtonStyle = ctaButtonStyle
+        self.ctaButtonFormatData = ctaButtonFormatData
+        self.mediaPosition = mediaPosition
+        self.feedbackStyle = feedbackStyle
+        self.feedbackConfiguration = feedbackConfiguration
+        self.responseConfiguration = responseConfiguration
+        self.selectionBehavior = selectionBehavior
+        self.optionsSpacing = optionsSpacing
+        self.optionsButtonStyle = optionsButtonStyle
+        self.optionsButtonFormatData = optionsButtonFormatData
+        self.isGrid = isGrid
+        self.secondaryButtonStyle = secondaryButtonStyle
+        self.secondaryButtonFormatData = secondaryButtonFormatData
+        self.secondaryButtonSpacing = secondaryButtonSpacing
+        self.background = background
+        self.transitionStyle = transitionStyle
+    }
+
+    public static let `default` = OnbSlideDefaults()
 }

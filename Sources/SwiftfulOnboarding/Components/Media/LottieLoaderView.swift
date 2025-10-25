@@ -7,6 +7,14 @@
 
 #if canImport(UIKit)
 import UIKit
+typealias OnbContentMode = UIView.ContentMode
+#else
+// Placeholder for macOS - won't be used
+enum OnbContentMode {
+    case scaleAspectFit
+    case scaleAspectFill
+    case scaleToFill
+}
 #endif
 import SwiftUI
 import Lottie
@@ -15,7 +23,7 @@ struct LottieLoaderView: View {
 
     let urlString: String
     var loopMode: LottieLoopMode = .loop
-    var contentMode: UIView.ContentMode = .scaleAspectFit
+    var contentMode: OnbContentMode = .scaleAspectFit
     var cornerRadius: CGFloat = 0
 
     var body: some View {

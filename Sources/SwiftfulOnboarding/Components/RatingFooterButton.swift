@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-enum OnbRatingButtonOption {
+public enum OnbRatingButtonOption {
     case number
     case thumbs
 
-    func text(for rating: Int) -> String {
+    public func text(for rating: Int) -> String {
         switch self {
         case .number:
             return "\(rating)"
@@ -28,19 +28,19 @@ enum OnbRatingButtonOption {
     }
 }
 
-enum OnbRatingLabelPlacement {
+public enum OnbRatingLabelPlacement {
     case top
     case bottom
 }
 
-struct RatingFooterLabels {
-    var leadingLabel: String
-    var trailingLabel: String
-    var labelPlacement: OnbRatingLabelPlacement
-    var labelFont: Font
-    var labelColor: Color
+public struct RatingFooterLabels {
+    public var leadingLabel: String
+    public var trailingLabel: String
+    public var labelPlacement: OnbRatingLabelPlacement
+    public var labelFont: Font
+    public var labelColor: Color
 
-    init(
+    public init(
         left: String = "",
         right: String = "",
         labelPlacement: OnbRatingLabelPlacement = .bottom,

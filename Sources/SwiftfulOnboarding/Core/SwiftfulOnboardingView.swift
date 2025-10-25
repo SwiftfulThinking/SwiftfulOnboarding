@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct SwiftfulOnboardingView: View {
+public struct SwiftfulOnboardingView: View {
 
     @StateObject private var viewModel: SwiftfulOnboardingViewModel
 
-    init(configuration: OnbConfiguration = OnbConfiguration()) {
+    public init(configuration: OnbConfiguration = OnbConfiguration()) {
         _viewModel = StateObject(wrappedValue: SwiftfulOnboardingViewModel(configuration: configuration))
     }
 
@@ -123,7 +123,7 @@ struct SwiftfulOnboardingView: View {
         }
     }
 
-    var body: some View {
+    public var body: some View {
         ZStack {
             // Background
             backgroundView

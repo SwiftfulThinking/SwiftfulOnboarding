@@ -10,23 +10,37 @@ import UIKit
 #endif
 import SwiftUI
 
-enum OnbSelectionBehavior {
+public enum OnbSelectionBehavior {
     case single(autoAdvance: Bool = false)
     case multi(max: Int? = nil)
 }
 
-struct OnbChoiceOption: Hashable, Equatable {
-    var id: String
-    var content: OnbButtonContentData
-    var responseConfiguration: OnbResponseConfiguration?
-    var feedbackConfiguration: OnbFeedbackConfiguration?
-    var insertConfiguration: [InsertSlideData]?
+public struct OnbChoiceOption: Hashable, Equatable {
+    public var id: String
+    public var content: OnbButtonContentData
+    public var responseConfiguration: OnbResponseConfiguration?
+    public var feedbackConfiguration: OnbFeedbackConfiguration?
+    public var insertConfiguration: [InsertSlideData]?
 
-    func hash(into hasher: inout Hasher) {
+    public init(
+        id: String,
+        content: OnbButtonContentData,
+        responseConfiguration: OnbResponseConfiguration? = nil,
+        feedbackConfiguration: OnbFeedbackConfiguration? = nil,
+        insertConfiguration: [InsertSlideData]? = nil
+    ) {
+        self.id = id
+        self.content = content
+        self.responseConfiguration = responseConfiguration
+        self.feedbackConfiguration = feedbackConfiguration
+        self.insertConfiguration = insertConfiguration
+    }
+
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
 
-    static func == (lhs: Self, rhs: Self) -> Bool {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.id == rhs.id
     }
 }

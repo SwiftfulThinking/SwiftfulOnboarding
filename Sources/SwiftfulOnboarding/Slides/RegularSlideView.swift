@@ -8,7 +8,7 @@
 import SwiftUI
 
 @MainActor
-enum OnbMediaSize {
+public enum OnbMediaSize {
     case fixed(width: CGFloat, height: CGFloat)
     case auto
     case small
@@ -62,12 +62,12 @@ enum OnbMediaSize {
     }
 }
 
-enum OnbMediaPosition {
+public enum OnbMediaPosition {
     case top
     case bottom
 }
 
-enum OnbContentAlignment {
+public enum OnbContentAlignment {
     case top
     case center
     case bottom
@@ -84,14 +84,22 @@ enum OnbContentAlignment {
     }
 }
 
-struct OnbFooterData {
-    var leading: CGFloat
-    var trailing: CGFloat
-    var bottom: CGFloat
-    var top: CGFloat
-    var cornerRadius: CGFloat
+public struct OnbFooterData {
+    public var leading: CGFloat
+    public var trailing: CGFloat
+    public var bottom: CGFloat
+    public var top: CGFloat
+    public var cornerRadius: CGFloat
 
-    static let `default` = OnbFooterData(
+    public init(leading: CGFloat, trailing: CGFloat, bottom: CGFloat, top: CGFloat, cornerRadius: CGFloat) {
+        self.leading = leading
+        self.trailing = trailing
+        self.bottom = bottom
+        self.top = top
+        self.cornerRadius = cornerRadius
+    }
+
+    public static let `default` = OnbFooterData(
         leading: 24,
         trailing: 24,
         bottom: 24,
@@ -100,13 +108,20 @@ struct OnbFooterData {
     )
 }
 
-struct OnbButtonFormatData {
-    var pressStyle: OnbButtonPressStyle
-    var font: Font
-    var height: OnbButtonHeight
-    var cornerRadius: CGFloat
+public struct OnbButtonFormatData {
+    public var pressStyle: OnbButtonPressStyle
+    public var font: Font
+    public var height: OnbButtonHeight
+    public var cornerRadius: CGFloat
 
-    static let `default` = OnbButtonFormatData(
+    public init(pressStyle: OnbButtonPressStyle, font: Font, height: OnbButtonHeight, cornerRadius: CGFloat) {
+        self.pressStyle = pressStyle
+        self.font = font
+        self.height = height
+        self.cornerRadius = cornerRadius
+    }
+
+    public static let `default` = OnbButtonFormatData(
         pressStyle: .press,
         font: .headline,
         height: .verticalPadding(16),

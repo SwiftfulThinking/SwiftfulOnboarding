@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum OnbButtonStyleType {
+public enum OnbButtonStyleType {
     case solid(backgroundColor: Color, textColor: Color, selectedBackgroundColor: Color? = nil, selectedTextColor: Color? = nil)
     case outline(textColor: Color, borderColor: Color, borderWidth: CGFloat = 2, selectedTextColor: Color? = nil, selectedBorderColor: Color? = nil)
     case solidOutline(backgroundColor: Color, textColor: Color, borderColor: Color, borderWidth: CGFloat = 2, selectedBackgroundColor: Color? = nil, selectedTextColor: Color? = nil, selectedBorderColor: Color? = nil)
@@ -27,13 +27,13 @@ enum OnbButtonStyleType {
     }
 }
 
-enum OnbButtonPressStyle {
+public enum OnbButtonPressStyle {
     case press
     case opacity
     case tap
 }
 
-enum OnbButtonHeight {
+public enum OnbButtonHeight {
     case fixed(CGFloat)
     case verticalPadding(CGFloat)
 }

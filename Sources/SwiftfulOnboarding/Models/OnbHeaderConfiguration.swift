@@ -7,12 +7,26 @@
 
 import SwiftUI
 
-struct OnbHeaderConfiguration {
-    var headerStyle: HeaderStyle = .progressBar
-    var headerAlignment: HeaderAlignment = .center
-    var showBackButton: OnbBackButtonBehavior = .afterFirstSlide
-    var backButtonColor: Color = .primary
-    var progressBarAccentColor: Color = .blue
+public struct OnbHeaderConfiguration {
+    public var headerStyle: HeaderStyle = .progressBar
+    public var headerAlignment: HeaderAlignment = .center
+    public var showBackButton: OnbBackButtonBehavior = .afterFirstSlide
+    public var backButtonColor: Color = .primary
+    public var progressBarAccentColor: Color = .blue
 
-    static let `default` = OnbHeaderConfiguration()
+    public init(
+        headerStyle: HeaderStyle = .progressBar,
+        headerAlignment: HeaderAlignment = .center,
+        showBackButton: OnbBackButtonBehavior = .afterFirstSlide,
+        backButtonColor: Color = .primary,
+        progressBarAccentColor: Color = .blue
+    ) {
+        self.headerStyle = headerStyle
+        self.headerAlignment = headerAlignment
+        self.showBackButton = showBackButton
+        self.backButtonColor = backButtonColor
+        self.progressBarAccentColor = progressBarAccentColor
+    }
+
+    public static let `default` = OnbHeaderConfiguration()
 }

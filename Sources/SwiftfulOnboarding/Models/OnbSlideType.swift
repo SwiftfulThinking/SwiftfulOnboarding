@@ -7,14 +7,22 @@
 
 #if canImport(UIKit)
 import UIKit
+public typealias OnbKeyboardType = UIKeyboardType
+#else
+// Placeholder for macOS - won't be used
+public enum OnbKeyboardType {
+    case `default`
+    case emailAddress
+    case numberPad
+}
 #endif
 import SwiftUI
 
-protocol OnbSlideProtocol {
+public protocol OnbSlideProtocol {
     var id: String { get }
 }
 
-enum OnbSlideType: OnbSlideProtocol {
+public enum OnbSlideType: OnbSlideProtocol {
     case regular(
         id: String,
         title: String? = nil,
@@ -146,7 +154,7 @@ enum OnbSlideType: OnbSlideProtocol {
         paddingBottom: CGFloat? = nil,
         horizontalPaddingTitle: CGFloat? = nil,
         contentSpacing: CGFloat? = nil,
-        textFieldKeyboardType: UIKeyboardType = .default,
+        textFieldKeyboardType: OnbKeyboardType = .default,
         footerData: OnbFooterData? = nil,
         ctaText: String? = nil,
         ctaButtonStyle: OnbButtonStyleType? = nil,
@@ -238,7 +246,7 @@ enum OnbSlideType: OnbSlideProtocol {
         backButtonColor: Color? = nil
     )
 
-    var id: String {
+    public var id: String {
         switch self {
         case .regular(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
@@ -259,7 +267,7 @@ enum OnbSlideType: OnbSlideProtocol {
         }
     }
 
-    var background: OnbBackgroundType? {
+    public var background: OnbBackgroundType? {
         switch self {
         case .regular(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let background, _, _):
             return background
@@ -280,7 +288,7 @@ enum OnbSlideType: OnbSlideProtocol {
         }
     }
 
-    var showBackButton: Bool? {
+    public var showBackButton: Bool? {
         switch self {
         case .regular(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let showBackButton, _):
             return showBackButton
@@ -301,7 +309,7 @@ enum OnbSlideType: OnbSlideProtocol {
         }
     }
 
-    var backButtonColor: Color? {
+    public var backButtonColor: Color? {
         switch self {
         case .regular(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backButtonColor):
             return backButtonColor
@@ -322,7 +330,7 @@ enum OnbSlideType: OnbSlideProtocol {
         }
     }
 
-    var title: String? {
+    public var title: String? {
         switch self {
         case .regular(_, let title, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return title
@@ -343,7 +351,7 @@ enum OnbSlideType: OnbSlideProtocol {
         }
     }
 
-    var slideType: String {
+    public var slideType: String {
         switch self {
         case .regular:
             return "regular"
