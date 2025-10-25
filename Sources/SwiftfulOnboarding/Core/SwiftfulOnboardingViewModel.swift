@@ -174,10 +174,15 @@ class SwiftfulOnboardingViewModel: ObservableObject {
             } else {
                 currentSelections = [option]
             }
-        case .multi:
+        case .multi(let max):
             if let index = currentSelections.firstIndex(of: option) {
                 currentSelections.remove(at: index)
             } else {
+                // Check if max limit is reached
+                if let maxCount = max, currentSelections.count >= maxCount {
+                    // Don't add - max selections reached
+                    return
+                }
                 currentSelections.append(option)
             }
         }

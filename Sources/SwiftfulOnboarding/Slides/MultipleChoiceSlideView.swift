@@ -12,7 +12,7 @@ import SwiftUI
 
 enum OnbSelectionBehavior {
     case single(autoAdvance: Bool = false)
-    case multi
+    case multi(max: Int? = nil)
 }
 
 struct OnbChoiceOption: Hashable, Equatable {

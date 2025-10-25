@@ -153,14 +153,16 @@ Present users with multiple options:
             content: OnbButtonContentData(text: "Business", icon: .systemIcon(named: "briefcase"))
         )
     ],
-    selectionBehavior: .multi(min: 1),
+    selectionBehavior: .multi(max: 3),
     contentAlignment: .top
 )
 ```
 
 Multiple choice slides support:
 - **Single selection**: `.single(autoAdvance: Bool)` - Select one option
-- **Multi selection**: `.multi(min: Int?, max: Int?)` - Select multiple options with optional constraints
+- **Multi selection**: `.multi(max: Int?)` - Select multiple options with optional maximum limit
+  - `max: nil` (default) - Unlimited selections
+  - `max: 3` - Limit to maximum 3 selections
 - **Grid layout**: Display options in a grid
 - **Custom button styles**: Duolingo-style, solid, outline, solidOutline
 - **Checkboxes**: Circle or square checkboxes for multi-select

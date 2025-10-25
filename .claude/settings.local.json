@@ -3,7 +3,10 @@
     "allow": [
       "Bash(swift build:*)",
       "Bash(git commit:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Read(//Users/nicksarno/Documents/documents/GITHUB/SwiftfulRouting/**)",
+      "Read(//Users/nicksarno/Documents/documents/GITHUB/SwiftfulDataManagers/**)",
+      "Read(//Users/nicksarno/Documents/documents/GITHUB/SwiftfulLogging/**)"
     ],
     "deny": [],
     "ask": []
