@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public enum AnyFeedbackViewTransition: Equatable {
+public enum AnyFeedbackViewTransition: Equatable, Sendable {
     case slide
     case scale
     case fade
@@ -15,7 +15,7 @@ public enum AnyFeedbackViewTransition: Equatable {
     case none
 }
 
-public enum AnyFeedbackViewStyle: Equatable {
+public enum AnyFeedbackViewStyle: Equatable, Sendable {
     case top(transition: AnyFeedbackViewTransition = .slide)
     case bottom(transition: AnyFeedbackViewTransition = .slide)
 }

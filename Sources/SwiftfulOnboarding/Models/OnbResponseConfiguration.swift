@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct OnbResponseConfiguration {
+public struct OnbResponseConfiguration: Sendable {
 
     public var style: AnyResponseViewStyle?
     public var backgroundColor: Color?

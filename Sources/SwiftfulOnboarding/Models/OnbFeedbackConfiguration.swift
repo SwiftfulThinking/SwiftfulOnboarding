@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct OnbFeedbackConfiguration {
+public struct OnbFeedbackConfiguration: Sendable {
 
     public var backgroundColor: Color? = nil
     public var borderWidth: CGFloat? = nil

@@ -25,7 +25,7 @@ import SwiftUI
 /// ```
 ///
 /// Note: Individual slide parameters will override these defaults when specified.
-public struct OnbSlideDefaults {
+public struct OnbSlideDefaults: Sendable {
     // Title & Subtitle
     public var titleFont: Font
     public var subtitleFont: Font

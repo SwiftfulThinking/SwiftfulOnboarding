@@ -10,7 +10,7 @@ import UIKit
 #endif
 import SwiftUI
 
-public enum OnbSelectionBehavior {
+public enum OnbSelectionBehavior: Sendable {
     case single(autoAdvance: Bool = false)
     case multi(max: Int? = nil)
 }

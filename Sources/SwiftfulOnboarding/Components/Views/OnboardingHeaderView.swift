@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-public enum HeaderStyle {
+public enum HeaderStyle: Sendable {
     case progressBar
     case dots
     case count
     case none
 }
 
-public enum HeaderAlignment {
+public enum HeaderAlignment: Sendable {
     case center
     case right
 }

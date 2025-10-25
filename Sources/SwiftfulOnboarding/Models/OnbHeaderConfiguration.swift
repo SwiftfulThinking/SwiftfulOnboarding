@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct OnbHeaderConfiguration {
+public struct OnbHeaderConfiguration: Sendable {
     public var headerStyle: HeaderStyle = .progressBar
     public var headerAlignment: HeaderAlignment = .center
     public var showBackButton: OnbBackButtonBehavior = .afterFirstSlide

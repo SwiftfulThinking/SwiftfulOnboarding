@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-public enum OnbBackButtonBehavior {
+public enum OnbBackButtonBehavior: Sendable {
     case always
     case afterFirstSlide
     case never
 }
 
-public enum OnbTransitionStyle {
+public enum OnbTransitionStyle: Sendable {
     case none
     case opacity
     case slide

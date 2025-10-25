@@ -62,12 +62,12 @@ public enum OnbMediaSize {
     }
 }
 
-public enum OnbMediaPosition {
+public enum OnbMediaPosition: Sendable {
     case top
     case bottom
 }
 
-public enum OnbContentAlignment {
+public enum OnbContentAlignment: Sendable {
     case top
     case center
     case bottom
@@ -84,7 +84,7 @@ public enum OnbContentAlignment {
     }
 }
 
-public struct OnbFooterData {
+public struct OnbFooterData: Sendable {
     public var leading: CGFloat
     public var trailing: CGFloat
     public var bottom: CGFloat
@@ -108,7 +108,7 @@ public struct OnbFooterData {
     )
 }
 
-public struct OnbButtonFormatData {
+public struct OnbButtonFormatData: Sendable {
     public var pressStyle: OnbButtonPressStyle
     public var font: Font
     public var height: OnbButtonHeight
