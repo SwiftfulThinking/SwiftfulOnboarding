@@ -637,75 +637,173 @@ OnbConfiguration(
 
 </details>
 
-## Best Practices
+## Tracking User Progress
 
 <details>
 <summary> Details (Click to expand) </summary>
 <br>
 
-1. **Use unique IDs**: Each slide must have a unique identifier
-2. **Keep titles concise**: Short, clear titles work best
-3. **Leverage defaults**: Set `slideDefaults` for consistent styling
-4. **Test flows**: Use PreviewFlows.swift patterns for testing different configurations
-5. **Handle completion**: Always implement `onFlowComplete` to process user data
-6. **Optimize images**: Use appropriately sized images to avoid performance issues
-7. **Consider accessibility**: Ensure sufficient color contrast and text sizes
-8. **Use auto-advance wisely**: Only use for simple, obvious choices
-9. **Provide feedback**: Use feedback/response screens for important selections
-10. **Test navigation**: Ensure back button behavior works as expected
+Track user progress and collect data using callback functions:
 
-</details>
+### onSlideComplete
 
-## Architecture
+Called each time a user completes a slide (by clicking Continue or auto-advancing):
 
-<details>
-<summary> Details (Click to expand) </summary>
-<br>
+```swift
+OnbConfiguration(
+    slides: slides,
+    onSlideComplete: { slideId, userSelections in
+        print("User completed slide: \(slideId)")
+        print("Their selections: \(userSelections)")
 
-SwiftfulOnboarding follows clean MVVM architecture:
+        // Example: Save progress to UserDefaults
+        UserDefaults.standard.set(slideId, forKey: "lastCompletedSlide")
 
-### Core Components
-
-- **SwiftfulOnboardingView**: Main container view
-- **SwiftfulOnboardingViewModel**: Manages state and navigation (`@MainActor`, `ObservableObject`)
-- **OnbConfiguration**: Configuration object for the entire flow
-- **OnbSlideType**: Enum representing all slide types
-- **Slide Views**: Individual view components for each slide type
-
-### Key Features
-
-- **Type-safe**: Enum-based slide types prevent configuration errors
-- **Modular**: Each slide type is self-contained
-- **Customizable**: Extensive configuration options
-- **Reactive**: SwiftUI-native with Combine support
-- **Performant**: Efficient rendering with only current/adjacent slides in memory
-
-### View Hierarchy
-
-```
-SwiftfulOnboardingView
-├── OnboardingHeaderView
-│   ├── Back Button (conditional)
-│   └── Progress Indicator (.progressBar, .count, or .none)
-├── Slide Content (ZStack with transitions)
-│   ├── AnyOnboardingSlideView
-│   │   ├── RegularSlideView
-│   │   ├── MultipleChoiceSlideView
-│   │   ├── YesNoSlideView
-│   │   ├── RatingSlideView
-│   │   ├── TextInputSlideView
-│   │   └── PrimaryActionSlideView
-│   └── Feedback/Response layers
-└── Response View (overlay, conditional)
+        // Example: Send analytics event
+        analytics.track("slide_completed", properties: [
+            "slide_id": slideId,
+            "selections": userSelections
+        ])
+    }
+)
 ```
 
+**Parameters:**
+- `slideId: String` - The ID of the slide that was just completed
+- `userSelections: [String: [OnbChoiceOption]]` - Dictionary of all user selections up to this point, keyed by slide ID
+
+**Use cases:**
+- Track user progress through the flow
+- Save partial completion state
+- Send analytics events per slide
+- Update UI outside the onboarding flow
+- Validate user input before proceeding
+
+### onFlowComplete
+
+Called when the user completes the entire onboarding flow (reaches the last slide and clicks Continue):
+
+```swift
+OnbConfiguration(
+    slides: slides,
+    onFlowComplete: { allSelections in
+        print("Onboarding complete!")
+        print("All user data: \(allSelections)")
+
+        // Example: Save user preferences
+        let interests = allSelections["interests"]?.map { $0.id } ?? []
+        let notificationsEnabled = allSelections["notifications"]?.first?.id == "yes"
+        let userName = allSelections["name"]?.first?.content.text ?? ""
+
+        UserDefaults.standard.set(interests, forKey: "userInterests")
+        UserDefaults.standard.set(notificationsEnabled, forKey: "notificationsEnabled")
+        UserDefaults.standard.set(userName, forKey: "userName")
+
+        // Example: Navigate to main app
+        isOnboardingComplete = true
+
+        // Example: Send completion event
+        analytics.track("onboarding_completed", properties: [
+            "total_slides": allSelections.count,
+            "interests_count": interests.count
+        ])
+    }
+)
+```
+
+**Parameters:**
+- `allSelections: [String: [OnbChoiceOption]]` - Dictionary of ALL user selections from the entire flow, keyed by slide ID
+
+**Use cases:**
+- Save all user preferences at once
+- Navigate to the main app
+- Create user profile from collected data
+- Send completion analytics
+- Trigger welcome emails or notifications
+
+### Accessing Selection Data
+
+Each `OnbChoiceOption` in the selections contains:
+
+```swift
+struct OnbChoiceOption {
+    let id: String                          // Option identifier
+    let content: OnbButtonContentData       // Button content (text, icon, etc.)
+    // ... other properties
+}
+
+struct OnbButtonContentData {
+    var text: String?                       // Button text
+    var icon: OnbMediaType?                 // Button icon
+    var value: Any?                         // Custom value you can attach
+    // ... other properties
+}
+```
+
+**Example: Processing selections**
+
+```swift
+onFlowComplete: { allSelections in
+    // Get selected interests
+    if let interestOptions = allSelections["interests"] {
+        let interestIds = interestOptions.map { $0.id }
+        let interestTexts = interestOptions.compactMap { $0.content.text }
+        print("User interests: \(interestTexts)")
+    }
+
+    // Get rating value
+    if let ratingOption = allSelections["satisfaction"]?.first,
+       let rating = ratingOption.content.value as? Int {
+        print("User rated: \(rating)/5")
+    }
+
+    // Get text input
+    if let nameOption = allSelections["name"]?.first,
+       let name = nameOption.content.text {
+        print("User name: \(name)")
+    }
+
+    // Get yes/no answer
+    if let notificationOption = allSelections["notifications"]?.first {
+        let enabled = notificationOption.id == "yes"
+        print("Notifications enabled: \(enabled)")
+    }
+}
+```
+
+### Complete Example
+
+```swift
+struct OnboardingCoordinator: View {
+    @State private var showOnboarding = true
+    @State private var userProfile: UserProfile?
+
+    var body: some View {
+        if showOnboarding {
+            SwiftfulOnboardingView(
+                configuration: OnbConfiguration(
+                    slides: onboardingSlides,
+                    onSlideComplete: { slideId, selections in
+                        // Track progress
+                        print("Completed: \(slideId)")
+                    },
+                    onFlowComplete: { allSelections in
+                        // Process all data
+                        userProfile = UserProfile(from: allSelections)
+
+                        // Dismiss onboarding
+                        showOnboarding = false
+                    }
+                )
+            )
+        } else {
+            MainAppView(userProfile: userProfile)
+        }
+    }
+}
+```
+
 </details>
-
-## Related Packages
-
-- [SwiftfulRouting](https://github.com/SwiftfulThinking/SwiftfulRouting) - Navigation framework
-- [SwiftfulLogging](https://github.com/SwiftfulThinking/SwiftfulLogging) - Analytics logging
-- [SwiftfulStarterProject](https://github.com/SwiftfulThinking/SwiftfulStarterProject) - Full integration example
 
 ## Contributing
 
