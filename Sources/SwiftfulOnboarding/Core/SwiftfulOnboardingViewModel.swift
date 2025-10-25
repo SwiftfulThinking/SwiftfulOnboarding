@@ -17,6 +17,9 @@ class SwiftfulOnboardingViewModel: ObservableObject {
     @Published var responseConfiguration: OnbResponseConfiguration? = nil
     @Published var savedSelections: [String: [OnbChoiceOption]] = [:]
 
+    // Track which slide IDs are dynamically inserted
+    private var insertedSlideIds: Set<String> = []
+
     init(configuration: OnbConfiguration) {
         self.configuration = configuration
         self.slides = configuration.slides
@@ -137,12 +140,26 @@ class SwiftfulOnboardingViewModel: ObservableObject {
 
         if let index = insertIndex {
             slides.insert(insertConfig.slide, at: index)
+            insertedSlideIds.insert(insertConfig.slide.id)
         }
     }
 
     func previousSlide() {
         if currentIndex > 0 {
+            // Remove all inserted slides after the previous slide
+            removeInsertedSlidesAfter(index: currentIndex - 1)
             currentIndex -= 1
+        }
+    }
+
+    private func removeInsertedSlidesAfter(index: Int) {
+        // Remove slides in reverse order to maintain correct indices
+        for i in stride(from: slides.count - 1, through: index + 1, by: -1) {
+            let slideId = slides[i].id
+            if insertedSlideIds.contains(slideId) {
+                slides.remove(at: i)
+                insertedSlideIds.remove(slideId)
+            }
         }
     }
 

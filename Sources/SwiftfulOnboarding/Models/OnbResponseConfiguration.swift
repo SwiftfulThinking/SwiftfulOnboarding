@@ -34,7 +34,7 @@ struct OnbResponseConfiguration {
         borderWidth: 0,
         borderColor: .clear,
         cornerRadius: 24,
-        horizontalPadding: 24,
+        horizontalPadding: 0,
         title: nil,
         titleFont: .title,
         subtitle: nil,

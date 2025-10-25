@@ -648,8 +648,8 @@ struct PreviewFlows {
                 // Response configuration
                 .multipleChoice(
                     id: "response_center",
-                    title: "With Response Screen",
-                    subtitle: "Select an option to see a full-screen response",
+                    title: "With Response Screen (Center)",
+                    subtitle: "Select an option to see a centered response",
                     options: [
                         OnbChoiceOption(
                             id: "opt1",
@@ -657,6 +657,7 @@ struct PreviewFlows {
                             responseConfiguration: OnbResponseConfiguration(
                                 style: .center(transition: .slide),
                                 backgroundColor: .green,
+                                horizontalPadding: 24,
                                 title: "Success!",
                                 titleFont: .largeTitle,
                                 subtitle: "You made a great choice",
@@ -672,10 +673,53 @@ struct PreviewFlows {
                             responseConfiguration: OnbResponseConfiguration(
                                 style: .center(transition: .slide),
                                 backgroundColor: .blue,
+                                horizontalPadding: 24,
                                 title: "Good to Know",
                                 titleFont: .largeTitle,
                                 subtitle: "Here's some important information about your selection",
                                 subtitleFont: .title3,
+                                titleAlignment: .center,
+                                ctaText: "Got it",
+                                ctaButtonStyle: .solid(backgroundColor: .white, textColor: .blue)
+                            )
+                        )
+                    ],
+                    selectionBehavior: .single(autoAdvance: true),
+                    contentAlignment: .top
+                ),
+                // Response configuration - bottom
+                .multipleChoice(
+                    id: "response_bottom",
+                    title: "With Response Screen (Bottom)",
+                    subtitle: "Select an option to see a bottom sheet response",
+                    options: [
+                        OnbChoiceOption(
+                            id: "opt1",
+                            content: OnbButtonContentData(text: "Show Success Bottom Sheet"),
+                            responseConfiguration: OnbResponseConfiguration(
+                                style: .bottom(transition: .bottom),
+                                backgroundColor: .green,
+                                horizontalPadding: 0,
+                                title: "Great Choice!",
+                                titleFont: .title2,
+                                subtitle: "This is a bottom sheet style response",
+                                subtitleFont: .body,
+                                titleAlignment: .center,
+                                ctaText: "Continue",
+                                ctaButtonStyle: .solid(backgroundColor: .white, textColor: .green)
+                            )
+                        ),
+                        OnbChoiceOption(
+                            id: "opt2",
+                            content: OnbButtonContentData(text: "Show Info Bottom Sheet"),
+                            responseConfiguration: OnbResponseConfiguration(
+                                style: .bottom(transition: .bottom),
+                                backgroundColor: .blue,
+                                horizontalPadding: 0,
+                                title: "Did You Know?",
+                                titleFont: .title2,
+                                subtitle: "Bottom sheets are great for quick confirmations",
+                                subtitleFont: .body,
                                 titleAlignment: .center,
                                 ctaText: "Got it",
                                 ctaButtonStyle: .solid(backgroundColor: .white, textColor: .blue)
@@ -789,12 +833,13 @@ struct PreviewFlows {
                                 subtitleFont: .title3,
                                 titleAlignment: .center,
                                 ctaText: "Continue",
-                                ctaButtonStyle: .solid(backgroundColor: .white, textColor: .green)
+                                ctaButtonStyle: .solid(backgroundColor: .white, textColor: .green),
                             ), feedbackConfiguration: OnbFeedbackConfiguration(
                                 backgroundColor: Color(red: 0.8, green: 0.95, blue: 0.8),
                                 borderWidth: 2,
                                 borderColor: Color(red: 0.2, green: 0.6, blue: 0.2),
                                 cornerRadius: 4,
+                                horizontalPadding: 24,
                                 title: "✓ Correct!",
                                 titleFont: .headline,
                                 titleAlignment: .leading
