@@ -10,6 +10,7 @@ import SwiftUI
 struct AnyResponseViewContainer: View {
 
     let config: OnbResponseConfiguration
+    var defaultConfig: OnbResponseConfiguration = OnbResponseConfiguration()
     let isShowing: Bool
     let onButtonClick: (() -> Void)?
 
@@ -21,8 +22,12 @@ struct AnyResponseViewContainer: View {
         #endif
     }
 
+    private var currentStyle: AnyResponseViewStyle {
+        config.style ?? defaultConfig.style ?? .center(transition: .slide)
+    }
+
     private var transition: AnyResponseViewTransition {
-        switch config.style {
+        switch currentStyle {
         case .bottom(let t):
             return t
         case .center(let t):
@@ -82,29 +87,29 @@ struct AnyResponseViewContainer: View {
     }
 
     private var alignment: Alignment {
-        config.style == .bottom() ? .bottom : .center
+        currentStyle == .bottom() ? .bottom : .center
     }
 
     var body: some View {
         AnyResponseView(
-            style: config.style,
-            backgroundColor: config.backgroundColor,
-            borderWidth: config.borderWidth,
-            borderColor: config.borderColor,
-            cornerRadius: config.cornerRadius,
-            horizontalPadding: config.horizontalPadding,
-            title: config.title,
-            titleFont: config.titleFont,
-            subtitle: config.subtitle,
-            subtitleFont: config.subtitleFont,
-            titleSubtitleSpacing: config.titleSubtitleSpacing,
-            titleAlignment: config.titleAlignment,
-            paddingTop: config.paddingTop,
-            paddingBottom: config.paddingBottom,
-            footerData: config.footerData,
-            ctaText: config.ctaText,
-            ctaButtonStyle: config.ctaButtonStyle,
-            ctaButtonFormatData: config.ctaButtonFormatData,
+            style: currentStyle,
+            backgroundColor: config.backgroundColor ?? defaultConfig.backgroundColor ?? .blue,
+            borderWidth: config.borderWidth ?? defaultConfig.borderWidth ?? 0,
+            borderColor: config.borderColor ?? defaultConfig.borderColor ?? .clear,
+            cornerRadius: config.cornerRadius ?? defaultConfig.cornerRadius ?? 24,
+            horizontalPadding: config.horizontalPadding ?? defaultConfig.horizontalPadding ?? 0,
+            title: config.title ?? defaultConfig.title,
+            titleFont: config.titleFont ?? defaultConfig.titleFont ?? .title,
+            subtitle: config.subtitle ?? defaultConfig.subtitle,
+            subtitleFont: config.subtitleFont ?? defaultConfig.subtitleFont ?? .body,
+            titleSubtitleSpacing: config.titleSubtitleSpacing ?? defaultConfig.titleSubtitleSpacing ?? 8,
+            titleAlignment: config.titleAlignment ?? defaultConfig.titleAlignment ?? .center,
+            paddingTop: config.paddingTop ?? defaultConfig.paddingTop ?? 40,
+            paddingBottom: config.paddingBottom ?? defaultConfig.paddingBottom ?? 0,
+            footerData: config.footerData ?? defaultConfig.footerData ?? .default,
+            ctaText: config.ctaText ?? defaultConfig.ctaText ?? "Continue",
+            ctaButtonStyle: config.ctaButtonStyle ?? defaultConfig.ctaButtonStyle ?? .solid(backgroundColor: .white, textColor: .blue),
+            ctaButtonFormatData: config.ctaButtonFormatData ?? defaultConfig.ctaButtonFormatData ?? .default,
             onButtonClick: onButtonClick
         )
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: alignment)

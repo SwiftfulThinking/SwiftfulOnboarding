@@ -179,6 +179,7 @@ struct SwiftfulOnboardingView: View {
             if let config = viewModel.responseConfiguration {
                 AnyResponseViewContainer(
                     config: config,
+                    defaultConfig: viewModel.configuration.slideDefaults.responseConfiguration,
                     isShowing: viewModel.showResponseView,
                     onButtonClick: {
                         viewModel.onResponseButtonClick()
