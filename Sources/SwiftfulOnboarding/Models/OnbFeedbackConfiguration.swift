@@ -24,5 +24,20 @@ struct OnbFeedbackConfiguration {
     var paddingBottom: CGFloat? = nil
     var paddingHorizontal: CGFloat? = nil
 
-    static let `default` = OnbFeedbackConfiguration()
+    static let `default` = OnbFeedbackConfiguration(
+        backgroundColor: .green,
+        borderWidth: 0,
+        borderColor: .clear,
+        cornerRadius: 24,
+        horizontalPadding: 0,
+        title: nil,
+        titleFont: .headline,
+        subtitle: nil,
+        subtitleFont: .subheadline,
+        titleSubtitleSpacing: 8,
+        titleAlignment: .leading,
+        paddingTop: 16,
+        paddingBottom: 16,
+        paddingHorizontal: 24
+    )
 }

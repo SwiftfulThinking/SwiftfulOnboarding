@@ -28,5 +28,24 @@ struct OnbResponseConfiguration {
     var ctaButtonStyle: OnbButtonStyleType? = nil
     var ctaButtonFormatData: OnbButtonFormatData? = nil
 
-    static let `default` = OnbResponseConfiguration()
+    static let `default` = OnbResponseConfiguration(
+        style: .center(transition: .slide),
+        backgroundColor: .blue,
+        borderWidth: 0,
+        borderColor: .clear,
+        cornerRadius: 24,
+        horizontalPadding: 24,
+        title: nil,
+        titleFont: .title,
+        subtitle: nil,
+        subtitleFont: .body,
+        titleSubtitleSpacing: 8,
+        titleAlignment: .center,
+        paddingTop: 40,
+        paddingBottom: 0,
+        footerData: .default,
+        ctaText: "Continue",
+        ctaButtonStyle: .solid(backgroundColor: .white, textColor: .blue),
+        ctaButtonFormatData: .default
+    )
 }
