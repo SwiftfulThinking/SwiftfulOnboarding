@@ -947,6 +947,222 @@ struct PreviewFlows {
             )
         )
     }
+
+    static var ratingSlidesFlow: OnbConfiguration {
+        OnbConfiguration(
+            headerConfiguration: OnbHeaderConfiguration(
+                headerStyle: .progressBar,
+                headerAlignment: .center,
+                showBackButton: .afterFirstSlide,
+                backButtonColor: .blue,
+                progressBarAccentColor: .blue
+            ),
+            slides: [
+                // Basic thumbs rating
+                .rating(
+                    id: "thumbs_basic",
+                    title: "Thumbs Rating",
+                    subtitle: "Basic thumbs up/down rating (1-2 scale)",
+                    contentAlignment: .top,
+                    ratingButtonOption: .thumbs,
+                    selectionBehavior: .single(autoAdvance: false)
+                ),
+                // Thumbs with labels
+                .rating(
+                    id: "thumbs_labels",
+                    title: "Thumbs with Labels",
+                    subtitle: "Thumbs rating with custom labels",
+                    contentAlignment: .top,
+                    ratingButtonOption: .thumbs,
+                    ratingLabels: RatingFooterLabels(
+                        left: "Not Helpful",
+                        right: "Very Helpful"
+                    ),
+                    selectionBehavior: .single(autoAdvance: false)
+                ),
+                // Number rating 1-5
+                .rating(
+                    id: "number_1_5",
+                    title: "Number Rating (1-5)",
+                    subtitle: "Standard 1 to 5 star rating",
+                    contentAlignment: .top,
+                    ratingButtonOption: .number,
+                    selectionBehavior: .single(autoAdvance: false)
+                ),
+                // Number rating with labels
+                .rating(
+                    id: "number_labels",
+                    title: "Number Rating with Labels",
+                    subtitle: "1-5 rating with custom labels",
+                    contentAlignment: .top,
+                    ratingButtonOption: .number,
+                    ratingLabels: RatingFooterLabels(
+                        left: "Poor",
+                        right: "Excellent"
+                    ),
+                    selectionBehavior: .single(autoAdvance: false)
+                ),
+                // Rating with feedback (top)
+                .rating(
+                    id: "rating_feedback_top",
+                    title: "Rating with Feedback (Top)",
+                    subtitle: "Select a rating to see feedback above",
+                    contentAlignment: .top,
+                    ratingButtonOption: .number,
+                    selectionBehavior: .single(autoAdvance: false),
+                    getFeedbackConfiguration: { rating in
+                        let (bg, border, title) = rating >= 4
+                            ? (Color(red: 0.8, green: 0.95, blue: 0.8), Color(red: 0.2, green: 0.6, blue: 0.2), "Thanks for the great rating!")
+                            : (Color(red: 0.95, green: 0.9, blue: 0.8), Color(red: 0.8, green: 0.5, blue: 0.2), "Thanks for your feedback!")
+                        return OnbFeedbackConfiguration(
+                            backgroundColor: bg,
+                            borderWidth: 2,
+                            borderColor: border,
+                            cornerRadius: 4,
+                            title: title,
+                            subtitle: "We appreciate you taking the time to rate",
+                            titleAlignment: .leading
+                        )
+                    },
+                    feedbackStyle: .top()
+                ),
+                // Rating with feedback (bottom)
+                .rating(
+                    id: "rating_feedback_bottom",
+                    title: "Rating with Feedback (Bottom)",
+                    subtitle: "Select a rating to see feedback below",
+                    contentAlignment: .top,
+                    ratingButtonOption: .thumbs,
+                    selectionBehavior: .single(autoAdvance: false),
+                    getFeedbackConfiguration: { rating in
+                        let (bg, border, title) = rating == 2
+                            ? (Color(red: 0.8, green: 0.95, blue: 0.8), Color(red: 0.2, green: 0.6, blue: 0.2), "👍 Glad you liked it!")
+                            : (Color(red: 0.95, green: 0.8, blue: 0.8), Color(red: 0.8, green: 0.2, blue: 0.2), "👎 Sorry to hear that")
+                        return OnbFeedbackConfiguration(
+                            backgroundColor: bg,
+                            borderWidth: 2,
+                            borderColor: border,
+                            cornerRadius: 4,
+                            title: title,
+                            subtitle: rating == 2 ? "We're happy you're satisfied" : "We'll work on improving",
+                            titleAlignment: .leading
+                        )
+                    },
+                    feedbackStyle: .bottom()
+                ),
+                // Rating with response (center)
+                .rating(
+                    id: "rating_response_center",
+                    title: "Rating with Response (Center)",
+                    subtitle: "Select a rating to see a full-screen response",
+                    contentAlignment: .top,
+                    ratingButtonOption: .number,
+                    selectionBehavior: .single(autoAdvance: true),
+                    getResponseConfiguration: { rating in
+                        if rating >= 4 {
+                            return OnbResponseConfiguration(
+                                style: .center(transition: .slide),
+                                backgroundColor: .green,
+                                horizontalPadding: 24,
+                                title: "Thank You!",
+                                titleFont: .largeTitle,
+                                subtitle: "We're thrilled you had a great experience",
+                                subtitleFont: .title3,
+                                titleAlignment: .center,
+                                ctaText: "Continue",
+                                ctaButtonStyle: .solid(backgroundColor: .white, textColor: .green)
+                            )
+                        } else {
+                            return OnbResponseConfiguration(
+                                style: .center(transition: .slide),
+                                backgroundColor: .orange,
+                                horizontalPadding: 24,
+                                title: "We Appreciate Your Feedback",
+                                titleFont: .largeTitle,
+                                subtitle: "Your input helps us improve",
+                                subtitleFont: .title3,
+                                titleAlignment: .center,
+                                ctaText: "Continue",
+                                ctaButtonStyle: .solid(backgroundColor: .white, textColor: .orange)
+                            )
+                        }
+                    }
+                ),
+                // Rating with response (bottom)
+                .rating(
+                    id: "rating_response_bottom",
+                    title: "Rating with Response (Bottom)",
+                    subtitle: "Select a rating to see a bottom sheet response",
+                    contentAlignment: .top,
+                    ratingButtonOption: .thumbs,
+                    selectionBehavior: .single(autoAdvance: true),
+                    getResponseConfiguration: { rating in
+                        if rating == 2 {
+                            return OnbResponseConfiguration(
+                                style: .bottom(transition: .bottom),
+                                backgroundColor: .green,
+                                horizontalPadding: 0,
+                                title: "Awesome!",
+                                titleFont: .title2,
+                                subtitle: "Thanks for the positive feedback",
+                                subtitleFont: .body,
+                                titleAlignment: .center,
+                                ctaText: "Continue",
+                                ctaButtonStyle: .solid(backgroundColor: .white, textColor: .green)
+                            )
+                        } else {
+                            return OnbResponseConfiguration(
+                                style: .bottom(transition: .bottom),
+                                backgroundColor: .red,
+                                horizontalPadding: 0,
+                                title: "We're Sorry",
+                                titleFont: .title2,
+                                subtitle: "Let us know how we can do better",
+                                subtitleFont: .body,
+                                titleAlignment: .center,
+                                ctaText: "Continue",
+                                ctaButtonStyle: .solid(backgroundColor: .white, textColor: .red)
+                            )
+                        }
+                    }
+                ),
+                // Rating with auto-advance
+                .rating(
+                    id: "rating_auto_advance",
+                    title: "Rating with Auto-Advance",
+                    subtitle: "Automatically advances after selection",
+                    contentAlignment: .top,
+                    ratingButtonOption: .number,
+                    ratingLabels: RatingFooterLabels(
+                        left: "Terrible",
+                        right: "Amazing"
+                    ),
+                    selectionBehavior: .single(autoAdvance: true)
+                )
+            ],
+            slideDefaults: OnbSlideDefaults(
+                ctaButtonStyle: .solid(backgroundColor: .blue, textColor: .white),
+                ctaButtonFormatData: OnbButtonFormatData(
+                    pressStyle: .press,
+                    font: .headline,
+                    height: .verticalPadding(16),
+                    cornerRadius: 12
+                ),
+                optionsButtonStyle: .solid(
+                    backgroundColor: Color(red: 0.95, green: 0.95, blue: 0.95),
+                    textColor: .black,
+                    selectedBackgroundColor: .blue,
+                    selectedTextColor: .white
+                ),
+                optionsButtonFormatData: OnbButtonFormatData(
+                    pressStyle: .press,
+                    font: .title.weight(.medium),
+                    height: .verticalPadding(16),
+                    cornerRadius: 32
+                )
+            )
+        )
+    }
 }
 
 #Preview("Simple Flow") {
@@ -970,5 +1186,11 @@ struct PreviewFlows {
 #Preview("Multiple Choice Feedback") {
     SwiftfulOnboardingView(
         configuration: PreviewFlows.multipleChoiceFeedbackFlow
+    )
+}
+
+#Preview("Rating Slides") {
+    SwiftfulOnboardingView(
+        configuration: PreviewFlows.ratingSlidesFlow
     )
 }

@@ -39,6 +39,20 @@ struct RatingFooterLabels {
     var labelPlacement: OnbRatingLabelPlacement
     var labelFont: Font
     var labelColor: Color
+
+    init(
+        left: String = "",
+        right: String = "",
+        labelPlacement: OnbRatingLabelPlacement = .bottom,
+        labelFont: Font = .caption,
+        labelColor: Color = .gray
+    ) {
+        self.leadingLabel = left
+        self.trailingLabel = right
+        self.labelPlacement = labelPlacement
+        self.labelFont = labelFont
+        self.labelColor = labelColor
+    }
 }
 
 struct RatingFooterButton: View {
@@ -192,11 +206,9 @@ struct RatingFooterButton: View {
                     RatingFooterButton(
                         buttonOption: .number,
                         labels: RatingFooterLabels(
-                            leadingLabel: "Poor",
-                            trailingLabel: "Excellent",
-                            labelPlacement: .top,
-                            labelFont: .caption,
-                            labelColor: .gray
+                            left: "Poor",
+                            right: "Excellent",
+                            labelPlacement: .top
                         ),
                         selectedRating: selectedRatingWithLabelsTop,
                         onTap: { rating in
@@ -211,11 +223,8 @@ struct RatingFooterButton: View {
                     RatingFooterButton(
                         buttonOption: .thumbs,
                         labels: RatingFooterLabels(
-                            leadingLabel: "Disagree",
-                            trailingLabel: "Agree",
-                            labelPlacement: .bottom,
-                            labelFont: .caption,
-                            labelColor: .gray
+                            left: "Disagree",
+                            right: "Agree"
                         ),
                         selectedRating: selectedRatingWithLabelsBottom,
                         onTap: { rating in

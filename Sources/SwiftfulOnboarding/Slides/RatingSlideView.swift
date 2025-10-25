@@ -106,6 +106,16 @@ struct RatingSlideView: View {
                 contentSpacing: contentSpacing
             )
 
+            // Bottom feedback (above rating buttons)
+            if anyRatingHasFeedback, case .bottom = feedbackStyle,
+               let feedbackConfig = currentFeedback ?? (1...5).compactMap({ getFeedbackConfiguration?($0) }).first {
+                AnyFeedbackViewContainer(config: feedbackConfig, defaultConfig: feedbackConfigurationDefaults, style: feedbackStyle)
+                    .padding(.horizontal, horizontalPaddingContent)
+                    .opacity(currentFeedback != nil ? 1.0 : 0.0)
+                    .padding(.top, contentSpacing)
+                    .padding(.bottom, shouldShowContinueButton ? 0 : footerData.bottom + footerData.top)
+            }
+
             // Rating buttons
             RatingFooterButton(
                 buttonStyle: optionsButtonStyle,
@@ -132,16 +142,7 @@ struct RatingSlideView: View {
             )
             .padding(.horizontal, horizontalPaddingContent)
             .padding(.top, contentSpacing)
-            .padding(.bottom, shouldShowContinueButton ? 0 : footerData.bottom)
-
-            // Bottom feedback
-            if anyRatingHasFeedback, case .bottom = feedbackStyle,
-               let feedbackConfig = currentFeedback ?? (1...5).compactMap({ getFeedbackConfiguration?($0) }).first {
-                AnyFeedbackViewContainer(config: feedbackConfig, defaultConfig: feedbackConfigurationDefaults, style: feedbackStyle)
-                    .padding(.horizontal, horizontalPaddingContent)
-                    .opacity(currentFeedback != nil ? 1.0 : 0.0)
-                    .padding(.top, contentSpacing)
-            }
+            .padding(.bottom, shouldShowContinueButton || (anyRatingHasFeedback && feedbackStyle == .bottom()) ? 0 : footerData.bottom + footerData.top)
 
             // Continue button at bottom
             if shouldShowContinueButton {
