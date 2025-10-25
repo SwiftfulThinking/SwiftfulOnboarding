@@ -24,4 +24,5 @@ struct OnbFeedbackConfiguration {
     var paddingBottom: CGFloat? = nil
     var paddingHorizontal: CGFloat? = nil
 
+    static let `default` = OnbFeedbackConfiguration()
 }

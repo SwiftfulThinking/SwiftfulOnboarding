@@ -28,4 +28,5 @@ struct OnbResponseConfiguration {
     var ctaButtonStyle: OnbButtonStyleType? = nil
     var ctaButtonFormatData: OnbButtonFormatData? = nil
 
+    static let `default` = OnbResponseConfiguration()
 }

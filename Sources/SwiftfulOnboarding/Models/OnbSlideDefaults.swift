@@ -51,10 +51,10 @@ struct OnbSlideDefaults {
 
     // Feedback (for slides that support it)
     var feedbackStyle: AnyFeedbackViewStyle = .bottom(transition: .none)
-    var feedbackConfiguration: OnbFeedbackConfiguration = OnbFeedbackConfiguration()
+    var feedbackConfiguration: OnbFeedbackConfiguration = .default
 
     // Response (for slides that support it)
-    var responseConfiguration: OnbResponseConfiguration = OnbResponseConfiguration()
+    var responseConfiguration: OnbResponseConfiguration = .default
 
     // Selection (for slides that support it)
     var selectionBehavior: OnbSelectionBehavior = .single()
