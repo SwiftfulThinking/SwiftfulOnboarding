@@ -85,6 +85,7 @@ struct OnbButtonContent: View {
     var data: OnbButtonContentData
     var isSelected: Bool = false
     var horizontalPadding: CGFloat = 12
+    var textColor: Color = .primary
 
     var multilineTextAlignment: TextAlignment {
         data.textPlacement == .center ? .center : .leading
@@ -236,24 +237,24 @@ struct OnbButtonContent: View {
             switch style {
             case .circle:
                 Circle()
-                    .stroke(borderColor, lineWidth: 2)
+                    .stroke(textColor, lineWidth: 2)
                     .frame(width: 24, height: 24)
 
-                if isChecked {
+                if isSelected {
                     Circle()
-                        .fill(fillColor)
+                        .fill(textColor)
                         .frame(width: 18, height: 18)
                 }
 
             case .square:
                 RoundedRectangle(cornerRadius: 4)
-                    .stroke(borderColor, lineWidth: 2)
+                    .stroke(textColor, lineWidth: 2)
                     .frame(width: 24, height: 24)
 
-                if isChecked {
+                if isSelected {
                     Image(systemName: "checkmark")
                         .font(.system(size: 16, weight: .bold))
-                        .foregroundColor(fillColor)
+                        .foregroundColor(textColor)
                 }
             }
         }

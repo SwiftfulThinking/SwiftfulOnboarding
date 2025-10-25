@@ -12,6 +12,19 @@ enum OnbButtonStyleType {
     case outline(textColor: Color, borderColor: Color, borderWidth: CGFloat = 2, selectedTextColor: Color? = nil, selectedBorderColor: Color? = nil)
     case solidOutline(backgroundColor: Color, textColor: Color, borderColor: Color, borderWidth: CGFloat = 2, selectedBackgroundColor: Color? = nil, selectedTextColor: Color? = nil, selectedBorderColor: Color? = nil)
     case duolingo(backgroundColor: Color, textColor: Color, shadowColor: Color, selectedBackgroundColor: Color? = nil, selectedTextColor: Color? = nil, selectedShadowColor: Color? = nil)
+
+    func currentTextColor(isSelected: Bool) -> Color {
+        switch self {
+        case .solid(_, let textColor, _, let selectedTextColor):
+            return isSelected ? (selectedTextColor ?? textColor) : textColor
+        case .outline(let textColor, _, _, let selectedTextColor, _):
+            return isSelected ? (selectedTextColor ?? textColor) : textColor
+        case .solidOutline(_, let textColor, _, _, _, let selectedTextColor, _):
+            return isSelected ? (selectedTextColor ?? textColor) : textColor
+        case .duolingo(_, let textColor, _, _, let selectedTextColor, _):
+            return isSelected ? (selectedTextColor ?? textColor) : textColor
+        }
+    }
 }
 
 enum OnbButtonPressStyle {
@@ -176,6 +189,8 @@ struct OnbButtonStyle: ButtonStyle {
                     .frame(height: fixedHeight)
                     .offset(y: configuration.isPressed ? 3 : 0)
             }
+            .padding(.vertical, verticalPadding)
+            .frame(height: fixedHeight)
             .frame(maxWidth: .infinity)
             .animation(.easeInOut(duration: 0.2), value: isSelected)
         }

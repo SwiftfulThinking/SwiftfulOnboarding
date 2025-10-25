@@ -116,7 +116,8 @@ struct MultipleChoiceSlideView: View {
                                     OnbButtonContent(
                                         data: option.content,
                                         isSelected: selectedOptions.contains(option),
-                                        horizontalPadding: horizontalButtonPadding
+                                        horizontalPadding: horizontalButtonPadding,
+                                        textColor: optionsButtonStyle.currentTextColor(isSelected: selectedOptions.contains(option))
                                     )
                                     .onbButtonStyle(
                                         style: optionsButtonStyle,
@@ -135,7 +136,8 @@ struct MultipleChoiceSlideView: View {
                                     OnbButtonContent(
                                         data: option.content,
                                         isSelected: selectedOptions.contains(option),
-                                        horizontalPadding: horizontalButtonPadding
+                                        horizontalPadding: horizontalButtonPadding,
+                                        textColor: optionsButtonStyle.currentTextColor(isSelected: selectedOptions.contains(option))
                                     )
                                     .onbButtonStyle(
                                         style: optionsButtonStyle,
@@ -152,7 +154,7 @@ struct MultipleChoiceSlideView: View {
 
                         // Bottom padding to account for footer
                         Color.clear
-                            .frame(height: footerData.top + 56 + footerData.bottom)
+                            .frame(height: footerData.top + 56 + footerData.bottom + 24)
                     }
                     .ignoresSafeArea(edges: .bottom)
 
@@ -177,7 +179,7 @@ struct MultipleChoiceSlideView: View {
                                         onButtonClick?(selectedOptions)
                                     }
                                     .disabled(selectedOptions.isEmpty)
-                                    .padding(.top, footerData.top)
+                                    .padding(.top, max(footerData.top, 8))
                                     .padding(.leading, footerData.leading)
                                     .padding(.trailing, footerData.trailing)
                                     .padding(.bottom, footerData.bottom)
@@ -185,8 +187,8 @@ struct MultipleChoiceSlideView: View {
                             .background(
                                 LinearGradient(colors: [
                                     Color(uiColor: .systemBackground).opacity(0.0),
-                                    Color(uiColor: .systemBackground).opacity(0.4),
-                                    Color(uiColor: .systemBackground).opacity(0.8)
+                                    Color(uiColor: .systemBackground).opacity(0.7),
+                                    Color(uiColor: .systemBackground).opacity(0.9)
                                 ], startPoint: .top, endPoint: .bottom)
                             )
                         }
@@ -224,7 +226,8 @@ struct MultipleChoiceSlideView: View {
                                 OnbButtonContent(
                                     data: option.content,
                                     isSelected: selectedOptions.contains(option),
-                                    horizontalPadding: horizontalButtonPadding
+                                    horizontalPadding: horizontalButtonPadding,
+                                    textColor: optionsButtonStyle.currentTextColor(isSelected: selectedOptions.contains(option))
                                 )
                                 .onbButtonStyle(
                                     style: optionsButtonStyle,
@@ -243,7 +246,8 @@ struct MultipleChoiceSlideView: View {
                                 OnbButtonContent(
                                     data: option.content,
                                     isSelected: selectedOptions.contains(option),
-                                    horizontalPadding: horizontalButtonPadding
+                                    horizontalPadding: horizontalButtonPadding,
+                                    textColor: optionsButtonStyle.currentTextColor(isSelected: selectedOptions.contains(option))
                                 )
                                 .onbButtonStyle(
                                     style: optionsButtonStyle,
