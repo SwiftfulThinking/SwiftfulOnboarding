@@ -225,184 +225,184 @@ struct PreviewFlows {
             ),
             slides: [
                 // 2 Options, List, Center, Single (Auto Advance)
-//                .multipleChoice(
-//                    id: "2opts_list_center_single_auto",
-//                    title: "2 Options, List, Center",
-//                    subtitle: "Single selection, auto advance",
-//                    options: [
-//                        OnbChoiceOption(id: "opt1", content: OnbButtonContentData(text: "Option 1")),
-//                        OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Option 2"))
-//                    ],
-//                    selectionBehavior: .single(autoAdvance: true),
-//                    isGrid: false,
-//                    contentAlignment: .center
-//                ),
-//                // 2 Options, List, Top, Single (Manual)
-//                .multipleChoice(
-//                    id: "2opts_list_top_single_manual",
-//                    title: "2 Options, List, Top",
-//                    subtitle: "Single selection, manual continue",
-//                    options: [
-//                        OnbChoiceOption(id: "opt1", content: OnbButtonContentData(text: "Option 1")),
-//                        OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Option 2"))
-//                    ],
-//                    selectionBehavior: .single(autoAdvance: false),
-//                    isGrid: false,
-//                    contentAlignment: .top
-//                ),
-//                // 2 Options, Grid, Center, Multi
-//                .multipleChoice(
-//                    id: "2opts_grid_center_multi",
-//                    title: "2 Options, Grid, Center",
-//                    subtitle: "Multi selection",
-//                    options: [
-//                        OnbChoiceOption(id: "opt1", content: OnbButtonContentData(text: "Option 1")),
-//                        OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Option 2"))
-//                    ],
-//                    selectionBehavior: .multi,
-//                    isGrid: true,
-//                    contentAlignment: .center
-//                ),
-//                // 4 Options, List, Center, Single (Auto Advance)
-//                .multipleChoice(
-//                    id: "4opts_list_center_single_auto",
-//                    title: "4 Options, List, Center",
-//                    subtitle: "Single selection, auto advance",
-//                    options: [
-//                        OnbChoiceOption(id: "opt1", content: OnbButtonContentData(text: "Option 1")),
-//                        OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Option 2")),
-//                        OnbChoiceOption(id: "opt3", content: OnbButtonContentData(text: "Option 3")),
-//                        OnbChoiceOption(id: "opt4", content: OnbButtonContentData(text: "Option 4"))
-//                    ],
-//                    selectionBehavior: .single(autoAdvance: true),
-//                    isGrid: false,
-//                    contentAlignment: .center
-//                ),
-//                // 4 Options, List, Top, Single (Manual)
-//                .multipleChoice(
-//                    id: "4opts_list_top_single_manual",
-//                    title: "4 Options, List, Top",
-//                    subtitle: "Single selection, manual continue",
-//                    options: [
-//                        OnbChoiceOption(id: "opt1", content: OnbButtonContentData(text: "Option 1")),
-//                        OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Option 2")),
-//                        OnbChoiceOption(id: "opt3", content: OnbButtonContentData(text: "Option 3")),
-//                        OnbChoiceOption(id: "opt4", content: OnbButtonContentData(text: "Option 4"))
-//                    ],
-//                    selectionBehavior: .single(autoAdvance: false),
-//                    isGrid: false,
-//                    contentAlignment: .top
-//                ),
-//                // 4 Options, List, Center, Multi
-//                .multipleChoice(
-//                    id: "4opts_list_center_multi",
-//                    title: "4 Options, List, Center",
-//                    subtitle: "Multi selection",
-//                    options: [
-//                        OnbChoiceOption(id: "opt1", content: OnbButtonContentData(text: "Option 1")),
-//                        OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Option 2")),
-//                        OnbChoiceOption(id: "opt3", content: OnbButtonContentData(text: "Option 3")),
-//                        OnbChoiceOption(id: "opt4", content: OnbButtonContentData(text: "Option 4"))
-//                    ],
-//                    selectionBehavior: .multi,
-//                    isGrid: false,
-//                    contentAlignment: .center
-//                ),
-//                // 4 Options, Grid, Center, Single (Auto Advance)
-//                .multipleChoice(
-//                    id: "4opts_grid_center_single_auto",
-//                    title: "4 Options, Grid, Center",
-//                    subtitle: "Single selection, auto advance",
-//                    options: [
-//                        OnbChoiceOption(id: "opt1", content: OnbButtonContentData(text: "Option 1")),
-//                        OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Option 2")),
-//                        OnbChoiceOption(id: "opt3", content: OnbButtonContentData(text: "Option 3")),
-//                        OnbChoiceOption(id: "opt4", content: OnbButtonContentData(text: "Option 4"))
-//                    ],
-//                    selectionBehavior: .single(autoAdvance: true),
-//                    isGrid: true,
-//                    contentAlignment: .center
-//                ),
-//                // 4 Options, Grid, Top, Single (Manual)
-//                .multipleChoice(
-//                    id: "4opts_grid_top_single_manual",
-//                    title: "4 Options, Grid, Top",
-//                    subtitle: "Single selection, manual continue",
-//                    options: [
-//                        OnbChoiceOption(id: "opt1", content: OnbButtonContentData(text: "Option 1")),
-//                        OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Option 2")),
-//                        OnbChoiceOption(id: "opt3", content: OnbButtonContentData(text: "Option 3")),
-//                        OnbChoiceOption(id: "opt4", content: OnbButtonContentData(text: "Option 4"))
-//                    ],
-//                    selectionBehavior: .single(autoAdvance: false),
-//                    isGrid: true,
-//                    contentAlignment: .top
-//                ),
-//                // 4 Options, Grid, Center, Multi
-//                .multipleChoice(
-//                    id: "4opts_grid_center_multi",
-//                    title: "4 Options, Grid, Center",
-//                    subtitle: "Multi selection",
-//                    options: [
-//                        OnbChoiceOption(id: "opt1", content: OnbButtonContentData(text: "Option 1")),
-//                        OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Option 2")),
-//                        OnbChoiceOption(id: "opt3", content: OnbButtonContentData(text: "Option 3")),
-//                        OnbChoiceOption(id: "opt4", content: OnbButtonContentData(text: "Option 4"))
-//                    ],
-//                    selectionBehavior: .multi,
-//                    isGrid: true,
-//                    contentAlignment: .center
-//                ),
-//                // 20 Options, List, Center, Single (Auto Advance)
-//                .multipleChoice(
-//                    id: "20opts_list_center_single_auto",
-//                    title: "20 Options, List, Center",
-//                    subtitle: "Single selection, auto advance, scrollable",
-//                    options: (1...20).map { OnbChoiceOption(id: "opt\($0)", content: OnbButtonContentData(text: "Option \($0)")) },
-//                    selectionBehavior: .single(autoAdvance: true),
-//                    isGrid: false,
-//                    contentAlignment: .center
-//                ),
-//                // 20 Options, List, Top, Single (Manual)
-//                .multipleChoice(
-//                    id: "20opts_list_top_single_manual",
-//                    title: "20 Options, List, Top",
-//                    subtitle: "Single selection, manual continue, scrollable",
-//                    options: (1...20).map { OnbChoiceOption(id: "opt\($0)", content: OnbButtonContentData(text: "Option \($0)")) },
-//                    selectionBehavior: .single(autoAdvance: false),
-//                    isGrid: false,
-//                    contentAlignment: .top
-//                ),
-//                // 20 Options, List, Center, Multi
-//                .multipleChoice(
-//                    id: "20opts_list_center_multi",
-//                    title: "20 Options, List, Center",
-//                    subtitle: "Multi selection, scrollable",
-//                    options: (1...20).map { OnbChoiceOption(id: "opt\($0)", content: OnbButtonContentData(text: "Option \($0)")) },
-//                    selectionBehavior: .multi,
-//                    isGrid: false,
-//                    contentAlignment: .center
-//                ),
-//                // 20 Options, Grid, Center, Single (Auto Advance)
-//                .multipleChoice(
-//                    id: "20opts_grid_center_single_auto",
-//                    title: "20 Options, Grid, Center",
-//                    subtitle: "Single selection, auto advance, scrollable",
-//                    options: (1...20).map { OnbChoiceOption(id: "opt\($0)", content: OnbButtonContentData(text: "Option \($0)")) },
-//                    selectionBehavior: .single(autoAdvance: true),
-//                    isGrid: true,
-//                    contentAlignment: .center
-//                ),
-//                // 20 Options, Grid, Top, Single (Manual)
-//                .multipleChoice(
-//                    id: "20opts_grid_top_single_manual",
-//                    title: "20 Options, Grid, Top",
-//                    subtitle: "Single selection, manual continue, scrollable",
-//                    options: (1...20).map { OnbChoiceOption(id: "opt\($0)", content: OnbButtonContentData(text: "Option \($0)")) },
-//                    selectionBehavior: .single(autoAdvance: false),
-//                    isGrid: true,
-//                    contentAlignment: .top
-//                ),
+                .multipleChoice(
+                    id: "2opts_list_center_single_auto",
+                    title: "2 Options, List, Center",
+                    subtitle: "Single selection, auto advance",
+                    options: [
+                        OnbChoiceOption(id: "opt1", content: OnbButtonContentData(text: "Option 1")),
+                        OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Option 2"))
+                    ],
+                    selectionBehavior: .single(autoAdvance: true),
+                    isGrid: false,
+                    contentAlignment: .center
+                ),
+                // 2 Options, List, Top, Single (Manual)
+                .multipleChoice(
+                    id: "2opts_list_top_single_manual",
+                    title: "2 Options, List, Top",
+                    subtitle: "Single selection, manual continue",
+                    options: [
+                        OnbChoiceOption(id: "opt1", content: OnbButtonContentData(text: "Option 1")),
+                        OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Option 2"))
+                    ],
+                    selectionBehavior: .single(autoAdvance: false),
+                    isGrid: false,
+                    contentAlignment: .top
+                ),
+                // 2 Options, Grid, Center, Multi
+                .multipleChoice(
+                    id: "2opts_grid_center_multi",
+                    title: "2 Options, Grid, Center",
+                    subtitle: "Multi selection",
+                    options: [
+                        OnbChoiceOption(id: "opt1", content: OnbButtonContentData(text: "Option 1")),
+                        OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Option 2"))
+                    ],
+                    selectionBehavior: .multi,
+                    isGrid: true,
+                    contentAlignment: .center
+                ),
+                // 4 Options, List, Center, Single (Auto Advance)
+                .multipleChoice(
+                    id: "4opts_list_center_single_auto",
+                    title: "4 Options, List, Center",
+                    subtitle: "Single selection, auto advance",
+                    options: [
+                        OnbChoiceOption(id: "opt1", content: OnbButtonContentData(text: "Option 1")),
+                        OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Option 2")),
+                        OnbChoiceOption(id: "opt3", content: OnbButtonContentData(text: "Option 3")),
+                        OnbChoiceOption(id: "opt4", content: OnbButtonContentData(text: "Option 4"))
+                    ],
+                    selectionBehavior: .single(autoAdvance: true),
+                    isGrid: false,
+                    contentAlignment: .center
+                ),
+                // 4 Options, List, Top, Single (Manual)
+                .multipleChoice(
+                    id: "4opts_list_top_single_manual",
+                    title: "4 Options, List, Top",
+                    subtitle: "Single selection, manual continue",
+                    options: [
+                        OnbChoiceOption(id: "opt1", content: OnbButtonContentData(text: "Option 1")),
+                        OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Option 2")),
+                        OnbChoiceOption(id: "opt3", content: OnbButtonContentData(text: "Option 3")),
+                        OnbChoiceOption(id: "opt4", content: OnbButtonContentData(text: "Option 4"))
+                    ],
+                    selectionBehavior: .single(autoAdvance: false),
+                    isGrid: false,
+                    contentAlignment: .top
+                ),
+                // 4 Options, List, Center, Multi
+                .multipleChoice(
+                    id: "4opts_list_center_multi",
+                    title: "4 Options, List, Center",
+                    subtitle: "Multi selection",
+                    options: [
+                        OnbChoiceOption(id: "opt1", content: OnbButtonContentData(text: "Option 1")),
+                        OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Option 2")),
+                        OnbChoiceOption(id: "opt3", content: OnbButtonContentData(text: "Option 3")),
+                        OnbChoiceOption(id: "opt4", content: OnbButtonContentData(text: "Option 4"))
+                    ],
+                    selectionBehavior: .multi,
+                    isGrid: false,
+                    contentAlignment: .center
+                ),
+                // 4 Options, Grid, Center, Single (Auto Advance)
+                .multipleChoice(
+                    id: "4opts_grid_center_single_auto",
+                    title: "4 Options, Grid, Center",
+                    subtitle: "Single selection, auto advance",
+                    options: [
+                        OnbChoiceOption(id: "opt1", content: OnbButtonContentData(text: "Option 1")),
+                        OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Option 2")),
+                        OnbChoiceOption(id: "opt3", content: OnbButtonContentData(text: "Option 3")),
+                        OnbChoiceOption(id: "opt4", content: OnbButtonContentData(text: "Option 4"))
+                    ],
+                    selectionBehavior: .single(autoAdvance: true),
+                    isGrid: true,
+                    contentAlignment: .center
+                ),
+                // 4 Options, Grid, Top, Single (Manual)
+                .multipleChoice(
+                    id: "4opts_grid_top_single_manual",
+                    title: "4 Options, Grid, Top",
+                    subtitle: "Single selection, manual continue",
+                    options: [
+                        OnbChoiceOption(id: "opt1", content: OnbButtonContentData(text: "Option 1")),
+                        OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Option 2")),
+                        OnbChoiceOption(id: "opt3", content: OnbButtonContentData(text: "Option 3")),
+                        OnbChoiceOption(id: "opt4", content: OnbButtonContentData(text: "Option 4"))
+                    ],
+                    selectionBehavior: .single(autoAdvance: false),
+                    isGrid: true,
+                    contentAlignment: .top
+                ),
+                // 4 Options, Grid, Center, Multi
+                .multipleChoice(
+                    id: "4opts_grid_center_multi",
+                    title: "4 Options, Grid, Center",
+                    subtitle: "Multi selection",
+                    options: [
+                        OnbChoiceOption(id: "opt1", content: OnbButtonContentData(text: "Option 1")),
+                        OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Option 2")),
+                        OnbChoiceOption(id: "opt3", content: OnbButtonContentData(text: "Option 3")),
+                        OnbChoiceOption(id: "opt4", content: OnbButtonContentData(text: "Option 4"))
+                    ],
+                    selectionBehavior: .multi,
+                    isGrid: true,
+                    contentAlignment: .center
+                ),
+                // 20 Options, List, Center, Single (Auto Advance)
+                .multipleChoice(
+                    id: "20opts_list_center_single_auto",
+                    title: "20 Options, List, Center",
+                    subtitle: "Single selection, auto advance, scrollable",
+                    options: (1...20).map { OnbChoiceOption(id: "opt\($0)", content: OnbButtonContentData(text: "Option \($0)")) },
+                    selectionBehavior: .single(autoAdvance: true),
+                    isGrid: false,
+                    contentAlignment: .center
+                ),
+                // 20 Options, List, Top, Single (Manual)
+                .multipleChoice(
+                    id: "20opts_list_top_single_manual",
+                    title: "20 Options, List, Top",
+                    subtitle: "Single selection, manual continue, scrollable",
+                    options: (1...20).map { OnbChoiceOption(id: "opt\($0)", content: OnbButtonContentData(text: "Option \($0)")) },
+                    selectionBehavior: .single(autoAdvance: false),
+                    isGrid: false,
+                    contentAlignment: .top
+                ),
+                // 20 Options, List, Center, Multi
+                .multipleChoice(
+                    id: "20opts_list_center_multi",
+                    title: "20 Options, List, Center",
+                    subtitle: "Multi selection, scrollable",
+                    options: (1...20).map { OnbChoiceOption(id: "opt\($0)", content: OnbButtonContentData(text: "Option \($0)")) },
+                    selectionBehavior: .multi,
+                    isGrid: false,
+                    contentAlignment: .center
+                ),
+                // 20 Options, Grid, Center, Single (Auto Advance)
+                .multipleChoice(
+                    id: "20opts_grid_center_single_auto",
+                    title: "20 Options, Grid, Center",
+                    subtitle: "Single selection, auto advance, scrollable",
+                    options: (1...20).map { OnbChoiceOption(id: "opt\($0)", content: OnbButtonContentData(text: "Option \($0)")) },
+                    selectionBehavior: .single(autoAdvance: true),
+                    isGrid: true,
+                    contentAlignment: .center
+                ),
+                // 20 Options, Grid, Top, Single (Manual)
+                .multipleChoice(
+                    id: "20opts_grid_top_single_manual",
+                    title: "20 Options, Grid, Top",
+                    subtitle: "Single selection, manual continue, scrollable",
+                    options: (1...20).map { OnbChoiceOption(id: "opt\($0)", content: OnbButtonContentData(text: "Option \($0)")) },
+                    selectionBehavior: .single(autoAdvance: false),
+                    isGrid: true,
+                    contentAlignment: .top
+                ),
                 // 20 Options, Grid, Center, Multi
                 .multipleChoice(
                     id: "20opts_grid_center_multi",
@@ -526,6 +526,382 @@ struct PreviewFlows {
             )
         )
     }
+
+    static var multipleChoiceFeedbackFlow: OnbConfiguration {
+        OnbConfiguration(
+            headerConfiguration: OnbHeaderConfiguration(
+                headerStyle: .progressBar,
+                headerAlignment: .center,
+                showBackButton: .afterFirstSlide,
+                backButtonColor: .blue,
+                progressBarAccentColor: .blue
+            ),
+            slides: [
+                // Basic multiple choice with solid buttons
+                .multipleChoice(
+                    id: "basic_solid",
+                    title: "Basic Solid Buttons",
+                    subtitle: "Simple multiple choice with solid button style",
+                    options: [
+                        OnbChoiceOption(id: "opt1", content: OnbButtonContentData(text: "Option 1")),
+                        OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Option 2")),
+                        OnbChoiceOption(id: "opt3", content: OnbButtonContentData(text: "Option 3"))
+                    ],
+                    selectionBehavior: .single(autoAdvance: false),
+                    contentAlignment: .top
+                ),
+                // Feedback at top
+                .multipleChoice(
+                    id: "feedback_top",
+                    title: "Feedback at Top",
+                    subtitle: "Select an option to see feedback above",
+                    options: [
+                        OnbChoiceOption(
+                            id: "opt1",
+                            content: OnbButtonContentData(text: "Correct Answer"),
+                            feedbackConfiguration: OnbFeedbackConfiguration(
+                                backgroundColor: Color(red: 0.8, green: 0.95, blue: 0.8),
+                                borderWidth: 2,
+                                borderColor: Color(red: 0.2, green: 0.6, blue: 0.2),
+                                cornerRadius: 4,
+                                title: "✓ That's right!",
+                                titleFont: .headline,
+                                subtitle: "Great job selecting the correct answer",
+                                subtitleFont: .subheadline,
+                                titleAlignment: .leading
+                            )
+                        ),
+                        OnbChoiceOption(
+                            id: "opt2",
+                            content: OnbButtonContentData(text: "Wrong Answer"),
+                            feedbackConfiguration: OnbFeedbackConfiguration(
+                                backgroundColor: Color(red: 0.95, green: 0.8, blue: 0.8),
+                                borderWidth: 2,
+                                borderColor: Color(red: 0.8, green: 0.2, blue: 0.2),
+                                cornerRadius: 4,
+                                title: "✗ Not quite",
+                                titleFont: .headline,
+                                subtitle: "Try selecting a different option",
+                                subtitleFont: .subheadline,
+                                titleAlignment: .leading
+                            )
+                        ),
+                        OnbChoiceOption(
+                            id: "opt3",
+                            content: OnbButtonContentData(text: "Another Wrong Answer"),
+                            feedbackConfiguration: OnbFeedbackConfiguration(
+                                backgroundColor: Color(red: 0.95, green: 0.8, blue: 0.8),
+                                borderWidth: 2,
+                                borderColor: Color(red: 0.8, green: 0.2, blue: 0.2),
+                                cornerRadius: 4,
+                                title: "✗ Nope",
+                                titleFont: .headline,
+                                subtitle: "This one isn't right either",
+                                subtitleFont: .subheadline,
+                                titleAlignment: .leading
+                            )
+                        )
+                    ],
+                    selectionBehavior: .single(autoAdvance: false),
+                    contentAlignment: .top, feedbackStyle: .top()
+                ),
+                // Feedback at bottom
+                .multipleChoice(
+                    id: "feedback_bottom",
+                    title: "Feedback at Bottom",
+                    subtitle: "Select an option to see feedback below",
+                    options: [
+                        OnbChoiceOption(
+                            id: "opt1",
+                            content: OnbButtonContentData(text: "Happy Path"),
+                            feedbackConfiguration: OnbFeedbackConfiguration(
+                                backgroundColor: Color(red: 0.8, green: 0.9, blue: 0.95),
+                                borderWidth: 2,
+                                borderColor: Color(red: 0.2, green: 0.4, blue: 0.8),
+                                cornerRadius: 4,
+                                title: "Excellent choice!",
+                                titleFont: .headline,
+                                subtitle: "This is the recommended option",
+                                subtitleFont: .subheadline,
+                                titleAlignment: .leading
+                            )
+                        ),
+                        OnbChoiceOption(
+                            id: "opt2",
+                            content: OnbButtonContentData(text: "Alternative Path"),
+                            feedbackConfiguration: OnbFeedbackConfiguration(
+                                backgroundColor: Color(red: 0.95, green: 0.9, blue: 0.8),
+                                borderWidth: 2,
+                                borderColor: Color(red: 0.8, green: 0.5, blue: 0.2),
+                                cornerRadius: 4,
+                                title: "That works too",
+                                titleFont: .headline,
+                                subtitle: "This is an alternative approach",
+                                subtitleFont: .subheadline,
+                                titleAlignment: .leading
+                            )
+                        )
+                    ],
+                    selectionBehavior: .single(autoAdvance: false),
+                    contentAlignment: .top, feedbackStyle: .bottom()
+                ),
+                // Response configuration
+                .multipleChoice(
+                    id: "response_center",
+                    title: "With Response Screen",
+                    subtitle: "Select an option to see a full-screen response",
+                    options: [
+                        OnbChoiceOption(
+                            id: "opt1",
+                            content: OnbButtonContentData(text: "Show Success Response"),
+                            responseConfiguration: OnbResponseConfiguration(
+                                style: .center(transition: .slide),
+                                backgroundColor: .green,
+                                title: "Success!",
+                                titleFont: .largeTitle,
+                                subtitle: "You made a great choice",
+                                subtitleFont: .title3,
+                                titleAlignment: .center,
+                                ctaText: "Continue",
+                                ctaButtonStyle: .solid(backgroundColor: .white, textColor: .green)
+                            )
+                        ),
+                        OnbChoiceOption(
+                            id: "opt2",
+                            content: OnbButtonContentData(text: "Show Info Response"),
+                            responseConfiguration: OnbResponseConfiguration(
+                                style: .center(transition: .slide),
+                                backgroundColor: .blue,
+                                title: "Good to Know",
+                                titleFont: .largeTitle,
+                                subtitle: "Here's some important information about your selection",
+                                subtitleFont: .title3,
+                                titleAlignment: .center,
+                                ctaText: "Got it",
+                                ctaButtonStyle: .solid(backgroundColor: .white, textColor: .blue)
+                            )
+                        )
+                    ],
+                    selectionBehavior: .single(autoAdvance: true),
+                    contentAlignment: .top
+                ),
+                // Insert slide next
+                .multipleChoice(
+                    id: "insert_next",
+                    title: "Insert Slide Next",
+                    subtitle: "Selecting an option will insert a new slide",
+                    options: [
+                        OnbChoiceOption(
+                            id: "opt1",
+                            content: OnbButtonContentData(text: "Insert Info Slide"),
+                            insertConfiguration: [
+                                InsertSlideData(
+                                    placement: .next,
+                                    slide: .regular(
+                                        id: "inserted_info",
+                                        title: "Inserted Information",
+                                        subtitle: "This slide was dynamically inserted based on your selection",
+                                        media: .systemIcon(named: "info.circle.fill", size: .large),
+                                        contentAlignment: .center
+                                    )
+                                )
+                            ]
+                        ),
+                        OnbChoiceOption(
+                            id: "opt2",
+                            content: OnbButtonContentData(text: "Insert Question"),
+                            insertConfiguration: [
+                                InsertSlideData(
+                                    placement: .next,
+                                    slide: .yesNo(
+                                        id: "inserted_question",
+                                        title: "Follow-up Question",
+                                        subtitle: "Would you like to learn more?",
+                                        selectionBehavior: .single(autoAdvance: true)
+                                    )
+                                )
+                            ]
+                        ),
+                        OnbChoiceOption(
+                            id: "opt3",
+                            content: OnbButtonContentData(text: "No Insert"),
+                            insertConfiguration: nil
+                        )
+                    ],
+                    selectionBehavior: .single(autoAdvance: true),
+                    contentAlignment: .top
+                ),
+                // Multiple inserts
+                .multipleChoice(
+                    id: "insert_multiple",
+                    title: "Multiple Insert Slides",
+                    subtitle: "This will insert multiple slides in sequence",
+                    options: [
+                        OnbChoiceOption(
+                            id: "opt1",
+                            content: OnbButtonContentData(text: "Insert Two Slides"),
+                            insertConfiguration: [
+                                InsertSlideData(
+                                    placement: .next,
+                                    slide: .regular(
+                                        id: "insert_1",
+                                        title: "First Inserted Slide",
+                                        subtitle: "This is the first of two slides",
+                                        media: .systemIcon(named: "1.circle.fill", size: .large),
+                                        contentAlignment: .center
+                                    )
+                                ),
+                                InsertSlideData(
+                                    placement: .afterCount(count: 1),
+                                    slide: .regular(
+                                        id: "insert_2",
+                                        title: "Second Inserted Slide",
+                                        subtitle: "This is the second of two slides",
+                                        media: .systemIcon(named: "2.circle.fill", size: .large),
+                                        contentAlignment: .center
+                                    )
+                                )
+                            ]
+                        ),
+                        OnbChoiceOption(
+                            id: "opt2",
+                            content: OnbButtonContentData(text: "Skip Inserts")
+                        )
+                    ],
+                    selectionBehavior: .single(autoAdvance: true),
+                    contentAlignment: .top
+                ),
+                // Feedback + Response combination
+                .multipleChoice(
+                    id: "feedback_and_response",
+                    title: "Feedback + Response",
+                    subtitle: "Combines inline feedback with full response screen",
+                    options: [
+                        OnbChoiceOption(
+                            id: "opt1",
+                            content: OnbButtonContentData(text: "Perfect Answer"),
+                            responseConfiguration: OnbResponseConfiguration(
+                                style: .center(transition: .slide),
+                                backgroundColor: .green,
+                                title: "Perfect Score!",
+                                titleFont: .largeTitle,
+                                subtitle: "You got it right on the first try",
+                                subtitleFont: .title3,
+                                titleAlignment: .center,
+                                ctaText: "Continue",
+                                ctaButtonStyle: .solid(backgroundColor: .white, textColor: .green)
+                            ), feedbackConfiguration: OnbFeedbackConfiguration(
+                                backgroundColor: Color(red: 0.8, green: 0.95, blue: 0.8),
+                                borderWidth: 2,
+                                borderColor: Color(red: 0.2, green: 0.6, blue: 0.2),
+                                cornerRadius: 4,
+                                title: "✓ Correct!",
+                                titleFont: .headline,
+                                titleAlignment: .leading
+                            )
+                        ),
+                        OnbChoiceOption(
+                            id: "opt2",
+                            content: OnbButtonContentData(text: "Good Answer"),
+                            responseConfiguration: OnbResponseConfiguration(
+                                style: .center(transition: .slide),
+                                backgroundColor: .blue,
+                                title: "Good Job",
+                                titleFont: .largeTitle,
+                                subtitle: "That's a solid choice",
+                                subtitleFont: .title3,
+                                titleAlignment: .center,
+                                ctaText: "Next",
+                                ctaButtonStyle: .solid(backgroundColor: .white, textColor: .blue)
+                            ), feedbackConfiguration: OnbFeedbackConfiguration(
+                                backgroundColor: Color(red: 0.8, green: 0.9, blue: 0.95),
+                                borderWidth: 2,
+                                borderColor: Color(red: 0.2, green: 0.4, blue: 0.8),
+                                cornerRadius: 4,
+                                title: "Not bad",
+                                titleFont: .headline,
+                                titleAlignment: .leading
+                            )
+                        )
+                    ],
+                    selectionBehavior: .single(autoAdvance: true),
+                    contentAlignment: .top, feedbackStyle: .top()
+                ),
+                // Grid layout with feedback
+                .multipleChoice(
+                    id: "grid_feedback",
+                    title: "Grid with Feedback",
+                    subtitle: "Grid layout showing feedback for each choice",
+                    options: [
+                        OnbChoiceOption(
+                            id: "opt1",
+                            content: OnbButtonContentData(text: "Option A"),
+                            feedbackConfiguration: OnbFeedbackConfiguration(
+                                backgroundColor: Color(red: 0.95, green: 0.8, blue: 0.8),
+                                cornerRadius: 4,
+                                title: "Option A selected",
+                                titleAlignment: .center
+                            )
+                        ),
+                        OnbChoiceOption(
+                            id: "opt2",
+                            content: OnbButtonContentData(text: "Option B"),
+                            feedbackConfiguration: OnbFeedbackConfiguration(
+                                backgroundColor: Color(red: 0.8, green: 0.95, blue: 0.8),
+                                cornerRadius: 4,
+                                title: "Option B selected",
+                                titleAlignment: .center
+                            )
+                        ),
+                        OnbChoiceOption(
+                            id: "opt3",
+                            content: OnbButtonContentData(text: "Option C"),
+                            feedbackConfiguration: OnbFeedbackConfiguration(
+                                backgroundColor: Color(red: 0.8, green: 0.9, blue: 0.95),
+                                cornerRadius: 4,
+                                title: "Option C selected",
+                                titleAlignment: .center
+                            )
+                        ),
+                        OnbChoiceOption(
+                            id: "opt4",
+                            content: OnbButtonContentData(text: "Option D"),
+                            feedbackConfiguration: OnbFeedbackConfiguration(
+                                backgroundColor: Color(red: 0.95, green: 0.9, blue: 0.8),
+                                cornerRadius: 4,
+                                title: "Option D selected",
+                                titleAlignment: .center
+                            )
+                        )
+                    ],
+                    selectionBehavior: .single(autoAdvance: false),
+                    isGrid: true,
+                    contentAlignment: .top, feedbackStyle: .bottom()
+                )
+            ],
+            slideDefaults: OnbSlideDefaults(
+                ctaButtonStyle: .solid(backgroundColor: .blue, textColor: .white, selectedBackgroundColor: .blue, selectedTextColor: .white),
+                ctaButtonFormatData: OnbButtonFormatData(
+                    pressStyle: .press,
+                    font: .headline,
+                    height: .verticalPadding(16),
+                    cornerRadius: 12
+                ),
+                optionsButtonStyle: .solid(
+                    backgroundColor: Color(red: 0.95, green: 0.95, blue: 0.95),
+                    textColor: .black,
+                    selectedBackgroundColor: .blue,
+                    selectedTextColor: .white
+                ),
+                optionsButtonFormatData: OnbButtonFormatData(
+                    pressStyle: .press,
+                    font: .headline,
+                    height: .verticalPadding(16),
+                    cornerRadius: 12
+                )
+            )
+        )
+    }
 }
 
 #Preview("Simple Flow") {
@@ -543,5 +919,11 @@ struct PreviewFlows {
 #Preview("Multiple Choice Slides") {
     SwiftfulOnboardingView(
         configuration: PreviewFlows.multipleChoiceSlidesFlow
+    )
+}
+
+#Preview("Multiple Choice Feedback") {
+    SwiftfulOnboardingView(
+        configuration: PreviewFlows.multipleChoiceFeedbackFlow
     )
 }

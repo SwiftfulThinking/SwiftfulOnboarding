@@ -37,6 +37,7 @@ struct YesNoSlideView: View {
     var onButtonClick: (([OnbChoiceOption]) -> Void)? = nil
     var selectedOptions: [OnbChoiceOption] = []
     var feedbackStyle: AnyFeedbackViewStyle = .top()
+    var feedbackConfigurationDefaults: OnbFeedbackConfiguration = OnbFeedbackConfiguration()
 
     private var shouldShowContinueButton: Bool {
         switch selectionBehavior {
@@ -60,7 +61,7 @@ struct YesNoSlideView: View {
             // Top feedback
             if anyOptionHasFeedback, case .top = feedbackStyle,
                let feedbackConfig = currentFeedback ?? [yesOption, noOption].first(where: { $0.feedbackConfiguration != nil })?.feedbackConfiguration {
-                AnyFeedbackViewContainer(config: feedbackConfig, style: feedbackStyle)
+                AnyFeedbackViewContainer(config: feedbackConfig, defaultConfig: feedbackConfigurationDefaults, style: feedbackStyle)
                     .padding(.horizontal, horizontalPaddingContent)
                     .opacity(currentFeedback != nil ? 1.0 : 0.0)
             }
@@ -114,7 +115,7 @@ struct YesNoSlideView: View {
             // Bottom feedback
             if anyOptionHasFeedback, case .bottom = feedbackStyle,
                let feedbackConfig = currentFeedback ?? [yesOption, noOption].first(where: { $0.feedbackConfiguration != nil })?.feedbackConfiguration {
-                AnyFeedbackViewContainer(config: feedbackConfig, style: feedbackStyle)
+                AnyFeedbackViewContainer(config: feedbackConfig, defaultConfig: feedbackConfigurationDefaults, style: feedbackStyle)
                     .padding(.horizontal, horizontalPaddingContent > 0 ? horizontalPaddingContent : 24)
                     .opacity(currentFeedback != nil ? 1.0 : 0.0)
                     .padding(.top, contentSpacing)

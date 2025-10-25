@@ -10,25 +10,26 @@ import SwiftUI
 struct AnyFeedbackViewContainer: View {
 
     let config: OnbFeedbackConfiguration
+    var defaultConfig: OnbFeedbackConfiguration = OnbFeedbackConfiguration()
     var style: AnyFeedbackViewStyle = .top()
 
     var body: some View {
         AnyFeedbackView(
             style: style,
-            backgroundColor: config.backgroundColor,
-            borderWidth: config.borderWidth,
-            borderColor: config.borderColor,
-            cornerRadius: config.cornerRadius,
-            horizontalPadding: config.horizontalPadding,
-            title: config.title,
-            titleFont: config.titleFont,
-            subtitle: config.subtitle,
-            subtitleFont: config.subtitleFont,
-            titleSubtitleSpacing: config.titleSubtitleSpacing,
-            titleAlignment: config.titleAlignment,
-            paddingTop: config.paddingTop,
-            paddingBottom: config.paddingBottom,
-            paddingHorizontal: config.paddingHorizontal
+            backgroundColor: config.backgroundColor ?? defaultConfig.backgroundColor ?? .green,
+            borderWidth: config.borderWidth ?? defaultConfig.borderWidth ?? 0,
+            borderColor: config.borderColor ?? defaultConfig.borderColor ?? .clear,
+            cornerRadius: config.cornerRadius ?? defaultConfig.cornerRadius ?? 24,
+            horizontalPadding: config.horizontalPadding ?? defaultConfig.horizontalPadding ?? 0,
+            title: config.title ?? defaultConfig.title,
+            titleFont: config.titleFont ?? defaultConfig.titleFont ?? .headline,
+            subtitle: config.subtitle ?? defaultConfig.subtitle,
+            subtitleFont: config.subtitleFont ?? defaultConfig.subtitleFont ?? .subheadline,
+            titleSubtitleSpacing: config.titleSubtitleSpacing ?? defaultConfig.titleSubtitleSpacing ?? 8,
+            titleAlignment: config.titleAlignment ?? defaultConfig.titleAlignment ?? .leading,
+            paddingTop: config.paddingTop ?? defaultConfig.paddingTop ?? 16,
+            paddingBottom: config.paddingBottom ?? defaultConfig.paddingBottom ?? 16,
+            paddingHorizontal: config.paddingHorizontal ?? defaultConfig.paddingHorizontal ?? 24
         )
     }
 }

@@ -70,7 +70,8 @@ struct AnyOnboardingSlideView: View {
                     onButtonClick?(selections)
                 },
                 selectedOptions: selectedOptions,
-                feedbackStyle: feedbackStyle ?? slideDefaults.feedbackStyle
+                feedbackStyle: feedbackStyle ?? slideDefaults.feedbackStyle,
+                feedbackConfigurationDefaults: slideDefaults.feedbackConfiguration
             )
         case .yesNo(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let optionsSpacing, let yesOption, let noOption, let optionsButtonStyle, let optionsButtonFormatData, let selectionBehavior, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, let feedbackStyle, _, _, _):
             YesNoSlideView(
@@ -103,7 +104,8 @@ struct AnyOnboardingSlideView: View {
                     onButtonClick?(selections)
                 },
                 selectedOptions: selectedOptions,
-                feedbackStyle: feedbackStyle ?? slideDefaults.feedbackStyle
+                feedbackStyle: feedbackStyle ?? slideDefaults.feedbackStyle,
+                feedbackConfigurationDefaults: slideDefaults.feedbackConfiguration
             )
         case .rating(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let optionsButtonStyle, let ratingCornerRadius, let ratingButtonOption, let ratingFont, let ratingLabels, let selectionBehavior, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, let getResponseConfiguration, let getFeedbackConfiguration, let getInsertConfiguration, let feedbackStyle, _, _, _):
             RatingSlideView(
@@ -139,7 +141,8 @@ struct AnyOnboardingSlideView: View {
                 getResponseConfiguration: getResponseConfiguration,
                 getFeedbackConfiguration: getFeedbackConfiguration,
                 getInsertConfiguration: getInsertConfiguration,
-                feedbackStyle: feedbackStyle ?? slideDefaults.feedbackStyle
+                feedbackStyle: feedbackStyle ?? slideDefaults.feedbackStyle,
+                feedbackConfigurationDefaults: slideDefaults.feedbackConfiguration
             )
         case .textInput(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingTitle, let contentSpacing, let textFieldKeyboardType, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, _, _, _):
             TextInputSlideView(

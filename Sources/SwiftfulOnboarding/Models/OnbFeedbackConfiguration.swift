@@ -9,19 +9,19 @@ import SwiftUI
 
 struct OnbFeedbackConfiguration {
 
-    var backgroundColor: Color = .green
-    var borderWidth: CGFloat = 0
-    var borderColor: Color = .clear
-    var cornerRadius: CGFloat = 24
-    var horizontalPadding: CGFloat = 0
+    var backgroundColor: Color? = nil
+    var borderWidth: CGFloat? = nil
+    var borderColor: Color? = nil
+    var cornerRadius: CGFloat? = nil
+    var horizontalPadding: CGFloat? = nil
     var title: String? = nil
-    var titleFont: Font = .headline
+    var titleFont: Font? = nil
     var subtitle: String? = nil
-    var subtitleFont: Font = .subheadline
-    var titleSubtitleSpacing: CGFloat = 8
-    var titleAlignment: OnbTextAlignment = .leading
-    var paddingTop: CGFloat = 16
-    var paddingBottom: CGFloat = 16
-    var paddingHorizontal: CGFloat = 24
+    var subtitleFont: Font? = nil
+    var titleSubtitleSpacing: CGFloat? = nil
+    var titleAlignment: OnbTextAlignment? = nil
+    var paddingTop: CGFloat? = nil
+    var paddingBottom: CGFloat? = nil
+    var paddingHorizontal: CGFloat? = nil
 
 }

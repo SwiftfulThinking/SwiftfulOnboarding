@@ -40,6 +40,7 @@ struct RatingSlideView: View {
     var getFeedbackConfiguration: ((Int) -> OnbFeedbackConfiguration?)? = nil
     var getInsertConfiguration: ((Int) -> [InsertSlideData]?)? = nil
     var feedbackStyle: AnyFeedbackViewStyle = .top()
+    var feedbackConfigurationDefaults: OnbFeedbackConfiguration = OnbFeedbackConfiguration()
 
     private var selectedRating: Int? {
         guard let option = selectedOptions.first,
@@ -82,7 +83,7 @@ struct RatingSlideView: View {
             // Top feedback
             if anyRatingHasFeedback, case .top = feedbackStyle,
                let feedbackConfig = currentFeedback ?? (1...5).compactMap({ getFeedbackConfiguration?($0) }).first {
-                AnyFeedbackViewContainer(config: feedbackConfig, style: feedbackStyle)
+                AnyFeedbackViewContainer(config: feedbackConfig, defaultConfig: feedbackConfigurationDefaults, style: feedbackStyle)
                     .padding(.horizontal, horizontalPaddingContent)
                     .opacity(currentFeedback != nil ? 1.0 : 0.0)
             }
@@ -136,7 +137,7 @@ struct RatingSlideView: View {
             // Bottom feedback
             if anyRatingHasFeedback, case .bottom = feedbackStyle,
                let feedbackConfig = currentFeedback ?? (1...5).compactMap({ getFeedbackConfiguration?($0) }).first {
-                AnyFeedbackViewContainer(config: feedbackConfig, style: feedbackStyle)
+                AnyFeedbackViewContainer(config: feedbackConfig, defaultConfig: feedbackConfigurationDefaults, style: feedbackStyle)
                     .padding(.horizontal, horizontalPaddingContent)
                     .opacity(currentFeedback != nil ? 1.0 : 0.0)
                     .padding(.top, contentSpacing)
