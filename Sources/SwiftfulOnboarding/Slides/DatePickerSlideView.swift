@@ -173,6 +173,7 @@ struct DatePickerSlideView: View {
             Text(ctaText)
                 .onbButtonStyle(
                     style: ctaButtonStyle,
+                    isSelected: true,
                     format: ctaButtonFormatData
                 ) {
                     let option = dateToOption(selectedDate)

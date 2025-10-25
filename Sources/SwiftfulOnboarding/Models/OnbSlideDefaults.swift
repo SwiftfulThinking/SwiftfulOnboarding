@@ -27,7 +27,7 @@ import SwiftUI
 /// Note: Individual slide parameters will override these defaults when specified.
 struct OnbSlideDefaults {
     // Title & Subtitle
-    var titleFont: Font = .largeTitle
+    var titleFont: Font = .title.weight(.semibold)
     var subtitleFont: Font = .body
     var titleSubtitleSpacing: CGFloat = 8
     var titleAlignment: OnbTextAlignment = .center
@@ -36,33 +36,33 @@ struct OnbSlideDefaults {
     var contentAlignment: OnbContentAlignment = .center
     var paddingTop: CGFloat = 40
     var paddingBottom: CGFloat = 0
-    var horizontalPaddingContent: CGFloat = 0
+    var horizontalPaddingContent: CGFloat = 24
     var horizontalPaddingTitle: CGFloat = 40
-    var contentSpacing: CGFloat = 24
+    var contentSpacing: CGFloat = 12
 
     // Footer
     var footerData: OnbFooterData = .default
     var ctaText: String = "Continue"
-    var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
+    var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: Color(uiColor: .systemGray5), textColor: .black, selectedBackgroundColor: .blue, selectedTextColor: .white)
     var ctaButtonFormatData: OnbButtonFormatData = .default
 
     // Media (for slides that support it)
     var mediaPosition: OnbMediaPosition = .top
 
     // Feedback (for slides that support it)
-    var feedbackStyle: AnyFeedbackViewStyle = .top()
+    var feedbackStyle: AnyFeedbackViewStyle = .bottom(transition: .none)
 
     // Selection (for slides that support it)
     var selectionBehavior: OnbSelectionBehavior = .single()
 
     // Multiple Choice Options (for multipleChoice and yesNo slides)
     var optionsSpacing: CGFloat = 12
-    var optionsButtonStyle: OnbButtonStyleType = .solidOutline(backgroundColor: .clear, textColor: .blue, borderColor: .blue, selectedBackgroundColor: .blue, selectedTextColor: .white, selectedBorderColor: .blue)
+    var optionsButtonStyle: OnbButtonStyleType = .solid(backgroundColor: Color(uiColor: .systemGray5), textColor: .black, selectedBackgroundColor: .blue, selectedTextColor: .white)
     var optionsButtonFormatData: OnbButtonFormatData = .default
     var isGrid: Bool = false
 
     // Secondary Button (for primaryAction slide)
-    var secondaryButtonStyle: OnbButtonStyleType = .outline(textColor: .blue, borderColor: .blue)
+    var secondaryButtonStyle: OnbButtonStyleType = .outline(textColor: Color(uiColor: .systemGray4), borderColor: Color(uiColor: .systemGray4))
     var secondaryButtonFormatData: OnbButtonFormatData = .default
     var secondaryButtonSpacing: CGFloat = 12
 

@@ -160,6 +160,7 @@ struct RegularSlideView: View {
             Text(ctaText)
                 .onbButtonStyle(
                     style: ctaButtonStyle,
+                    isSelected: true,
                     format: ctaButtonFormatData
                 ) {
                     onButtonClick?()

@@ -145,7 +145,7 @@ struct YesNoSlideView: View {
 
         switch selectionBehavior {
         case .single(let autoAdvance):
-            if autoAdvance && selectedOptions.contains(option) {
+            if autoAdvance && !selectedOptions.contains(option) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     onButtonClick?(selectedOptions)
                 }

@@ -112,6 +112,7 @@ struct AnyPickerSlideView: View {
             Text(ctaText)
                 .onbButtonStyle(
                     style: ctaButtonStyle,
+                    isSelected: true,
                     format: ctaButtonFormatData
                 ) {
                     let option = stringToOption(selectedOption)
