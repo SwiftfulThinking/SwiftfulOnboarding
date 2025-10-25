@@ -12,6 +12,7 @@ struct OnbHeaderConfiguration {
     var headerAlignment: HeaderAlignment = .center
     var showBackButton: OnbBackButtonBehavior = .afterFirstSlide
     var backButtonColor: Color = .primary
+    var progressBarAccentColor: Color = .blue
 
     static let `default` = OnbHeaderConfiguration()
 }

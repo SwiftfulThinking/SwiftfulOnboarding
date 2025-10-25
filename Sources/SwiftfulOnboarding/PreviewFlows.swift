@@ -106,10 +106,123 @@ struct PreviewFlows {
             )
         )
     }
+
+    static var regularSlidesFlow: OnbConfiguration {
+        OnbConfiguration(
+            headerConfiguration: OnbHeaderConfiguration(
+                headerStyle: .progressBar,
+                headerAlignment: .center,
+                showBackButton: .afterFirstSlide,
+                backButtonColor: .red,
+                progressBarAccentColor: .red
+            ),
+            slides: [
+                // Title + Subtitle, Center
+                .regular(
+                    id: "title_subtitle_center",
+                    title: "Title + Subtitle",
+                    subtitle: "Content aligned center",
+                    contentAlignment: .center
+                ),
+                // Title + Subtitle, Top
+                .regular(
+                    id: "title_subtitle_top",
+                    title: "Title + Subtitle",
+                    subtitle: "Content aligned top",
+                    contentAlignment: .top
+                ),
+                // Title Only, Center
+                .regular(
+                    id: "title_only_center",
+                    title: "Title Only",
+                    contentAlignment: .center
+                ),
+                // Title Only, Top
+                .regular(
+                    id: "title_only_top",
+                    title: "Title Only",
+                    contentAlignment: .top
+                ),
+                // Title + Image, Center
+                .regular(
+                    id: "title_image_center",
+                    title: "Title + Image",
+                    media: .systemIcon(named: "star.fill", size: .large),
+                    contentAlignment: .center
+                ),
+                // Title + Image, Top
+                .regular(
+                    id: "title_image_top",
+                    title: "Title + Image",
+                    media: .systemIcon(named: "star.fill", size: .large),
+                    contentAlignment: .top
+                ),
+                // Title + Subtitle + Image, Center
+                .regular(
+                    id: "title_subtitle_image_center",
+                    title: "Title + Subtitle + Image",
+                    subtitle: "All elements with center alignment",
+                    media: .systemIcon(named: "heart.fill", size: .large),
+                    contentAlignment: .center
+                ),
+                // Title + Subtitle + Image, Top
+                .regular(
+                    id: "title_subtitle_image_top",
+                    title: "Title + Subtitle + Image",
+                    subtitle: "All elements with top alignment",
+                    media: .systemIcon(named: "heart.fill", size: .large),
+                    contentAlignment: .top
+                ),
+                // Title + Image (Below), Center
+                .regular(
+                    id: "title_image_below_center",
+                    title: "Title + Image Below",
+                    media: .systemIcon(named: "star.fill", size: .large),
+                    mediaPosition: .bottom,
+                    contentAlignment: .center
+                ),
+                // Title + Image (Below), Top
+                .regular(
+                    id: "title_image_below_top",
+                    title: "Title + Image Below",
+                    media: .systemIcon(named: "star.fill", size: .large),
+                    mediaPosition: .bottom,
+                    contentAlignment: .top
+                ),
+                // Title + Subtitle + Image (Below), Center
+                .regular(
+                    id: "title_subtitle_image_below_center",
+                    title: "Title + Subtitle + Image Below",
+                    subtitle: "Image positioned below content, centered",
+                    media: .systemIcon(named: "heart.fill", size: .large),
+                    mediaPosition: .bottom,
+                    contentAlignment: .center
+                ),
+                // Title + Subtitle + Image (Below), Top
+                .regular(
+                    id: "title_subtitle_image_below_top",
+                    title: "Title + Subtitle + Image Below",
+                    subtitle: "Image positioned below content, top aligned",
+                    media: .systemIcon(named: "heart.fill", size: .large),
+                    mediaPosition: .bottom,
+                    contentAlignment: .top
+                )
+            ],
+            slideDefaults: OnbSlideDefaults(
+                ctaButtonStyle: .outline(textColor: .red, borderColor: .red)
+            )
+        )
+    }
 }
 
 #Preview("Simple Flow") {
     SwiftfulOnboardingView(
         configuration: PreviewFlows.simpleFlow
+    )
+}
+
+#Preview("Regular Slides") {
+    SwiftfulOnboardingView(
+        configuration: PreviewFlows.regularSlidesFlow
     )
 }

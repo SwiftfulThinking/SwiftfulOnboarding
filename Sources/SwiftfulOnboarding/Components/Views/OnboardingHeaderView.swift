@@ -28,6 +28,7 @@ struct OnboardingHeaderView: View {
     var showBackButton: Bool = true
     var isFirstSlide: Bool = false
     var backButtonColor: Color = .primary
+    var progressBarAccentColor: Color = .blue
     var onBackButtonPressed: (() -> Void)? = nil
 
     private var backButtonIcon: String {
@@ -55,7 +56,7 @@ struct OnboardingHeaderView: View {
                     ProgressBarView(
                         progress: Double(currentPage) / Double(totalPages),
                         backgroundColor: Color.gray.opacity(0.3),
-                        accentColor: .blue,
+                        accentColor: progressBarAccentColor,
                         borderWidth: 0,
                         borderColor: .clear,
                         height: 8,
@@ -66,7 +67,7 @@ struct OnboardingHeaderView: View {
                     ProgressBarView(
                         progress: Double(currentPage) / Double(totalPages),
                         backgroundColor: Color.gray.opacity(0.3),
-                        accentColor: .blue,
+                        accentColor: progressBarAccentColor,
                         borderWidth: 0,
                         borderColor: .clear,
                         height: 8,
@@ -83,7 +84,7 @@ struct OnboardingHeaderView: View {
                     currentPage: currentPage,
                     totalPages: totalPages,
                     backgroundColor: Color.gray.opacity(0.3),
-                    accentColor: .blue,
+                    accentColor: progressBarAccentColor,
                     borderWidth: 0,
                     borderColor: .clear,
                     height: 8

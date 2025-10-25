@@ -141,6 +141,7 @@ struct SwiftfulOnboardingView: View {
                     showBackButton: shouldShowBackButton,
                     isFirstSlide: viewModel.currentIndex == 0,
                     backButtonColor: currentBackButtonColor,
+                    progressBarAccentColor: viewModel.configuration.headerConfiguration.progressBarAccentColor,
                     onBackButtonPressed: {
                         viewModel.previousSlide()
                     }
