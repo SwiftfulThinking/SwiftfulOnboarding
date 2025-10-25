@@ -37,8 +37,11 @@ class SwiftfulOnboardingViewModel: ObservableObject {
 
     func onResponseButtonClick() {
         showResponseView = false
-        responseConfiguration = nil
-        nextSlide()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.responseConfiguration = nil
+            self.nextSlide()
+        }
     }
 
     private func nextSlide() {

@@ -14,6 +14,8 @@ struct AnyResponseViewContainer: View {
     let isShowing: Bool
     let onButtonClick: (() -> Void)?
 
+    @State private var localIsShowing: Bool = false
+
     private var screenWidth: CGFloat {
         #if os(iOS)
         return UIScreen.main.bounds.width
@@ -38,16 +40,16 @@ struct AnyResponseViewContainer: View {
     private func responseViewOpacity() -> Double {
         switch transition {
         case .none:
-            return isShowing ? 1 : 0
+            return localIsShowing ? 1 : 0
         case .slide, .bottom:
             return 1
         case .opacity, .scale, .fade:
-            return isShowing ? 1 : 0
+            return localIsShowing ? 1 : 0
         }
     }
 
     private func responseViewOffset() -> CGSize {
-        if isShowing {
+        if localIsShowing {
             return .zero
         }
 
@@ -55,9 +57,23 @@ struct AnyResponseViewContainer: View {
         case .none, .opacity, .scale:
             return .zero
         case .slide:
-            return CGSize(width: screenWidth, height: 0)
+            // Enter from right, exit to left
+            if isShowing {
+                // Entering - slide from right
+                return CGSize(width: screenWidth, height: 0)
+            } else {
+                // Exiting - slide to left
+                return CGSize(width: -screenWidth, height: 0)
+            }
         case .fade:
-            return CGSize(width: 24, height: 0)
+            // Enter from right, exit to left
+            if isShowing {
+                // Entering - slide from right
+                return CGSize(width: 24, height: 0)
+            } else {
+                // Exiting - slide to left
+                return CGSize(width: -24, height: 0)
+            }
         case .bottom:
             // Slide from bottom
             #if os(iOS)
@@ -71,7 +87,7 @@ struct AnyResponseViewContainer: View {
     private func responseViewScale() -> CGFloat {
         switch transition {
         case .scale:
-            return isShowing ? 1 : 0.8
+            return localIsShowing ? 1 : 0.8
         case .none, .opacity, .slide, .fade, .bottom:
             return 1
         }
@@ -116,6 +132,23 @@ struct AnyResponseViewContainer: View {
         .offset(responseViewOffset())
         .opacity(responseViewOpacity())
         .scaleEffect(responseViewScale())
-        .animation(shouldAnimateTransition ? .easeInOut(duration: 0.3) : nil, value: isShowing)
+        .onAppear {
+            if shouldAnimateTransition {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    localIsShowing = isShowing
+                }
+            } else {
+                localIsShowing = isShowing
+            }
+        }
+        .onChange(of: isShowing) { newValue in
+            if shouldAnimateTransition {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    localIsShowing = newValue
+                }
+            } else {
+                localIsShowing = newValue
+            }
+        }
     }
 }

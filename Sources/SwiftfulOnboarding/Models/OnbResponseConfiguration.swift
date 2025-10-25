@@ -41,7 +41,7 @@ struct OnbResponseConfiguration {
         subtitleFont: .body,
         titleSubtitleSpacing: 8,
         titleAlignment: .center,
-        paddingTop: 40,
+        paddingTop: 16,
         paddingBottom: 0,
         footerData: .default,
         ctaText: "Continue",
