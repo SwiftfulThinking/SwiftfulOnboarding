@@ -190,7 +190,6 @@ struct DatePickerSlideView: View {
 #Preview {
     let calendar = Calendar.current
     let today = Date()
-    let oneWeekAgo = calendar.date(byAdding: .day, value: -7, to: today)!
     let oneMonthFromNow = calendar.date(byAdding: .month, value: 1, to: today)!
     let eighteenYearsAgo = calendar.date(byAdding: .year, value: -18, to: today)!
 

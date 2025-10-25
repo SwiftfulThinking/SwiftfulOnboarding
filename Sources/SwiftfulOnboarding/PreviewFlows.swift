@@ -53,7 +53,7 @@ struct PreviewFlows {
                         OnbChoiceOption(id: "option2", content: OnbButtonContentData(text: "Option 2")),
                         OnbChoiceOption(id: "option3", content: OnbButtonContentData(text: "Option 3"))
                     ],
-                    selectionBehavior: .multi
+                    selectionBehavior: .multi()
                 ),
                 .yesNo(
                     id: "yesNo_autoAdvance_true",
@@ -259,7 +259,7 @@ struct PreviewFlows {
                         OnbChoiceOption(id: "opt1", content: OnbButtonContentData(text: "Option 1")),
                         OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Option 2"))
                     ],
-                    selectionBehavior: .multi,
+                    selectionBehavior: .multi(),
                     isGrid: true,
                     contentAlignment: .center
                 ),
@@ -304,7 +304,7 @@ struct PreviewFlows {
                         OnbChoiceOption(id: "opt3", content: OnbButtonContentData(text: "Option 3")),
                         OnbChoiceOption(id: "opt4", content: OnbButtonContentData(text: "Option 4"))
                     ],
-                    selectionBehavior: .multi,
+                    selectionBehavior: .multi(),
                     isGrid: false,
                     contentAlignment: .center
                 ),
@@ -349,7 +349,7 @@ struct PreviewFlows {
                         OnbChoiceOption(id: "opt3", content: OnbButtonContentData(text: "Option 3")),
                         OnbChoiceOption(id: "opt4", content: OnbButtonContentData(text: "Option 4"))
                     ],
-                    selectionBehavior: .multi,
+                    selectionBehavior: .multi(),
                     isGrid: true,
                     contentAlignment: .center
                 ),
@@ -379,7 +379,7 @@ struct PreviewFlows {
                     title: "20 Options, List, Center",
                     subtitle: "Multi selection, scrollable",
                     options: (1...20).map { OnbChoiceOption(id: "opt\($0)", content: OnbButtonContentData(text: "Option \($0)")) },
-                    selectionBehavior: .multi,
+                    selectionBehavior: .multi(),
                     isGrid: false,
                     contentAlignment: .center
                 ),
@@ -409,7 +409,7 @@ struct PreviewFlows {
                     title: "20 Options, Grid, Center",
                     subtitle: "Multi selection, scrollable",
                     options: (1...20).map { OnbChoiceOption(id: "opt\($0)", content: OnbButtonContentData(text: "Option \($0)")) },
-                    selectionBehavior: .multi,
+                    selectionBehavior: .multi(),
                     isGrid: true,
                     contentAlignment: .center
                 ),
@@ -444,7 +444,7 @@ struct PreviewFlows {
                         OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Option 2", textPlacement: .leading, secondaryContent: .checkbox(style: .circle, isChecked: false, borderColor: .primary, fillColor: .primary), secondaryContentPlacement: .trailing)),
                         OnbChoiceOption(id: "opt3", content: OnbButtonContentData(text: "Option 3", textPlacement: .leading, secondaryContent: .checkbox(style: .circle, isChecked: false, borderColor: .primary, fillColor: .primary), secondaryContentPlacement: .trailing))
                     ],
-                    selectionBehavior: .multi,
+                    selectionBehavior: .multi(),
                     contentAlignment: .top
                 ),
                 // Buttons with Checkboxes (Square)
@@ -457,7 +457,7 @@ struct PreviewFlows {
                         OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Option 2", textPlacement: .leading, secondaryContent: .checkbox(style: .square, isChecked: false, borderColor: .gray, fillColor: Color(red: 0.35, green: 0.78, blue: 0.14)), secondaryContentPlacement: .leading)),
                         OnbChoiceOption(id: "opt3", content: OnbButtonContentData(text: "Option 3", textPlacement: .leading, secondaryContent: .checkbox(style: .square, isChecked: false, borderColor: .gray, fillColor: Color(red: 0.35, green: 0.78, blue: 0.14)), secondaryContentPlacement: .leading))
                     ],
-                    selectionBehavior: .multi,
+                    selectionBehavior: .multi(),
                     contentAlignment: .top
                 ),
                 // Buttons with Emojis

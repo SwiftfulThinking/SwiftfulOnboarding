@@ -392,7 +392,7 @@ struct MultipleChoiceSlideView: View {
                         selectedBackgroundColor: .clear,
                         selectedTextColor: .blue
                     ),
-                    selectionBehavior: .multi,
+                    selectionBehavior: .multi(),
                     isGrid: true,
                     ctaButtonStyle: .solid(
                         backgroundColor: .gray,
@@ -419,7 +419,7 @@ struct MultipleChoiceSlideView: View {
                         selectedBackgroundColor: .blue,
                         selectedTextColor: .white
                     ),
-                    selectionBehavior: .multi,
+                    selectionBehavior: .multi(),
                     isGrid: false
                 ),
                 .multipleChoice(
