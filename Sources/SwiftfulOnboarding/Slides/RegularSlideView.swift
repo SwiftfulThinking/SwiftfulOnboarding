@@ -109,7 +109,7 @@ struct OnbButtonFormatData {
     static let `default` = OnbButtonFormatData(
         pressStyle: .press,
         font: .headline,
-        height: .verticalPadding(12),
+        height: .verticalPadding(16),
         cornerRadius: 12
     )
 }

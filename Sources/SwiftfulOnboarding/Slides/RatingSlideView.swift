@@ -131,6 +131,7 @@ struct RatingSlideView: View {
             )
             .padding(.horizontal, horizontalPaddingContent)
             .padding(.top, contentSpacing)
+            .padding(.bottom, shouldShowContinueButton ? 0 : footerData.bottom)
 
             // Bottom feedback
             if anyRatingHasFeedback, case .bottom = feedbackStyle,
