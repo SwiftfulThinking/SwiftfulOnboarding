@@ -56,7 +56,7 @@ OnbButtonContentData(
     text: String,
     subtitle: String?,
     textPlacement: OnbButtonTextPlacement,                // .center, .leading
-    secondaryContent: OnbButtonSecondaryContent?,         // .emoji(String), .checkbox(...), .media(media:)
+    secondaryContent: OnbButtonSecondaryContent?,         // .emoji(String), .checkbox(style: OnbCheckboxStyle, ...), .media(media:)
     secondaryContentPlacement: OnbButtonSecondaryContentPlacement,  // .leading, .centerLeading, .centerTrailing, .trailing
     mediaContent: OnbMediaType?,                          // top/bottom media within button
     mediaContentPlacement: OnbMediaContentPlacement,      // .top, .bottom
@@ -68,6 +68,23 @@ OnbButtonContentData(
 
 - `.single(autoAdvance: Bool)` — one selection; `autoAdvance: true` skips the CTA button
 - `.multi(max: Int?)` — multiple selections; `max: nil` is unlimited, `max: 3` caps at 3
+
+### Rating Types
+
+- **OnbRatingButtonOption:** `.number` (1-5 scale), `.thumbs` (thumbs up/down)
+- **RatingFooterLabels:** `RatingFooterLabels(left:, right:, labelPlacement:, labelFont:, labelColor:)` — endpoint labels
+- **OnbRatingLabelPlacement:** `.top`, `.bottom`
+
+### DatePicker Enums
+
+- **OnbDatePickerPosition:** `.auto`, `.bottom`
+- **OnbDatePickerStyle:** `.graphical`, `.wheel`, `.compact`
+- **OnbDatePickerComponents:** `.date`, `.dateTime`, `.time`
+
+### Picker Enums
+
+- **OnbPickerPosition:** `.auto`, `.bottom`
+- **OnbPickerStyle:** `.wheel`, `.menu`, `.segmented`
 
 ## Media
 
@@ -81,6 +98,12 @@ OnbButtonContentData(
 - **OnbMediaSize:** `.auto`, `.small`, `.medium`, `.large`, `.fixed(width:height:)`
 - **OnbMediaAspectRatio:** `.auto`, `.square`, `.portrait`, `.landscape`
 - Image loading uses SDWebImageSwiftUI; Lottie uses the Lottie package
+
+## Layout Enums
+
+- **OnbContentAlignment:** `.top`, `.center`, `.bottom` — vertical content positioning within a slide
+- **OnbMediaPosition:** `.top`, `.bottom` — media placement relative to title/subtitle
+- **OnbTextAlignment:** `.leading`, `.center`, `.trailing` — title/subtitle text alignment
 
 ## Customization
 
@@ -135,6 +158,16 @@ OnbButtonFormatData(
 - `.gradient(Gradient, startPoint:, endPoint:)`
 - `.image(urlString: String)`
 
+### Footer Data — OnbFooterData
+
+Controls padding around the CTA button area:
+
+```swift
+OnbFooterData(leading: CGFloat, trailing: CGFloat, bottom: CGFloat, top: CGFloat, cornerRadius: CGFloat)
+```
+
+Default: `OnbFooterData(leading: 24, trailing: 24, bottom: 24, top: 24, cornerRadius: 12)`
+
 ### Transitions — OnbTransitionStyle
 
 - `.slide`, `.opacity`, `.fade`, `.none`
@@ -149,7 +182,7 @@ Set per-option via `OnbChoiceOption.feedbackConfiguration`:
 OnbFeedbackConfiguration(backgroundColor:, cornerRadius:, title:, subtitle:, ...)
 ```
 
-Controlled by `feedbackStyle` on the slide: `.top(transition:)` or `.bottom(transition:)`
+Controlled by `feedbackStyle` on the slide: `.top(transition:)` or `.bottom(transition:)` with `AnyFeedbackViewTransition`: `.slide`, `.scale`, `.fade`, `.opacity`, `.none`
 
 ### Response — full-screen overlay after selection
 
@@ -242,7 +275,7 @@ IMPORTANT: Always configure shared styling via `OnbSlideDefaults` rather than re
 
 - **Standard multiple choice / yes-no:** `.solid` with `selectedBackgroundColor` — default gray that highlights to color on selection
 - **Outlined options:** `.outline` — border-only, lightweight look
-- **Checkbox-style selections:** use `OnbButtonSecondaryContent.checkbox(style:)` in the button content, not the button style
+- **Checkbox-style selections:** use `OnbButtonSecondaryContent.checkbox(style:, isChecked:, borderColor:, fillColor:)` in the button content, not the button style. `OnbCheckboxStyle`: `.circle`, `.square`
 - **Gamified / playful apps:** `.duolingo` — 3D raised button with shadow, feels tactile
 
 ### When to use feedback vs response
@@ -305,7 +338,7 @@ class OnboardingPresenter {
 
     func onFlowComplete(flowData: OnbFlowData) {
         interactor.trackEvent(eventName: "onb_flow_complete", parameters: flowData.eventParameters)
-        router.showCompletedView()
+        router.showOnboardingCompletedView()
     }
 }
 ```
