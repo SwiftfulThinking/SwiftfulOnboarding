@@ -239,9 +239,9 @@ Call-to-action with optional secondary button:
     title: "You're All Set!",
     subtitle: "Ready to begin your journey?",
     media: .systemIcon(named: "checkmark.circle.fill"),
+    contentAlignment: .center,
     ctaText: "Get Started",
-    secondaryButtonText: "Skip for now",
-    contentAlignment: .center
+    secondaryButtonText: "Skip for now"
 )
 ```
 
