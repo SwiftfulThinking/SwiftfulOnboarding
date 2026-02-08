@@ -57,11 +57,7 @@ public struct SwiftfulOnboardingView: View {
     }
 
     private var screenWidth: CGFloat {
-        #if os(iOS)
-        return UIScreen.main.bounds.width
-        #else
-        return NSScreen.main?.frame.width ?? 800
-        #endif
+        UIScreen.main.bounds.width
     }
 
     private func slideOpacity(for index: Int) -> Double {

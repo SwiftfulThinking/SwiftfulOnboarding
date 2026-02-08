@@ -249,6 +249,9 @@ struct AnyOnboardingSlideView: View {
                 onDidPressPrimaryButton: onDidPressPrimaryButton,
                 onButtonClick: {
                     onButtonClick?([])
+                },
+                onSecondaryButtonClick: {
+                    onButtonClick?([])
                 }
             )
         }

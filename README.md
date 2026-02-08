@@ -60,9 +60,9 @@ struct ContentView: View {
 
 ## Requirements
 
-- iOS 15.0+ / macOS 12.0+
-- Swift 5.5+
-- Xcode 13.0+
+- iOS 15.0+
+- Swift 6.0+
+- Xcode 16.0+
 
 ## Installation
 
@@ -142,15 +142,24 @@ Present users with multiple options:
     options: [
         OnbChoiceOption(
             id: "tech",
-            content: OnbButtonContentData(text: "Technology", icon: .systemIcon(named: "laptopcomputer"))
+            content: OnbButtonContentData(
+                text: "Technology",
+                secondaryContent: .media(media: .systemIcon(named: "laptopcomputer", size: .small))
+            )
         ),
         OnbChoiceOption(
             id: "design",
-            content: OnbButtonContentData(text: "Design", icon: .systemIcon(named: "paintbrush"))
+            content: OnbButtonContentData(
+                text: "Design",
+                secondaryContent: .media(media: .systemIcon(named: "paintbrush", size: .small))
+            )
         ),
         OnbChoiceOption(
             id: "business",
-            content: OnbButtonContentData(text: "Business", icon: .systemIcon(named: "briefcase"))
+            content: OnbButtonContentData(
+                text: "Business",
+                secondaryContent: .media(media: .systemIcon(named: "briefcase", size: .small))
+            )
         )
     ],
     selectionBehavior: .multi(max: 3),
@@ -176,9 +185,9 @@ Binary choice with custom labels:
     id: "notifications",
     title: "Enable Notifications?",
     subtitle: "Stay updated with the latest news",
-    yesText: "Yes, please",
-    noText: "Maybe later",
-    contentAlignment: .top
+    yesOption: OnbChoiceOption(id: "yes", content: OnbButtonContentData(text: "Yes, please")),
+    noOption: OnbChoiceOption(id: "no", content: OnbButtonContentData(text: "Maybe later")),
+    selectionBehavior: .single(autoAdvance: true)
 )
 ```
 
@@ -216,9 +225,7 @@ Collect user text input:
     id: "name",
     title: "What's your name?",
     subtitle: "We'd love to get to know you",
-    textfieldPlaceholder: "Enter your name",
-    textfieldIcon: .systemIcon(named: "person"),
-    contentAlignment: .top
+    textFieldKeyboardType: .default
 )
 ```
 
@@ -330,7 +337,7 @@ Insert slides based on user responses:
             content: OnbButtonContentData(text: "Beginner"),
             insertConfiguration: [
                 InsertSlideData(
-                    location: .next,
+                    placement: .next,
                     slide: .regular(
                         id: "beginner-tip",
                         title: "Tips for Beginners",
@@ -344,7 +351,7 @@ Insert slides based on user responses:
             content: OnbButtonContentData(text: "Expert"),
             insertConfiguration: [
                 InsertSlideData(
-                    location: .next,
+                    placement: .next,
                     slide: .regular(
                         id: "expert-features",
                         title: "Advanced Features",
@@ -357,10 +364,10 @@ Insert slides based on user responses:
 )
 ```
 
-Insert locations:
+Insert placements:
 - `.next` - Insert immediately after current slide
-- `.afterId(String)` - Insert after specific slide ID
-- `.atEnd` - Append to end of flow
+- `.afterSlide(id: String)` - Insert after a specific slide ID
+- `.afterCount(count: Int)` - Insert N slides after the current slide
 
 ### Progress Callbacks
 
@@ -369,14 +376,13 @@ Track user progress through the flow:
 ```swift
 let config = OnbConfiguration(
     slides: slides,
-    onSlideComplete: { slideId, userSelections in
-        print("Completed slide: \(slideId)")
-        print("User selections: \(userSelections)")
+    onSlideComplete: { slideData in
+        print("Completed slide: \(slideData.slideId)")
+        print("Selections: \(slideData.selections)")
     },
-    onFlowComplete: { allSelections in
+    onFlowComplete: { flowData in
         print("Onboarding complete!")
-        print("All user data: \(allSelections)")
-        // Save user preferences, navigate to main app, etc.
+        print("Total slides: \(flowData.slides.count)")
     }
 )
 ```
@@ -424,7 +430,7 @@ Customize the header:
 
 ```swift
 OnbHeaderConfiguration(
-    headerStyle: .progressBar,  // .progressBar, .count, or .none
+    headerStyle: .progressBar,  // .progressBar, .dots, .count, or .none
     headerAlignment: .center,   // .center or .right
     showBackButton: .afterFirstSlide,  // .always, .afterFirstSlide, or .never
     backButtonColor: .blue,
@@ -451,7 +457,7 @@ Multiple button style options:
     borderColor: .blue,
     borderWidth: 2,
     selectedTextColor: .white,
-    selectedBackgroundColor: .blue
+    selectedBorderColor: .blue
 )
 
 // Solid with outline
@@ -465,14 +471,14 @@ Multiple button style options:
     selectedBorderColor: .blue
 )
 
-// Duolingo style (checkbox-based)
+// Duolingo style (3D button with shadow)
 .duolingo(
-    backgroundColor: .white,
-    textColor: .black,
-    borderColor: .gray,
-    checkboxStyle: .circle,  // or .square
-    selectedTextColor: .blue,
-    selectedBorderColor: .blue
+    backgroundColor: .green,
+    textColor: .white,
+    shadowColor: .green.opacity(0.6),
+    selectedBackgroundColor: .green.opacity(0.8),
+    selectedTextColor: .white,
+    selectedShadowColor: .green.opacity(0.4)
 )
 ```
 
@@ -482,7 +488,7 @@ Customize button appearance:
 
 ```swift
 OnbButtonFormatData(
-    pressStyle: .press,  // .press, .opacity, or .none
+    pressStyle: .press,  // .press, .opacity, or .tap
     font: .headline,
     height: .verticalPadding(16),  // or .fixed(50)
     cornerRadius: 12
@@ -523,7 +529,7 @@ Support for various media types:
 .lottie(urlString: "https://example.com/animation.json", loopMode: .loop)
 ```
 
-Media sizes: `.small`, `.medium`, `.large`, `.extraLarge`, `.custom(CGFloat)`
+Media sizes: `.auto`, `.small`, `.medium`, `.large`, `.fixed(width:height:)`
 
 ### Transition Styles
 
@@ -581,7 +587,7 @@ OnbConfiguration(
                 OnbChoiceOption(id: "design", content: OnbButtonContentData(text: "Design")),
                 OnbChoiceOption(id: "business", content: OnbButtonContentData(text: "Business"))
             ],
-            selectionBehavior: .multi(min: 1, max: 3)
+            selectionBehavior: .multi(max: 3)
         ),
         .rating(
             id: "satisfaction",
@@ -592,11 +598,11 @@ OnbConfiguration(
         .textInput(
             id: "feedback",
             title: "Any additional feedback?",
-            textfieldPlaceholder: "Share your thoughts..."
+            textFieldKeyboardType: .default
         )
     ],
-    onFlowComplete: { selections in
-        print("Survey complete: \(selections)")
+    onFlowComplete: { flowData in
+        print("Survey complete: \(flowData.slides.count) slides")
     }
 )
 ```
@@ -614,7 +620,7 @@ OnbConfiguration(
                 content: OnbButtonContentData(text: "Yes"),
                 insertConfiguration: [
                     InsertSlideData(
-                        location: .next,
+                        placement: .next,
                         slide: .multipleChoice(
                             id: "notification-types",
                             title: "What notifications?",
@@ -654,32 +660,33 @@ Called each time a user completes a slide (by clicking Continue or auto-advancin
 ```swift
 OnbConfiguration(
     slides: slides,
-    onSlideComplete: { slideId, userSelections in
-        print("User completed slide: \(slideId)")
-        print("Their selections: \(userSelections)")
+    onSlideComplete: { slideData in
+        print("User completed slide: \(slideData.slideId)")
+        print("Slide type: \(slideData.slideType)")
+        print("Selections: \(slideData.selections)")
 
         // Example: Save progress to UserDefaults
-        UserDefaults.standard.set(slideId, forKey: "lastCompletedSlide")
+        UserDefaults.standard.set(slideData.slideId, forKey: "lastCompletedSlide")
 
         // Example: Send analytics event
-        analytics.track("slide_completed", properties: [
-            "slide_id": slideId,
-            "selections": userSelections
-        ])
+        analytics.track("slide_completed", properties: slideData.eventParameters)
     }
 )
 ```
 
 **Parameters:**
-- `slideId: String` - The ID of the slide that was just completed
-- `userSelections: [String: [OnbChoiceOption]]` - Dictionary of all user selections up to this point, keyed by slide ID
+- `slideData: OnbSlideData` - Contains slide info and user selections:
+  - `.slideId: String` - The ID of the slide that was just completed
+  - `.slideTitle: String?` - The title of the slide
+  - `.slideType: String` - The type of slide (e.g. "regular", "multipleChoice")
+  - `.selections: [OnbSelectionData]` - User selections for this slide
+  - `.eventParameters: [String: Any]` - Pre-formatted dictionary for analytics
 
 **Use cases:**
 - Track user progress through the flow
 - Save partial completion state
 - Send analytics events per slide
 - Update UI outside the onboarding flow
-- Validate user input before proceeding
 
 ### onFlowComplete
 
@@ -688,33 +695,28 @@ Called when the user completes the entire onboarding flow (reaches the last slid
 ```swift
 OnbConfiguration(
     slides: slides,
-    onFlowComplete: { allSelections in
+    onFlowComplete: { flowData in
         print("Onboarding complete!")
-        print("All user data: \(allSelections)")
+        print("Total slides: \(flowData.slides.count)")
 
-        // Example: Save user preferences
-        let interests = allSelections["interests"]?.map { $0.id } ?? []
-        let notificationsEnabled = allSelections["notifications"]?.first?.id == "yes"
-        let userName = allSelections["name"]?.first?.content.text ?? ""
-
-        UserDefaults.standard.set(interests, forKey: "userInterests")
-        UserDefaults.standard.set(notificationsEnabled, forKey: "notificationsEnabled")
-        UserDefaults.standard.set(userName, forKey: "userName")
+        // Example: Process each slide's data
+        for slide in flowData.slides {
+            print("\(slide.slideId): \(slide.selections.map { $0.id })")
+        }
 
         // Example: Navigate to main app
         isOnboardingComplete = true
 
         // Example: Send completion event
-        analytics.track("onboarding_completed", properties: [
-            "total_slides": allSelections.count,
-            "interests_count": interests.count
-        ])
+        analytics.track("onboarding_completed", properties: flowData.eventParameters)
     }
 )
 ```
 
 **Parameters:**
-- `allSelections: [String: [OnbChoiceOption]]` - Dictionary of ALL user selections from the entire flow, keyed by slide ID
+- `flowData: OnbFlowData` - Contains data from the entire flow:
+  - `.slides: [OnbSlideData]` - Array of all slide data in completion order
+  - `.eventParameters: [String: Any]` - Pre-formatted dictionary for analytics
 
 **Use cases:**
 - Save all user preferences at once
@@ -725,50 +727,44 @@ OnbConfiguration(
 
 ### Accessing Selection Data
 
-Each `OnbChoiceOption` in the selections contains:
+Each `OnbSelectionData` in the selections contains:
 
 ```swift
-struct OnbChoiceOption {
-    let id: String                          // Option identifier
-    let content: OnbButtonContentData       // Button content (text, icon, etc.)
-    // ... other properties
-}
-
-struct OnbButtonContentData {
-    var text: String?                       // Button text
-    var icon: OnbMediaType?                 // Button icon
-    var value: Any?                         // Custom value you can attach
-    // ... other properties
+struct OnbSelectionData {
+    var id: String          // Option identifier
+    var text: String?       // Option text
+    var value: Any?         // Custom value you can attach
 }
 ```
 
 **Example: Processing selections**
 
 ```swift
-onFlowComplete: { allSelections in
-    // Get selected interests
-    if let interestOptions = allSelections["interests"] {
-        let interestIds = interestOptions.map { $0.id }
-        let interestTexts = interestOptions.compactMap { $0.content.text }
-        print("User interests: \(interestTexts)")
-    }
+onFlowComplete: { flowData in
+    for slide in flowData.slides {
+        switch slide.slideId {
+        case "interests":
+            let interestIds = slide.selections.map { $0.id }
+            let interestTexts = slide.selections.compactMap { $0.text }
+            print("User interests: \(interestTexts)")
 
-    // Get rating value
-    if let ratingOption = allSelections["satisfaction"]?.first,
-       let rating = ratingOption.content.value as? Int {
-        print("User rated: \(rating)/5")
-    }
+        case "satisfaction":
+            if let rating = slide.selections.first?.value as? Int {
+                print("User rated: \(rating)/5")
+            }
 
-    // Get text input
-    if let nameOption = allSelections["name"]?.first,
-       let name = nameOption.content.text {
-        print("User name: \(name)")
-    }
+        case "name":
+            if let name = slide.selections.first?.text {
+                print("User name: \(name)")
+            }
 
-    // Get yes/no answer
-    if let notificationOption = allSelections["notifications"]?.first {
-        let enabled = notificationOption.id == "yes"
-        print("Notifications enabled: \(enabled)")
+        case "notifications":
+            let enabled = slide.selections.first?.id == "yes"
+            print("Notifications enabled: \(enabled)")
+
+        default:
+            break
+        }
     }
 }
 ```
@@ -785,13 +781,13 @@ struct OnboardingCoordinator: View {
             SwiftfulOnboardingView(
                 configuration: OnbConfiguration(
                     slides: onboardingSlides,
-                    onSlideComplete: { slideId, selections in
+                    onSlideComplete: { slideData in
                         // Track progress
-                        print("Completed: \(slideId)")
+                        print("Completed: \(slideData.slideId)")
                     },
-                    onFlowComplete: { allSelections in
+                    onFlowComplete: { flowData in
                         // Process all data
-                        userProfile = UserProfile(from: allSelections)
+                        userProfile = UserProfile(from: flowData)
 
                         // Dismiss onboarding
                         showOnboarding = false

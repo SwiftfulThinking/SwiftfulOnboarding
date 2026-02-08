@@ -5,24 +5,12 @@
 //  Created on 10/18/25.
 //
 
-#if canImport(UIKit)
 import UIKit
-public typealias OnbKeyboardType = UIKeyboardType
-#else
-// Placeholder for macOS - won't be used
-public enum OnbKeyboardType {
-    case `default`
-    case emailAddress
-    case numberPad
-}
-#endif
 import SwiftUI
 
-public protocol OnbSlideProtocol {
-    var id: String { get }
-}
+public typealias OnbKeyboardType = UIKeyboardType
 
-public enum OnbSlideType: OnbSlideProtocol {
+public enum OnbSlideType {
     case regular(
         id: String,
         title: String? = nil,

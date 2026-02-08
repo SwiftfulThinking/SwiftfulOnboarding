@@ -5,9 +5,7 @@
 //  Created on 10/19/25.
 //
 
-#if canImport(UIKit)
 import UIKit
-#endif
 import SwiftUI
 
 public enum OnbSelectionBehavior: Sendable {

@@ -16,13 +16,7 @@ public enum OnbMediaSize {
     case large
 
     var frame: (width: CGFloat?, height: CGFloat?) {
-        let isIPad: Bool = {
-            #if os(iOS)
-            return UIDevice.current.userInterfaceIdiom == .pad
-            #else
-            return false
-            #endif
-        }()
+        let isIPad = UIDevice.current.userInterfaceIdiom == .pad
 
         switch self {
         case .fixed(let width, let height):
@@ -39,13 +33,7 @@ public enum OnbMediaSize {
     }
 
     var frameSecondary: (width: CGFloat?, height: CGFloat?) {
-        let isIPad: Bool = {
-            #if os(iOS)
-            return UIDevice.current.userInterfaceIdiom == .pad
-            #else
-            return false
-            #endif
-        }()
+        let isIPad = UIDevice.current.userInterfaceIdiom == .pad
 
         switch self {
         case .fixed(let width, let height):

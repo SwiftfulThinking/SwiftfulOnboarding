@@ -17,11 +17,7 @@ struct AnyResponseViewContainer: View {
     @State private var localIsShowing: Bool = false
 
     private var screenWidth: CGFloat {
-        #if os(iOS)
-        return UIScreen.main.bounds.width
-        #else
-        return NSScreen.main?.frame.width ?? 800
-        #endif
+        UIScreen.main.bounds.width
     }
 
     private var currentStyle: AnyResponseViewStyle {
@@ -76,11 +72,7 @@ struct AnyResponseViewContainer: View {
             }
         case .bottom:
             // Slide from bottom
-            #if os(iOS)
             return CGSize(width: 0, height: UIScreen.main.bounds.height)
-            #else
-            return CGSize(width: 0, height: NSScreen.main?.frame.height ?? 800)
-            #endif
         }
     }
 

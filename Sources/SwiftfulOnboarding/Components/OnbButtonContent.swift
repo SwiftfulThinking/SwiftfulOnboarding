@@ -152,7 +152,6 @@ struct OnbButtonContent: View {
         } else {
             Text(data.text)
                 .frame(maxWidth: .infinity, alignment: multilineTextAlignment.asAlignment)
-                .frame(maxWidth: .infinity)
         }
     }
 
