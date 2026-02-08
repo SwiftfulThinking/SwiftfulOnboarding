@@ -5,7 +5,7 @@
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FSwiftfulThinking%2FSwiftfulOnboarding%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/SwiftfulThinking/SwiftfulOnboarding) [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FSwiftfulThinking%2FSwiftfulOnboarding%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/SwiftfulThinking/SwiftfulOnboarding)
 
 ### Beautiful, customizable onboarding flows for SwiftUI applications.
-- ✅ Multiple slide types (Regular, Multiple Choice, Yes/No, Rating, Text Input, Primary Action)
+- ✅ Multiple slide types (Regular, Multiple Choice, Yes/No, Rating, Text Input, Date Picker, Picker, Primary Action)
 - ✅ Real-time feedback & response screens
 - ✅ Dynamic slide insertion based on user responses
 - ✅ Fully customizable styling and layouts
@@ -245,6 +245,38 @@ Call-to-action with optional secondary button:
 )
 ```
 
+### Date Picker Slide
+
+Collect a date or time from the user:
+
+```swift
+.datePicker(
+    id: "birthday",
+    title: "When is your birthday?",
+    subtitle: "We'll celebrate with you!",
+    datePickerPosition: .auto,       // .auto or .bottom
+    datePickerStyle: .graphical,     // .graphical, .wheel, or .compact
+    datePickerComponents: .date,     // .date, .dateTime, or .time
+    datePickerStartDate: Date(),
+    datePickerMinimumDate: nil,
+    datePickerMaximumDate: Date()
+)
+```
+
+### Picker Slide
+
+Present a list of string options in a picker:
+
+```swift
+.picker(
+    id: "language",
+    title: "What's your preferred language?",
+    pickerPosition: .auto,     // .auto or .bottom
+    pickerStyle: .wheel,       // .wheel, .menu, or .segmented
+    pickerOptions: ["English", "Spanish", "French", "German", "Japanese"]
+)
+```
+
 </details>
 
 ## Advanced Features
@@ -368,6 +400,74 @@ Insert placements:
 - `.next` - Insert immediately after current slide
 - `.afterSlide(id: String)` - Insert after a specific slide ID
 - `.afterCount(count: Int)` - Insert N slides after the current slide
+
+### Dynamic Rating Configuration
+
+The rating slide supports closures that return different configurations per rating value:
+
+```swift
+.rating(
+    id: "satisfaction",
+    title: "How satisfied are you?",
+    ratingButtonOption: .number,
+    getResponseConfiguration: { rating in
+        if rating >= 4 {
+            return OnbResponseConfiguration(
+                backgroundColor: .green,
+                title: "Glad you love it!",
+                ctaText: "Continue"
+            )
+        }
+        return nil
+    },
+    getFeedbackConfiguration: { rating in
+        if rating <= 2 {
+            return OnbFeedbackConfiguration(
+                backgroundColor: .red.opacity(0.2),
+                title: "We're sorry to hear that"
+            )
+        }
+        return nil
+    },
+    getInsertConfiguration: { rating in
+        if rating <= 2 {
+            return [
+                InsertSlideData(
+                    placement: .next,
+                    slide: .textInput(
+                        id: "improvement",
+                        title: "How can we improve?"
+                    )
+                )
+            ]
+        }
+        return nil
+    }
+)
+```
+
+### Primary Action with Async Work
+
+Use `onDidPressPrimaryButton` to perform async work (e.g. requesting permissions) before the slide advances:
+
+```swift
+.primaryAction(
+    id: "notifications",
+    title: "Stay in the Loop",
+    subtitle: "Get notified about important updates",
+    media: .systemIcon(named: "bell.fill"),
+    ctaText: "Enable Notifications",
+    secondaryButtonText: "Not now",
+    onDidPressPrimaryButton: { completion in
+        // Request notification permission, then call completion to advance
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { _, _ in
+            DispatchQueue.main.async {
+                completion()
+            }
+        }
+    }
+)
+```
 
 ### Progress Callbacks
 
@@ -523,13 +623,33 @@ Support for various media types:
 .systemIcon(named: "star.fill", size: .large)
 
 // Image URL
-.image(urlString: "https://example.com/image.jpg")
+.image(urlString: "https://example.com/image.jpg", size: .medium)
+
+// Video
+.video(urlString: "https://example.com/video.mp4", size: .large, loop: true)
 
 // Lottie animation
-.lottie(urlString: "https://example.com/animation.json", loopMode: .loop)
+.lottie(urlString: "https://example.com/animation.json", size: .medium, loopMode: .loop)
 ```
 
 Media sizes: `.auto`, `.small`, `.medium`, `.large`, `.fixed(width:height:)`
+
+Aspect ratios (image, video, lottie): `.auto`, `.square`, `.portrait`, `.landscape`
+
+Image, video, and lottie types also support border options:
+
+```swift
+.image(
+    urlString: "https://example.com/image.jpg",
+    size: .medium,
+    aspectRatio: .square,
+    cornerRadius: 12,
+    borderColor: .gray,
+    borderWidth: 2,
+    selectedBorderColor: .blue,
+    selectedBorderWidth: 3
+)
+```
 
 ### Transition Styles
 
