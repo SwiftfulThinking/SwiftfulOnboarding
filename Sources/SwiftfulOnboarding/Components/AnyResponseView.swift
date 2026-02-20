@@ -42,7 +42,7 @@ struct AnyResponseView: View {
     var ctaText: String = "Continue"
     var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .white, textColor: .blue)
     var ctaButtonFormatData: OnbButtonFormatData = .default
-    var onButtonClick: (() -> Void)? = nil
+    var onButtonClick: (@MainActor () -> Void)? = nil
 
     private var corners: UIRectCorner {
         switch style {

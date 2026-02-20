@@ -12,8 +12,8 @@ struct AnyOnboardingSlideView: View {
     let slideType: OnbSlideType
     let slideDefaults: OnbSlideDefaults
     var selectedOptions: [OnbChoiceOption]
-    var handleSelection: ((OnbChoiceOption, OnbSelectionBehavior) -> Void)? = nil
-    var onButtonClick: (([OnbChoiceOption]) -> Void)? = nil
+    var handleSelection: (@MainActor (OnbChoiceOption, OnbSelectionBehavior) -> Void)? = nil
+    var onButtonClick: (@MainActor ([OnbChoiceOption]) -> Void)? = nil
 
     var body: some View {
         switch slideType {

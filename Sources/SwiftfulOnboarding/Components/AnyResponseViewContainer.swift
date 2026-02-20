@@ -12,7 +12,7 @@ struct AnyResponseViewContainer: View {
     let config: OnbResponseConfiguration
     var defaultConfig: OnbResponseConfiguration = OnbResponseConfiguration()
     let isShowing: Bool
-    let onButtonClick: (() -> Void)?
+    let onButtonClick: (@MainActor () -> Void)?
 
     @State private var localIsShowing: Bool = false
 

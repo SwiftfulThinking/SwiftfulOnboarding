@@ -31,9 +31,9 @@ struct PrimaryActionSlideView: View {
     var secondaryButtonStyle: OnbButtonStyleType = .outline(textColor: .blue, borderColor: .blue)
     var secondaryButtonFormatData: OnbButtonFormatData = .default
     var secondaryButtonSpacing: CGFloat = 12
-    var onDidPressPrimaryButton: ((@escaping () -> Void) -> Void)? = nil
-    var onButtonClick: (() -> Void)? = nil
-    var onSecondaryButtonClick: (() -> Void)? = nil
+    var onDidPressPrimaryButton: (@MainActor (@escaping () -> Void) -> Void)? = nil
+    var onButtonClick: (@MainActor () -> Void)? = nil
+    var onSecondaryButtonClick: (@MainActor () -> Void)? = nil
 
     var body: some View {
         VStack(spacing: 0) {

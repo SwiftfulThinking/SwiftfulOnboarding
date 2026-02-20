@@ -137,7 +137,7 @@ struct RegularSlideView: View {
     var ctaText: String = "Continue"
     var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
     var ctaButtonFormatData: OnbButtonFormatData = .default
-    var onButtonClick: (() -> Void)? = nil
+    var onButtonClick: (@MainActor () -> Void)? = nil
 
     var body: some View {
         VStack(spacing: 0) {

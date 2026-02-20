@@ -42,7 +42,7 @@ struct TextInputSlideView: View {
     var ctaText: String = "Continue"
     var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
     var ctaButtonFormatData: OnbButtonFormatData = .default
-    var onButtonClick: (([OnbChoiceOption]) -> Void)? = nil
+    var onButtonClick: (@MainActor ([OnbChoiceOption]) -> Void)? = nil
     var selectedOptions: [OnbChoiceOption] = []
 
     @State private var currentText: String = ""

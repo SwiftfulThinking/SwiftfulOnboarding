@@ -68,8 +68,8 @@ struct MultipleChoiceSlideView: View {
     var ctaText: String = "Continue"
     var ctaButtonStyle: OnbButtonStyleType = .solid(backgroundColor: .blue, textColor: .white)
     var ctaButtonFormatData: OnbButtonFormatData = .default
-    var handleSelection: ((OnbChoiceOption, OnbSelectionBehavior) -> Void)? = nil
-    var onButtonClick: (([OnbChoiceOption]) -> Void)? = nil
+    var handleSelection: (@MainActor (OnbChoiceOption, OnbSelectionBehavior) -> Void)? = nil
+    var onButtonClick: (@MainActor ([OnbChoiceOption]) -> Void)? = nil
     var selectedOptions: [OnbChoiceOption] = []
     var feedbackStyle: AnyFeedbackViewStyle = .top()
     var feedbackConfigurationDefaults: OnbFeedbackConfiguration = OnbFeedbackConfiguration()
