@@ -313,6 +313,20 @@ Slide with primary and optional secondary button.
 )
 ```
 
+### Bundle Image
+```swift
+.bundleImage(
+    named: String,
+    size: OnbMediaSize = .auto,
+    aspectRatio: OnbMediaAspectRatio = .auto,
+    cornerRadius: CGFloat = 0,
+    borderColor: Color? = nil,
+    borderWidth: CGFloat = 0,
+    selectedBorderColor: Color? = nil,
+    selectedBorderWidth: CGFloat? = nil
+)
+```
+
 ### System Icon
 ```swift
 .systemIcon(named: String, size: OnbMediaSize = .auto)

@@ -9,7 +9,7 @@
 - ✅ Real-time feedback & response screens
 - ✅ Dynamic slide insertion based on user responses
 - ✅ Fully customizable styling and layouts
-- ✅ Built-in support for images, Lottie animations, and system icons
+- ✅ Built-in support for images (remote & bundle), Lottie animations, and system icons
 - ✅ Progress tracking with callbacks
 
 ## Quick Start (TLDR)
@@ -622,8 +622,11 @@ Support for various media types:
 // System icon
 .systemIcon(named: "star.fill", size: .large)
 
-// Image URL
+// Remote image (loaded via URL)
 .image(urlString: "https://example.com/image.jpg", size: .medium)
+
+// Bundle image (from asset catalog)
+.bundleImage(named: "onboarding_hero", size: .medium)
 
 // Video
 .video(urlString: "https://example.com/video.mp4", size: .large, loop: true)
@@ -634,13 +637,25 @@ Support for various media types:
 
 Media sizes: `.auto`, `.small`, `.medium`, `.large`, `.fixed(width:height:)`
 
-Aspect ratios (image, video, lottie): `.auto`, `.square`, `.portrait`, `.landscape`
+Aspect ratios (image, bundleImage, video, lottie): `.auto`, `.square`, `.portrait`, `.landscape`
 
-Image, video, and lottie types also support border options:
+Image, bundleImage, video, and lottie types also support border options:
 
 ```swift
 .image(
     urlString: "https://example.com/image.jpg",
+    size: .medium,
+    aspectRatio: .square,
+    cornerRadius: 12,
+    borderColor: .gray,
+    borderWidth: 2,
+    selectedBorderColor: .blue,
+    selectedBorderWidth: 3
+)
+
+// Bundle images support the same options
+.bundleImage(
+    named: "my_image",
     size: .medium,
     aspectRatio: .square,
     cornerRadius: 12,
