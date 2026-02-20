@@ -49,6 +49,30 @@ struct AnyMediaView: View {
                 )
                 .animation(.easeInOut(duration: 0.2), value: isSelected)
 
+        case .bundleImage(let named, _, _, let cornerRadius, let borderColor, let borderWidth, let selectedBorderColor, let selectedBorderWidth):
+            let currentBorderColor = isSelected ? (selectedBorderColor ?? borderColor) : borderColor
+            let currentBorderWidth = isSelected ? (selectedBorderWidth ?? borderWidth) : borderWidth
+
+            Rectangle()
+                .opacity(0)
+                .overlay(
+                    Image(named)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .allowsHitTesting(false)
+                )
+                .clipped()
+                .ifSatisfiesCondition(aspectRatioValue != nil, transform: { content in
+                    content
+                        .aspectRatio(aspectRatioValue, contentMode: .fit)
+                })
+                .cornerRadius(cornerRadius)
+                .overlay(
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .stroke(currentBorderColor ?? .clear, lineWidth: currentBorderWidth)
+                )
+                .animation(.easeInOut(duration: 0.2), value: isSelected)
+
         case .video(let urlString, _, _, let useSwiftUIVideoPlayer, let loop, let cornerRadius, let borderColor, let borderWidth, let selectedBorderColor, let selectedBorderWidth):
             let currentBorderColor = isSelected ? (selectedBorderColor ?? borderColor) : borderColor
             let currentBorderWidth = isSelected ? (selectedBorderWidth ?? borderWidth) : borderWidth
