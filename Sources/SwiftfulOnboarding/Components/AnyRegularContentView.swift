@@ -31,6 +31,7 @@ struct AnyRegularContentView: View {
                 let frameSize = media.size.frame
                 AnyMediaView(media: media)
                     .frame(width: frameSize.width, height: frameSize.height)
+                    .padding(.horizontal, horizontalPaddingContent)
             }
 
             // Text content
