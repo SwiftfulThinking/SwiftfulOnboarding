@@ -60,6 +60,7 @@ struct PrimaryActionSlideView: View {
                 Text(ctaText)
                     .onbButtonStyle(
                         style: ctaButtonStyle,
+                        isSelected: true,
                         format: ctaButtonFormatData
                     ) {
                         if let onDidPressPrimaryButton = onDidPressPrimaryButton {

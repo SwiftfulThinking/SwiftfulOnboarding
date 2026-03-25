@@ -34,19 +34,22 @@ public struct OnbConfiguration {
     // Callbacks
     public var onSlideComplete: ((OnbSlideData) -> Void)?
     public var onFlowComplete: ((OnbFlowData) -> Void)?
+    public var onOptionSelected: ((OnbOptionSelectedData) -> Void)?
 
     public init(
         headerConfiguration: OnbHeaderConfiguration = .default,
         slides: [OnbSlideType] = [],
         slideDefaults: OnbSlideDefaults = .default,
         onSlideComplete: ((OnbSlideData) -> Void)? = nil,
-        onFlowComplete: ((OnbFlowData) -> Void)? = nil
+        onFlowComplete: ((OnbFlowData) -> Void)? = nil,
+        onOptionSelected: ((OnbOptionSelectedData) -> Void)? = nil
     ) {
         self.headerConfiguration = headerConfiguration
         self.slides = slides
         self.slideDefaults = slideDefaults
         self.onSlideComplete = onSlideComplete
         self.onFlowComplete = onFlowComplete
+        self.onOptionSelected = onOptionSelected
     }
 
 }

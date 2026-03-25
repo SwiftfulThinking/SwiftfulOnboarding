@@ -76,7 +76,7 @@ public struct OnbSlideDefaults: Sendable {
 
     public init(
         titleFont: Font = .title.weight(.semibold),
-        subtitleFont: Font = .body,
+        subtitleFont: Font = .title3,
         titleSubtitleSpacing: CGFloat = 8,
         titleAlignment: OnbTextAlignment = .center,
         contentAlignment: OnbContentAlignment = .center,

@@ -171,12 +171,18 @@ class SwiftfulOnboardingViewModel: ObservableObject {
         case .single:
             if let index = currentSelections.firstIndex(of: option) {
                 currentSelections.remove(at: index)
+                savedSelections[currentSlide.id] = currentSelections
+                callOnOptionSelected(option: option, isSelected: false)
             } else {
                 currentSelections = [option]
+                savedSelections[currentSlide.id] = currentSelections
+                callOnOptionSelected(option: option, isSelected: true)
             }
         case .multi(let max):
             if let index = currentSelections.firstIndex(of: option) {
                 currentSelections.remove(at: index)
+                savedSelections[currentSlide.id] = currentSelections
+                callOnOptionSelected(option: option, isSelected: false)
             } else {
                 // Check if max limit is reached
                 if let maxCount = max, currentSelections.count >= maxCount {
@@ -184,10 +190,31 @@ class SwiftfulOnboardingViewModel: ObservableObject {
                     return
                 }
                 currentSelections.append(option)
+                savedSelections[currentSlide.id] = currentSelections
+                callOnOptionSelected(option: option, isSelected: true)
             }
         }
+    }
 
-        savedSelections[currentSlide.id] = currentSelections
+    private func callOnOptionSelected(option: OnbChoiceOption, isSelected: Bool) {
+        guard let callback = configuration.onOptionSelected else { return }
+
+        let currentSlide = slides[currentIndex]
+        let selectionData = OnbSelectionData(
+            id: option.id,
+            text: option.content.text,
+            value: option.content.value
+        )
+
+        let data = OnbOptionSelectedData(
+            slideId: currentSlide.id,
+            slideTitle: currentSlide.title,
+            slideType: currentSlide.slideType,
+            option: selectionData,
+            isSelected: isSelected
+        )
+
+        callback(data)
     }
 
     func getSelections(for slideId: String) -> [OnbChoiceOption] {
