@@ -78,13 +78,15 @@ public struct OnbFooterData: Sendable {
     public var bottom: CGFloat
     public var top: CGFloat
     public var cornerRadius: CGFloat
+    public var gradientColor: Color?
 
-    public init(leading: CGFloat, trailing: CGFloat, bottom: CGFloat, top: CGFloat, cornerRadius: CGFloat) {
+    public init(leading: CGFloat, trailing: CGFloat, bottom: CGFloat, top: CGFloat, cornerRadius: CGFloat, gradientColor: Color? = nil) {
         self.leading = leading
         self.trailing = trailing
         self.bottom = bottom
         self.top = top
         self.cornerRadius = cornerRadius
+        self.gradientColor = gradientColor
     }
 
     public static let `default` = OnbFooterData(

@@ -74,6 +74,10 @@ struct MultipleChoiceSlideView: View {
     var feedbackStyle: AnyFeedbackViewStyle = .top()
     var feedbackConfigurationDefaults: OnbFeedbackConfiguration = OnbFeedbackConfiguration()
 
+    private var footerGradientColor: Color {
+        footerData.gradientColor ?? Color(uiColor: .systemBackground)
+    }
+
     private var shouldShowContinueButton: Bool {
         switch selectionBehavior {
         case .single(let autoAdvance):
@@ -199,9 +203,9 @@ struct MultipleChoiceSlideView: View {
                             }
                             .background(
                                 LinearGradient(colors: [
-                                    Color(uiColor: .systemBackground).opacity(0.0),
-                                    Color(uiColor: .systemBackground).opacity(0.7),
-                                    Color(uiColor: .systemBackground).opacity(0.9)
+                                    footerGradientColor.opacity(0.0),
+                                    footerGradientColor.opacity(0.7),
+                                    footerGradientColor.opacity(0.9)
                                 ], startPoint: .top, endPoint: .bottom)
                             )
                         }
