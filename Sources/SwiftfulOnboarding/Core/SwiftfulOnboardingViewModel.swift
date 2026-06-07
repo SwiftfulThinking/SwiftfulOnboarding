@@ -102,16 +102,14 @@ class SwiftfulOnboardingViewModel: ObservableObject {
 
     private func insertSlidesFromSelections() {
         let currentSlide = slides[currentIndex]
-        guard let selections = savedSelections[currentSlide.id] else { return }
+        let selections = savedSelections[currentSlide.id] ?? []
 
-        // Process selections in reverse order
-        for selection in selections.reversed() {
-            guard let insertConfigs = selection.insertConfiguration else { continue }
-
-            // Process insertConfiguration array in order
-            for insertConfig in insertConfigs {
-                insertSlide(insertConfig)
-            }
+        // Slide-level resolution: the slide's insert closure runs once and
+        // receives all selections in the order the user chose them. Each
+        // returned InsertSlideData is inserted in array order.
+        guard let insertConfigs = currentSlide.resolveInserts(selections: selections) else { return }
+        for insertConfig in insertConfigs {
+            insertSlide(insertConfig)
         }
     }
 

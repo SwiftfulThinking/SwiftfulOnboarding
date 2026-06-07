@@ -18,20 +18,17 @@ public struct OnbChoiceOption: Hashable, Equatable {
     public var content: OnbButtonContentData
     public var responseConfiguration: OnbResponseConfiguration?
     public var feedbackConfiguration: OnbFeedbackConfiguration?
-    public var insertConfiguration: [InsertSlideData]?
 
     public init(
         id: String,
         content: OnbButtonContentData,
         responseConfiguration: OnbResponseConfiguration? = nil,
-        feedbackConfiguration: OnbFeedbackConfiguration? = nil,
-        insertConfiguration: [InsertSlideData]? = nil
+        feedbackConfiguration: OnbFeedbackConfiguration? = nil
     ) {
         self.id = id
         self.content = content
         self.responseConfiguration = responseConfiguration
         self.feedbackConfiguration = feedbackConfiguration
-        self.insertConfiguration = insertConfiguration
     }
 
     public func hash(into hasher: inout Hasher) {

@@ -735,45 +735,33 @@ struct PreviewFlows {
                     title: "Insert Slide Next",
                     subtitle: "Selecting an option will insert a new slide",
                     options: [
-                        OnbChoiceOption(
-                            id: "opt1",
-                            content: OnbButtonContentData(text: "Insert Info Slide"),
-                            insertConfiguration: [
-                                InsertSlideData(
-                                    placement: .next,
-                                    slide: .regular(
-                                        id: "inserted_info",
-                                        title: "Inserted Information",
-                                        subtitle: "This slide was dynamically inserted based on your selection",
-                                        media: .systemIcon(named: "info.circle.fill", size: .large),
-                                        contentAlignment: .center
-                                    )
-                                )
-                            ]
-                        ),
-                        OnbChoiceOption(
-                            id: "opt2",
-                            content: OnbButtonContentData(text: "Insert Question"),
-                            insertConfiguration: [
-                                InsertSlideData(
-                                    placement: .next,
-                                    slide: .yesNo(
-                                        id: "inserted_question",
-                                        title: "Follow-up Question",
-                                        subtitle: "Would you like to learn more?",
-                                        selectionBehavior: .single(autoAdvance: true)
-                                    )
-                                )
-                            ]
-                        ),
-                        OnbChoiceOption(
-                            id: "opt3",
-                            content: OnbButtonContentData(text: "No Insert"),
-                            insertConfiguration: nil
-                        )
+                        OnbChoiceOption(id: "opt1", content: OnbButtonContentData(text: "Insert Info Slide")),
+                        OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Insert Question")),
+                        OnbChoiceOption(id: "opt3", content: OnbButtonContentData(text: "No Insert"))
                     ],
                     selectionBehavior: .single(autoAdvance: true),
-                    contentAlignment: .top
+                    contentAlignment: .top,
+                    getInsertConfiguration: { selections in
+                        switch selections.first?.id {
+                        case "opt1":
+                            return [InsertSlideData(placement: .next, slide: .regular(
+                                id: "inserted_info",
+                                title: "Inserted Information",
+                                subtitle: "This slide was dynamically inserted based on your selection",
+                                media: .systemIcon(named: "info.circle.fill", size: .large),
+                                contentAlignment: .center
+                            ))]
+                        case "opt2":
+                            return [InsertSlideData(placement: .next, slide: .yesNo(
+                                id: "inserted_question",
+                                title: "Follow-up Question",
+                                subtitle: "Would you like to learn more?",
+                                selectionBehavior: .single(autoAdvance: true)
+                            ))]
+                        default:
+                            return nil
+                        }
+                    }
                 ),
                 // Multiple inserts
                 .multipleChoice(
@@ -781,39 +769,30 @@ struct PreviewFlows {
                     title: "Multiple Insert Slides",
                     subtitle: "This will insert multiple slides in sequence",
                     options: [
-                        OnbChoiceOption(
-                            id: "opt1",
-                            content: OnbButtonContentData(text: "Insert Two Slides"),
-                            insertConfiguration: [
-                                InsertSlideData(
-                                    placement: .next,
-                                    slide: .regular(
-                                        id: "insert_1",
-                                        title: "First Inserted Slide",
-                                        subtitle: "This is the first of two slides",
-                                        media: .systemIcon(named: "1.circle.fill", size: .large),
-                                        contentAlignment: .center
-                                    )
-                                ),
-                                InsertSlideData(
-                                    placement: .afterCount(count: 1),
-                                    slide: .regular(
-                                        id: "insert_2",
-                                        title: "Second Inserted Slide",
-                                        subtitle: "This is the second of two slides",
-                                        media: .systemIcon(named: "2.circle.fill", size: .large),
-                                        contentAlignment: .center
-                                    )
-                                )
-                            ]
-                        ),
-                        OnbChoiceOption(
-                            id: "opt2",
-                            content: OnbButtonContentData(text: "Skip Inserts")
-                        )
+                        OnbChoiceOption(id: "opt1", content: OnbButtonContentData(text: "Insert Two Slides")),
+                        OnbChoiceOption(id: "opt2", content: OnbButtonContentData(text: "Skip Inserts"))
                     ],
                     selectionBehavior: .single(autoAdvance: true),
-                    contentAlignment: .top
+                    contentAlignment: .top,
+                    getInsertConfiguration: { selections in
+                        guard selections.first?.id == "opt1" else { return nil }
+                        return [
+                            InsertSlideData(placement: .next, slide: .regular(
+                                id: "insert_1",
+                                title: "First Inserted Slide",
+                                subtitle: "This is the first of two slides",
+                                media: .systemIcon(named: "1.circle.fill", size: .large),
+                                contentAlignment: .center
+                            )),
+                            InsertSlideData(placement: .afterCount(count: 1), slide: .regular(
+                                id: "insert_2",
+                                title: "Second Inserted Slide",
+                                subtitle: "This is the second of two slides",
+                                media: .systemIcon(named: "2.circle.fill", size: .large),
+                                contentAlignment: .center
+                            ))
+                        ]
+                    }
                 ),
                 // Feedback + Response combination
                 .multipleChoice(

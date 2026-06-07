@@ -60,6 +60,7 @@ public enum OnbSlideType {
         ctaButtonStyle: OnbButtonStyleType? = nil,
         ctaButtonFormatData: OnbButtonFormatData? = nil,
         feedbackStyle: AnyFeedbackViewStyle? = nil,
+        getInsertConfiguration: (@MainActor ([OnbChoiceOption]) -> [InsertSlideData]?)? = nil,
         background: OnbBackgroundType? = nil,
         showBackButton: Bool? = nil,
         backButtonColor: Color? = nil
@@ -91,6 +92,7 @@ public enum OnbSlideType {
         ctaButtonStyle: OnbButtonStyleType? = nil,
         ctaButtonFormatData: OnbButtonFormatData? = nil,
         feedbackStyle: AnyFeedbackViewStyle? = nil,
+        getInsertConfiguration: (@MainActor ([OnbChoiceOption]) -> [InsertSlideData]?)? = nil,
         background: OnbBackgroundType? = nil,
         showBackButton: Bool? = nil,
         backButtonColor: Color? = nil
@@ -238,9 +240,9 @@ public enum OnbSlideType {
         switch self {
         case .regular(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
-        case .multipleChoice(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+        case .multipleChoice(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
-        case .yesNo(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+        case .yesNo(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
         case .rating(let id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return id
@@ -259,9 +261,9 @@ public enum OnbSlideType {
         switch self {
         case .regular(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let background, _, _):
             return background
-        case .multipleChoice(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let background, _, _):
+        case .multipleChoice(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let background, _, _):
             return background
-        case .yesNo(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let background, _, _):
+        case .yesNo(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let background, _, _):
             return background
         case .rating(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let background, _, _):
             return background
@@ -280,9 +282,9 @@ public enum OnbSlideType {
         switch self {
         case .regular(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let showBackButton, _):
             return showBackButton
-        case .multipleChoice(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let showBackButton, _):
+        case .multipleChoice(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let showBackButton, _):
             return showBackButton
-        case .yesNo(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let showBackButton, _):
+        case .yesNo(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let showBackButton, _):
             return showBackButton
         case .rating(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let showBackButton, _):
             return showBackButton
@@ -301,9 +303,9 @@ public enum OnbSlideType {
         switch self {
         case .regular(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backButtonColor):
             return backButtonColor
-        case .multipleChoice(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backButtonColor):
+        case .multipleChoice(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backButtonColor):
             return backButtonColor
-        case .yesNo(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backButtonColor):
+        case .yesNo(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backButtonColor):
             return backButtonColor
         case .rating(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let backButtonColor):
             return backButtonColor
@@ -322,9 +324,9 @@ public enum OnbSlideType {
         switch self {
         case .regular(_, let title, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return title
-        case .multipleChoice(_, let title, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+        case .multipleChoice(_, let title, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return title
-        case .yesNo(_, let title, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
+        case .yesNo(_, let title, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return title
         case .rating(_, let title, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _):
             return title
@@ -359,4 +361,24 @@ public enum OnbSlideType {
             return "primaryAction"
         }
     }
+
+    /// Resolves the slides to dynamically insert after this slide completes,
+    /// based on the user's selections. Evaluated once per slide; the closure
+    /// receives all selections in the order the user chose them. Returns nil
+    /// when the slide has no insert closure or it produces nothing.
+    @MainActor
+    func resolveInserts(selections: [OnbChoiceOption]) -> [InsertSlideData]? {
+        switch self {
+        case .multipleChoice(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let getInsertConfiguration, _, _, _):
+            return getInsertConfiguration?(selections)
+        case .yesNo(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let getInsertConfiguration, _, _, _):
+            return getInsertConfiguration?(selections)
+        case .rating(_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, let getInsertConfiguration, _, _, _, _):
+            guard let first = selections.first, let rating = Int(first.id) else { return nil }
+            return getInsertConfiguration?(rating)
+        default:
+            return nil
+        }
+    }
+
 }

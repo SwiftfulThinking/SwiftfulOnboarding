@@ -41,7 +41,7 @@ struct AnyOnboardingSlideView: View {
                     onButtonClick?([])
                 }
             )
-        case .multipleChoice(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let options, let optionsSpacing, let optionsButtonStyle, let optionsButtonFormatData, let selectionBehavior, let isGrid, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, let feedbackStyle, _, _, _):
+        case .multipleChoice(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let options, let optionsSpacing, let optionsButtonStyle, let optionsButtonFormatData, let selectionBehavior, let isGrid, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, let feedbackStyle, _, _, _, _):
             MultipleChoiceSlideView(
                 title: title,
                 titleFont: titleFont ?? slideDefaults.titleFont,
@@ -73,7 +73,7 @@ struct AnyOnboardingSlideView: View {
                 feedbackStyle: feedbackStyle ?? slideDefaults.feedbackStyle,
                 feedbackConfigurationDefaults: slideDefaults.feedbackConfiguration
             )
-        case .yesNo(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let optionsSpacing, let yesOption, let noOption, let optionsButtonStyle, let optionsButtonFormatData, let selectionBehavior, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, let feedbackStyle, _, _, _):
+        case .yesNo(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let optionsSpacing, let yesOption, let noOption, let optionsButtonStyle, let optionsButtonFormatData, let selectionBehavior, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, let feedbackStyle, _, _, _, _):
             YesNoSlideView(
                 title: title,
                 titleFont: titleFont ?? slideDefaults.titleFont,
@@ -107,7 +107,7 @@ struct AnyOnboardingSlideView: View {
                 feedbackStyle: feedbackStyle ?? slideDefaults.feedbackStyle,
                 feedbackConfigurationDefaults: slideDefaults.feedbackConfiguration
             )
-        case .rating(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let optionsButtonStyle, let ratingCornerRadius, let ratingButtonOption, let ratingFont, let ratingLabels, let selectionBehavior, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, let getResponseConfiguration, let getFeedbackConfiguration, let getInsertConfiguration, let feedbackStyle, _, _, _):
+        case .rating(_, let title, let titleFont, let subtitle, let subtitleFont, let titleSubtitleSpacing, let titleAlignment, let media, let mediaPosition, let contentAlignment, let paddingTop, let paddingBottom, let horizontalPaddingContent, let horizontalPaddingTitle, let contentSpacing, let optionsButtonStyle, let ratingCornerRadius, let ratingButtonOption, let ratingFont, let ratingLabels, let selectionBehavior, let footerData, let ctaText, let ctaButtonStyle, let ctaButtonFormatData, let getResponseConfiguration, let getFeedbackConfiguration, _, let feedbackStyle, _, _, _):
             RatingSlideView(
                 title: title,
                 titleFont: titleFont ?? slideDefaults.titleFont,
@@ -140,7 +140,6 @@ struct AnyOnboardingSlideView: View {
                 selectedOptions: selectedOptions,
                 getResponseConfiguration: getResponseConfiguration,
                 getFeedbackConfiguration: getFeedbackConfiguration,
-                getInsertConfiguration: getInsertConfiguration,
                 feedbackStyle: feedbackStyle ?? slideDefaults.feedbackStyle,
                 feedbackConfigurationDefaults: slideDefaults.feedbackConfiguration
             )

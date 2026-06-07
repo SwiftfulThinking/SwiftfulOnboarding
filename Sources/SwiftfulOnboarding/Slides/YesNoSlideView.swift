@@ -39,6 +39,7 @@ struct YesNoSlideView: View {
     var feedbackStyle: AnyFeedbackViewStyle = .top()
     var feedbackConfigurationDefaults: OnbFeedbackConfiguration = OnbFeedbackConfiguration()
 
+
     private var shouldShowContinueButton: Bool {
         switch selectionBehavior {
         case .single(let autoAdvance):
