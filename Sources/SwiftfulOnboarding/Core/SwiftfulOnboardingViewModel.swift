@@ -51,13 +51,24 @@ class SwiftfulOnboardingViewModel: ObservableObject {
         // Call onSlideComplete callback before advancing
         callOnSlideComplete()
 
-        insertSlidesFromSelections()
+        let didInsert = insertSlidesFromSelections()
 
-        if currentIndex < slides.count - 1 {
-            currentIndex += 1
-        } else {
+        guard currentIndex < slides.count - 1 else {
             // We've reached the end of the flow
             callOnFlowComplete()
+            return
+        }
+
+        if didInsert {
+            // A slide was just inserted at currentIndex + 1. It needs one
+            // render pass at its off-screen "next slide" position before we
+            // advance — otherwise it has no from-state to animate from and
+            // pops in at center instead of transitioning like other slides.
+            DispatchQueue.main.async {
+                self.currentIndex += 1
+            }
+        } else {
+            currentIndex += 1
         }
     }
 
@@ -100,17 +111,22 @@ class SwiftfulOnboardingViewModel: ObservableObject {
         )
     }
 
-    private func insertSlidesFromSelections() {
+    /// Resolves and inserts this slide's dynamic slides. Returns true if at
+    /// least one slide was inserted (used to defer the index advance one frame
+    /// so the new slide can animate in).
+    @discardableResult
+    private func insertSlidesFromSelections() -> Bool {
         let currentSlide = slides[currentIndex]
         let selections = savedSelections[currentSlide.id] ?? []
 
         // Slide-level resolution: the slide's insert closure runs once and
         // receives all selections in the order the user chose them. Each
         // returned InsertSlideData is inserted in array order.
-        guard let insertConfigs = currentSlide.resolveInserts(selections: selections) else { return }
+        guard let insertConfigs = currentSlide.resolveInserts(selections: selections), !insertConfigs.isEmpty else { return false }
         for insertConfig in insertConfigs {
             insertSlide(insertConfig)
         }
+        return true
     }
 
     private func insertSlide(_ insertConfig: InsertSlideData) {
