@@ -32,6 +32,25 @@ public enum OnbMediaSize {
         }
     }
 
+    /// Point size for emoji media rendered as `Text`. Tuned a bit smaller than
+    /// `frame` so the glyph sits comfortably within the media frame.
+    var emojiFontSize: CGFloat {
+        let isIPad = UIDevice.current.userInterfaceIdiom == .pad
+
+        switch self {
+        case .fixed(_, let height):
+            return height
+        case .auto:
+            return isIPad ? 120 : 80
+        case .small:
+            return isIPad ? 90 : 48
+        case .medium:
+            return isIPad ? 220 : 130
+        case .large:
+            return isIPad ? 340 : 220
+        }
+    }
+
     var frameSecondary: (width: CGFloat?, height: CGFloat?) {
         let isIPad = UIDevice.current.userInterfaceIdiom == .pad
 

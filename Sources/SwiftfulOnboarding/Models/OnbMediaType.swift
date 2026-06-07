@@ -19,6 +19,7 @@ public enum OnbMediaType {
     case image(urlString: String, size: OnbMediaSize = .auto, aspectRatio: OnbMediaAspectRatio = .auto, cornerRadius: CGFloat = 0, borderColor: Color? = nil, borderWidth: CGFloat = 0, selectedBorderColor: Color? = nil, selectedBorderWidth: CGFloat? = nil)
     case bundleImage(named: String, size: OnbMediaSize = .auto, aspectRatio: OnbMediaAspectRatio = .auto, cornerRadius: CGFloat = 0, borderColor: Color? = nil, borderWidth: CGFloat = 0, selectedBorderColor: Color? = nil, selectedBorderWidth: CGFloat? = nil)
     case systemIcon(named: String, size: OnbMediaSize = .auto)
+    case emoji(_ emoji: String, size: OnbMediaSize = .auto)
     case video(urlString: String, size: OnbMediaSize = .auto, aspectRatio: OnbMediaAspectRatio = .auto, useSwiftUIVideoPlayer: Bool = false, loop: Bool = true, cornerRadius: CGFloat = 0, borderColor: Color? = nil, borderWidth: CGFloat = 0, selectedBorderColor: Color? = nil, selectedBorderWidth: CGFloat? = nil)
     case lottie(urlString: String, size: OnbMediaSize = .auto, aspectRatio: OnbMediaAspectRatio = .auto, loopMode: LottieLoopMode = .loop, cornerRadius: CGFloat = 0, borderColor: Color? = nil, borderWidth: CGFloat = 0, selectedBorderColor: Color? = nil, selectedBorderWidth: CGFloat? = nil)
 
@@ -29,6 +30,8 @@ public enum OnbMediaType {
         case .bundleImage(_, let size, _, _, _, _, _, _):
             return size
         case .systemIcon(_, let size):
+            return size
+        case .emoji(_, let size):
             return size
         case .video(_, let size, _, _, _, _, _, _, _, _):
             return size
@@ -43,7 +46,7 @@ public enum OnbMediaType {
             return aspectRatio
         case .bundleImage(_, _, let aspectRatio, _, _, _, _, _):
             return aspectRatio
-        case .systemIcon:
+        case .systemIcon, .emoji:
             return .auto
         case .video(_, _, let aspectRatio, _, _, _, _, _, _, _):
             return aspectRatio
@@ -58,7 +61,7 @@ public enum OnbMediaType {
             return cornerRadius
         case .bundleImage(_, _, _, let cornerRadius, _, _, _, _):
             return cornerRadius
-        case .systemIcon:
+        case .systemIcon, .emoji:
             return 0
         case .video(_, _, _, _, _, let cornerRadius, _, _, _, _):
             return cornerRadius
@@ -73,7 +76,7 @@ public enum OnbMediaType {
             return borderColor
         case .bundleImage(_, _, _, _, let borderColor, _, _, _):
             return borderColor
-        case .systemIcon:
+        case .systemIcon, .emoji:
             return nil
         case .video(_, _, _, _, _, _, let borderColor, _, _, _):
             return borderColor
@@ -88,7 +91,7 @@ public enum OnbMediaType {
             return borderWidth
         case .bundleImage(_, _, _, _, _, let borderWidth, _, _):
             return borderWidth
-        case .systemIcon:
+        case .systemIcon, .emoji:
             return 0
         case .video(_, _, _, _, _, _, _, let borderWidth, _, _):
             return borderWidth
@@ -103,7 +106,7 @@ public enum OnbMediaType {
             return selectedBorderColor
         case .bundleImage(_, _, _, _, _, _, let selectedBorderColor, _):
             return selectedBorderColor
-        case .systemIcon:
+        case .systemIcon, .emoji:
             return nil
         case .video(_, _, _, _, _, _, _, _, let selectedBorderColor, _):
             return selectedBorderColor
@@ -118,7 +121,7 @@ public enum OnbMediaType {
             return selectedBorderWidth
         case .bundleImage(_, _, _, _, _, _, _, let selectedBorderWidth):
             return selectedBorderWidth
-        case .systemIcon:
+        case .systemIcon, .emoji:
             return nil
         case .video(_, _, _, _, _, _, _, _, _, let selectedBorderWidth):
             return selectedBorderWidth

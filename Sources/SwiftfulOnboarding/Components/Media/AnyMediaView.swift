@@ -33,6 +33,10 @@ struct AnyMediaView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
 
+        case .emoji(let emoji, let size):
+            Text(emoji)
+                .font(.system(size: size.emojiFontSize))
+
         case .image(let urlString, _, _, let cornerRadius, let borderColor, let borderWidth, let selectedBorderColor, let selectedBorderWidth):
             let currentBorderColor = isSelected ? (selectedBorderColor ?? borderColor) : borderColor
             let currentBorderWidth = isSelected ? (selectedBorderWidth ?? borderWidth) : borderWidth
