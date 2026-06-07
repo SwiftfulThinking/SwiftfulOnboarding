@@ -28,7 +28,9 @@ import SwiftUI
 public struct OnbSlideDefaults: Sendable {
     // Title & Subtitle
     public var titleFont: Font
+    public var titleColor: Color
     public var subtitleFont: Font
+    public var subtitleColor: Color
     public var titleSubtitleSpacing: CGFloat
     public var titleAlignment: OnbTextAlignment
 
@@ -76,7 +78,9 @@ public struct OnbSlideDefaults: Sendable {
 
     public init(
         titleFont: Font = .title.weight(.semibold),
+        titleColor: Color = .primary,
         subtitleFont: Font = .title3,
+        subtitleColor: Color = .secondary,
         titleSubtitleSpacing: CGFloat = 8,
         titleAlignment: OnbTextAlignment = .center,
         contentAlignment: OnbContentAlignment = .center,
@@ -105,7 +109,9 @@ public struct OnbSlideDefaults: Sendable {
         transitionStyle: OnbTransitionStyle = .slide
     ) {
         self.titleFont = titleFont
+        self.titleColor = titleColor
         self.subtitleFont = subtitleFont
+        self.subtitleColor = subtitleColor
         self.titleSubtitleSpacing = titleSubtitleSpacing
         self.titleAlignment = titleAlignment
         self.contentAlignment = contentAlignment

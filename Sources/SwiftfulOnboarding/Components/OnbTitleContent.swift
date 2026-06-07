@@ -39,8 +39,10 @@ struct OnbTitleContent: View {
 
     var title: String? = nil
     var titleFont: Font = .largeTitle
+    var titleColor: Color = .primary
     var subtitle: String? = nil
     var subtitleFont: Font = .body
+    var subtitleColor: Color = .secondary
     var spacing: CGFloat = 12
     var alignment: OnbTextAlignment = .center
 
@@ -50,6 +52,7 @@ struct OnbTitleContent: View {
                 Text(title)
                     .font(titleFont)
                     .fontWeight(.bold)
+                    .foregroundColor(titleColor)
                     .multilineTextAlignment(alignment.textAlignment)
                     .frame(maxWidth: .infinity, alignment: alignment.frameAlignment)
             }
@@ -57,7 +60,7 @@ struct OnbTitleContent: View {
             if let subtitle = subtitle {
                 Text(subtitle)
                     .font(subtitleFont)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(subtitleColor)
                     .multilineTextAlignment(alignment.textAlignment)
                     .frame(maxWidth: .infinity, alignment: alignment.frameAlignment)
             }

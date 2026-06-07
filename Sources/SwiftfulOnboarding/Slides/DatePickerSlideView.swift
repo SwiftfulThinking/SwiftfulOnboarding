@@ -39,8 +39,10 @@ struct DatePickerSlideView: View {
 
     var title: String? = nil
     var titleFont: Font = .largeTitle
+    var titleColor: Color = .primary
     var subtitle: String? = nil
     var subtitleFont: Font = .body
+    var subtitleColor: Color = .secondary
     var titleSubtitleSpacing: CGFloat = 8
     var titleAlignment: OnbTextAlignment = .center
     var contentAlignment: OnbContentAlignment = .center
@@ -88,8 +90,10 @@ struct DatePickerSlideView: View {
                 OnbTitleContent(
                     title: title,
                     titleFont: titleFont,
+                    titleColor: titleColor,
                     subtitle: subtitle,
                     subtitleFont: subtitleFont,
+                    subtitleColor: subtitleColor,
                     spacing: titleSubtitleSpacing,
                     alignment: titleAlignment
                 )

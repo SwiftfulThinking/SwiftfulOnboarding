@@ -11,8 +11,10 @@ struct RatingSlideView: View {
 
     var title: String? = nil
     var titleFont: Font = .largeTitle
+    var titleColor: Color = .primary
     var subtitle: String? = nil
     var subtitleFont: Font = .body
+    var subtitleColor: Color = .secondary
     var titleSubtitleSpacing: CGFloat = 8
     var titleAlignment: OnbTextAlignment = .center
     var media: OnbMediaType? = nil
@@ -90,8 +92,10 @@ struct RatingSlideView: View {
             AnyRegularContentView(
                 title: title,
                 titleFont: titleFont,
+                titleColor: titleColor,
                 subtitle: subtitle,
                 subtitleFont: subtitleFont,
+                subtitleColor: subtitleColor,
                 titleSubtitleSpacing: titleSubtitleSpacing,
                 titleAlignment: titleAlignment,
                 media: media,

@@ -76,12 +76,13 @@ struct AnyResponseView: View {
             OnbTitleContent(
                 title: title,
                 titleFont: titleFont,
+                titleColor: .white,
                 subtitle: subtitle,
                 subtitleFont: subtitleFont,
+                subtitleColor: .secondary,
                 spacing: titleSubtitleSpacing,
                 alignment: titleAlignment
             )
-            .foregroundColor(.white)
             .padding(.top, paddingTop)
             .padding(.bottom, paddingBottom)
 
